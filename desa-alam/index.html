@@ -366,7 +366,7 @@
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--content-primary);
-    min-width: 160px;
+    min-width: 144px;
     padding-top: 2px;
     flex-shrink: 0;
     line-height: 1.4;
@@ -609,8 +609,8 @@
     padding-bottom: calc(var(--gap-section) + var(--nav-overlap));
   }
 
-  /* —— Responsive: layout + spacing only at mobile (480px); tablet keeps desktop layouts —— */
-  @media (max-width: 480px) {
+  /* —— Responsive: package slides (three-box grid) at 568px; other slides at 480px; tablet keeps desktop layouts —— */
+  @media (max-width: 568px) {
     .packages-grid {
       grid-template-columns: 1fr;
       gap: var(--space-8);
@@ -633,6 +633,13 @@
     .pkg .pkg-title {
       align-self: stretch;
     }
+    .slide-inner:has(.packages-grid) {
+      padding-left: max(var(--space-32), env(safe-area-inset-left, 0px));
+      padding-right: max(var(--space-32), env(safe-area-inset-right, 0px));
+    }
+  }
+
+  @media (max-width: 480px) {
     .limit-row {
       flex-direction: column;
       align-items: stretch;
@@ -678,7 +685,6 @@
       text-align: start;
       align-self: flex-start;
     }
-    .slide-inner:has(.packages-grid),
     .slide-inner:has(.limits-list),
     .slide-inner:has(.total-layout) {
       padding-left: max(var(--space-32), env(safe-area-inset-left, 0px));
@@ -812,7 +818,7 @@
       <div class="packages-grid packages-grid--bottompad">
         <div class="pkg">
           <div class="pkg-num">01</div>
-          <div class="pkg-title">Silent luxury</div>
+          <div class="pkg-title">Silent Luxury</div>
           <div class="pkg-divider"></div>
           <div class="pkg-items">
             <div class="pkg-item">Visual language in the spirit of Aman Resorts, editorial, calm, confident</div>
@@ -820,7 +826,7 @@
         </div>
         <div class="pkg">
           <div class="pkg-num">02</div>
-          <div class="pkg-title">Elevated design</div>
+          <div class="pkg-title">Elevated Design</div>
           <div class="pkg-divider"></div>
           <div class="pkg-items">
             <div class="pkg-item">A website that feels refined from day one, reflecting the ambition of the project.</div>
@@ -828,7 +834,7 @@
         </div>
         <div class="pkg">
           <div class="pkg-num">03</div>
-          <div class="pkg-title">Selling with confidence</div>
+          <div class="pkg-title">Selling with Confidence</div>
           <div class="pkg-divider"></div>
           <div class="pkg-items">
             <div class="pkg-item">Let the project speak for itself. The investment opportunity is presented with elegance, not pressure.</div>
@@ -907,7 +913,7 @@
           <div class="limit-val">The client is responsible for purchasing their own domain.</div>
         </div>
         <div class="limit-row limit-row--noborder">
-          <div class="limit-key">Investor Brochure</div>
+          <div class="limit-key">PDF Brochure</div>
           <div class="limit-val">Design and layout of the downloadable PDF is not included in this scope, as the complexity and extent of the document is not yet defined. Depending on requirements, this can be scoped as a separate add-on.</div>
         </div>
       </div>
@@ -968,7 +974,7 @@
     <div class="slide-inner">
       <div class="slide-header">
         <div class="section-label">Proposal</div>
-        <h2 class="slide-title title-md">Total effort</h2>
+        <h2 class="slide-title title-md">Total Cost</h2>
       </div>
       <div class="total-layout">
         <div class="total-left">
@@ -976,10 +982,10 @@
           <div class="total-amount">8.000<span class="currency">EUR</span></div>
         </div>
         <div class="total-right">
-          <div class="costs-label">Ongoing client costs for Webflow hosting</div>
+          <div class="costs-label">Webflow hosting</div>
           <div class="cost-row">
             <div class="cost-key">
-              <strong>Webflow Premium Site Plan</strong>
+              <strong>Webflow Premium Plan</strong>
             </div>
             <div class="cost-val">~$25 / month</div>
           </div>
