@@ -250,7 +250,7 @@
     color: var(--content-secondary);
     text-transform: uppercase;
     margin-bottom: var(--space-48);
-    max-width: 500px;
+    max-width: 1000px;
     line-height: 1.6;
   }
   .cover-line {
@@ -332,7 +332,7 @@
     color: var(--content-primary);
     line-height: 1.6;
     letter-spacing: 0.01em;
-    max-width: 680px;
+    max-width: 1000px;
   }
   .lede-rule {
     width: var(--space-40);
@@ -346,6 +346,7 @@
     display: flex;
     flex-direction: column;
     gap: 0;
+    padding-bottom: 96px;
   }
   .limit-row {
     display: flex;
@@ -355,7 +356,10 @@
     border-bottom: 1px solid var(--border-secondary);
   }
   .limit-row:first-child { border-top: 1px solid var(--border-secondary); }
-  .limit-row--noborder { border-bottom: none; }
+  .limit-row--noborder {
+    border-bottom: none;
+    padding-bottom: 16px;
+  }
   .limit-key {
     font-size: var(--text-label-caps);
     font-weight: 400;
@@ -381,6 +385,9 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 2px;
     margin-top: var(--space-8);
+  }
+  .packages-grid--bottompad {
+    padding-bottom: 96px;
   }
   .packages-grid:has(> .pkg > .pkg-days) {
     grid-template-rows: auto auto auto auto 1fr;
@@ -475,13 +482,18 @@
     gap: var(--space-48);
     align-items: center;
   }
+  .total-left {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
   .total-equation {
     font-size: var(--text-label-caps);
     font-weight: 400;
     letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--content-subtle);
-    margin-bottom: var(--space-24);
+    margin-bottom: 0;
     line-height: 1.4;
   }
   .total-amount {
@@ -521,11 +533,12 @@
   }
   .cost-row {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
     padding: var(--space-16) 0;
     border-bottom: none;
-    gap: var(--space-16);
+    gap: var(--space-8);
   }
   .cost-key {
     font-size: var(--text-label);
@@ -574,7 +587,9 @@
   /* TIMELINE */
   .tl-launch {
     margin-top: var(--space-40);
+    margin-bottom: 0;
     padding-top: var(--gap-section);
+    padding-bottom: 104px;
     border-top: 1px solid var(--border-secondary);
     font-size: var(--text-body-sm);
     font-weight: 300;
@@ -742,6 +757,11 @@
       left: auto !important;
       top: auto !important;
     }
+
+    .limits-list,
+    .tl-launch {
+      padding-bottom: 0 !important;
+    }
   }
 </style>
 </head>
@@ -763,7 +783,7 @@
       <a href="mailto:hello@np.design">hello@np.design</a><br>
       <a href="https://np.design">np.design</a>
     </div>
-    <img class="cover-ornament" src="desa-alam-logo.png" alt="Desa Alam Hotel &amp; Resort" width="229" height="180" decoding="async" />
+    <img class="cover-ornament" src="assets/desa-alam-logo.png" alt="Desa Alam Hotel &amp; Resort" width="229" height="180" decoding="async" />
   </div>
 
   <!-- SLIDE 2: OVERVIEW -->
@@ -789,7 +809,7 @@
         <div class="section-label">Proposal</div>
         <h2 class="slide-title title-md">Design Objectives</h2>
       </div>
-      <div class="packages-grid">
+      <div class="packages-grid packages-grid--bottompad">
         <div class="pkg">
           <div class="pkg-num">01</div>
           <div class="pkg-title">Silent luxury</div>
@@ -899,13 +919,13 @@
     <div class="slide-inner slide-inner--bottompad">
       <div class="slide-header">
         <div class="section-label">Proposal</div>
-        <h2 class="slide-title title-md">Design Process</h2>
+        <h2 class="slide-title title-md">Design Process &amp; Timeline</h2>
       </div>
       <div class="packages-grid">
         <div class="pkg">
           <div class="pkg-num">01</div>
           <div class="pkg-title">Concept &amp; Structure</div>
-          <div class="pkg-days">2 days</div>
+          <div class="pkg-days">2 design days</br>CW 23</div>
           <div class="pkg-divider"></div>
           <div class="pkg-items">
             <div class="pkg-item">Information architecture and page structure for all pages</div>
@@ -916,7 +936,7 @@
         <div class="pkg">
           <div class="pkg-num">02</div>
           <div class="pkg-title">Visual Design</div>
-          <div class="pkg-days">4 days</div>
+          <div class="pkg-days">4 design days</br>CW 24/25</div>
           <div class="pkg-divider"></div>
           <div class="pkg-items">
             <div class="pkg-item">High-fidelity design and visual language of the website</div>
@@ -927,7 +947,7 @@
         <div class="pkg">
           <div class="pkg-num">03</div>
           <div class="pkg-title">Webflow Build &amp; Launch</div>
-          <div class="pkg-days">4 days</div>
+          <div class="pkg-days">4 design days</br>CW 26/27</div>
           <div class="pkg-divider"></div>
           <div class="pkg-items">
             <div class="pkg-item">Full build in Webflow</div>
@@ -936,6 +956,9 @@
             <div class="pkg-item">Domain connection</div>
           </div>
         </div>
+      </div>
+      <div class="tl-launch">
+        Launch first week of July 2026 (assuming kick-off on June 1st)
       </div>
     </div>
   </div>
@@ -968,50 +991,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 8: TIMELINE -->
-  <div class="slide s-light theme-light" data-index="7">
-    <div class="slide-inner slide-inner--bottompad">
-      <div class="slide-header">
-        <div class="section-label">Assuming Kick-off on June 1st</div>
-        <h2 class="slide-title title-md">Timeline</h2>
-      </div>
-      <div class="packages-grid">
-        <div class="pkg">
-          <div class="pkg-num">01</div>
-          <div class="pkg-title">Concept &amp; Structure</div>
-          <div class="pkg-days">CW 23: JUN 1 - 7</div>
-          <div class="pkg-divider"></div>
-          <div class="pkg-items">
-            <div class="pkg-item">Information architecture, wireframes, content briefing</div>
-          </div>
-        </div>
-        <div class="pkg">
-          <div class="pkg-num">02</div>
-          <div class="pkg-title">Visual Design</div>
-          <div class="pkg-days">CW 24 / 25: JUN 8 - 20</div>
-          <div class="pkg-divider"></div>
-          <div class="pkg-items">
-            <div class="pkg-item">High-fidelity design, visual language, desktop &amp; mobile</div>
-          </div>
-        </div>
-        <div class="pkg">
-          <div class="pkg-num">03</div>
-          <div class="pkg-title">Build &amp; Launch</div>
-          <div class="pkg-days">CW 26 / 27: JUN 21 - JUL 5</div>
-          <div class="pkg-divider"></div>
-          <div class="pkg-items">
-            <div class="pkg-item">Webflow build, QA, domain connection, handover</div>
-          </div>
-        </div>
-      </div>
-      <div class="tl-launch">
-        Target launch first week of July 2026.
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 9: CLOSING -->
-  <div class="slide s-cover theme-dark" data-index="8">
+  <!-- SLIDE 8: CLOSING -->
+  <div class="slide s-cover theme-dark" data-index="7">
     <div class="eyebrow">DESA ALAM · Lombok</div>
     <h1>Looking forward to hearing your thoughts.</h1>
     <div class="subtitle">
