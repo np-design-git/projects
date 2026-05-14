@@ -265,9 +265,11 @@
   .cover-meta a:hover { color: var(--content-primary); }
   .cover-ornament {
     position: absolute;
-    right: var(--inset-slide-x); bottom: var(--space-80);
+    right: var(--inset-slide-x); bottom: calc(var(--space-80) + 40px);
     display: block;
     max-width: min(229px, 28vw);
+    min-width: 150px;
+    min-height: 56px;
     width: auto;
     height: auto;
     object-fit: contain;
