@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desa Alam - Website Proposal</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@200;300;400;600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* —— Primitives (opaque hex only) —— */
+  :root {
+    --color-white: #FFFFFF;
+    --color-black: #000000;
+    --beige-100: #F8F5EF;
+    --beige-200: #F5F0E6;
+    --beige-300: #EDE6D8;
+    --beige-400: #E8DFD0;
+    --beige-500: #D4C8B4;
+    --beige-600: #C8B89A;
+    --beige-700: #B5A898;
+    --beige-800: #8C7B6E;
+    --beige-900: #1E1C1A;
+    --green-100: #E8F0E4;
+    --green-200: #D6E0CE;
+    --green-400: #5A7254;
+    --green-600: #3D4F38;
+    --green-800: #2D3B2A;
+    --green-900: #1E2820;
+    /* Nav-only transparency */
+    --nav-white: #FFFFFF;
+    --nav-black: #000000;
+    --nav-alpha-strong: 0.72;
+    --nav-alpha-weak: 0.14;
+    /* Spacing (8px grid) */
+    --space-4: 4px;
+    --space-8: 8px;
+    --space-12: 12px;
+    --space-16: 16px;
+    --space-24: 24px;
+    --space-32: 32px;
+    --space-40: 40px;
+    --space-48: 48px;
+    --space-56: 56px;
+    --space-64: 64px;
+    --space-72: 72px;
+    --space-80: 80px;
+    --space-96: 96px;
+    --space-120: 120px;
+    --space-144: 144px;
+    --space-168: 168px;
+    --inset-slide-x: clamp(var(--space-32), 6vw, var(--space-96));
+    --inset-slide-y: clamp(var(--space-40), 5vh, var(--space-80));
+    --gap-section: clamp(var(--space-24), 2vh, var(--space-40));
+    /* Fixed bottom nav: offset from viewport + pill height + safe area */
+    --nav-overlap: calc(var(--space-32) + var(--space-80) + env(safe-area-inset-bottom, 0px));
+    /* Typography (subset, fluid; display+headline+label 1.4, body 1.6); min 12px for text tiers */
+    --text-display-lg: clamp(40px, 5.5vw, 72px);
+    --text-display-numeric: clamp(52px, 7vw, 96px);
+    --text-display-md: clamp(32px, 3.25vw + 1rem, 56px);
+    --text-headline-lg: clamp(28px, 3vw + 0.75rem, 68px);
+    --text-headline-md: clamp(24px, 2.5vw + 0.65rem, 52px);
+    --text-headline-sm: clamp(18px, 1.5vw + 0.7rem, 36px);
+    --text-body-intro: clamp(16px, 1.25vw + 0.55rem, 34px);
+    --text-body-md: clamp(12px, 0.5vw + 0.75rem, 20px);
+    --text-body-sm: clamp(12px, 0.4vw + 0.65rem, 17px);
+    --text-label: clamp(12px, 0.28vw + 0.58rem, 16px);
+    --text-label-caps: clamp(12px, 0.22vw + 0.52rem, 14px);
+    --text-name: clamp(18px, 1.35vw + 0.55rem, 28px);
+    --text-serif-accent: clamp(14px, 1.35vw + 0.55rem, 24px);
+  }
+
+  .slide.theme-light {
+    --bg-primary: var(--beige-200);
+    --bg-secondary: var(--beige-400);
+    --content-primary: var(--beige-900);
+    --content-secondary: var(--green-600);
+    --content-subtle: var(--beige-800);
+    --border-primary: var(--beige-600);
+    --border-secondary: var(--beige-500);
+  }
+  .slide.theme-dark {
+    --bg-primary: var(--green-800);
+    --bg-secondary: var(--green-900);
+    --content-primary: var(--beige-200);
+    --content-secondary: var(--beige-600);
+    --content-subtle: var(--green-200);
+    --border-primary: var(--beige-600);
+    --border-secondary: var(--green-600);
+  }
+
+  html, body {
+    width: 100%; height: 100%;
+    background: var(--green-800);
+    font-family: 'Jost', sans-serif;
+    font-weight: 400;
+    overflow: hidden;
+  }
+
+  .deck {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    position: relative;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    display: none;
+    flex-direction: column;
+    background: var(--bg-primary);
+    color: var(--content-primary);
+  }
+  .slide.active {
+    display: flex;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #deck > .slide.s-cover.active {
+    left: unset;
+    top: unset;
+  }
+
+  /* NAV — neutral only; alpha allowed here only */
+  .nav {
+    position: fixed;
+    bottom: var(--space-32); left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: var(--space-24);
+    z-index: 100;
+    backdrop-filter: blur(8px);
+    padding: var(--space-8) var(--space-24);
+    border-radius: var(--space-40);
+    transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.28s ease;
+  }
+  .nav.nav--hidden {
+    transform: translateX(-50%) translateY(calc(100% + var(--space-32) + env(safe-area-inset-bottom, 0px)));
+    opacity: 0;
+    pointer-events: none;
+  }
+  .nav.appearance-on-light {
+    background: rgba(0, 0, 0, 0.72);
+  }
+  .nav.appearance-on-light button {
+    color: var(--nav-white);
+  }
+  .nav.appearance-on-light button:hover { color: var(--nav-white); opacity: 0.85; }
+  .nav.appearance-on-light .slide-count { color: rgba(255, 255, 255, 0.55); }
+  .nav.appearance-on-light .dot { background: rgba(255, 255, 255, 0.35); }
+  .nav.appearance-on-light .dot.active { background: var(--nav-white); }
+
+  .nav.appearance-on-dark {
+    background: rgba(255, 255, 255, 0.22);
+  }
+  .nav.appearance-on-dark button {
+    color: var(--nav-black);
+  }
+  .nav.appearance-on-dark button:hover { opacity: 0.75; }
+  .nav.appearance-on-dark .slide-count { color: rgba(0, 0, 0, 0.5); }
+  .nav.appearance-on-dark .dot { background: rgba(0, 0, 0, 0.25); }
+  .nav.appearance-on-dark .dot.active { background: var(--nav-black); }
+
+  .nav button {
+    background: none; border: none;
+    font-family: 'Jost', sans-serif;
+    font-size: var(--text-label);
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: var(--space-4) var(--space-8);
+    transition: color 0.2s, opacity 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-4);
+  }
+  .nav-btn-arrow {
+    line-height: 1;
+  }
+  .nav-btn-text {
+    line-height: 1.2;
+  }
+  .nav-dots {
+    display: flex; gap: var(--space-8); align-items: center;
+  }
+  .dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    transition: background 0.3s, transform 0.3s;
+    cursor: pointer;
+  }
+  .dot.active { transform: scale(1.4); }
+  .slide-count {
+    font-size: var(--text-label-caps);
+    letter-spacing: 0.1em;
+    min-width: var(--space-40);
+    text-align: center;
+  }
+
+  /* SLIDE 1 — COVER */
+  .s-cover {
+    justify-content: center;
+    justify-content: safe center;
+    align-items: flex-start;
+    padding-top: var(--inset-slide-y);
+    padding-bottom: calc(var(--inset-slide-y) + var(--nav-overlap));
+    padding-left: var(--inset-slide-x);
+    padding-right: var(--inset-slide-x);
+  }
+  .s-cover .eyebrow {
+    font-family: 'Jost', sans-serif;
+    font-size: var(--text-label-caps);
+    font-weight: 400;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--content-secondary);
+    margin-bottom: var(--gap-section);
+    line-height: 1.4;
+  }
+  .s-cover h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: var(--text-display-lg);
+    color: var(--content-primary);
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    margin-bottom: var(--space-24);
+  }
+  .s-cover h1 em {
+    font-style: italic;
+    color: var(--content-secondary);
+  }
+  .s-cover .subtitle {
+    font-size: var(--text-body-md);
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    color: var(--content-secondary);
+    text-transform: uppercase;
+    margin-bottom: var(--space-48);
+    max-width: 500px;
+    line-height: 1.6;
+  }
+  .cover-line {
+    width: var(--space-48); height: 1px;
+    background: var(--border-primary);
+    margin-bottom: var(--gap-section);
+  }
+  .cover-meta {
+    font-size: var(--text-label);
+    letter-spacing: 0.1em;
+    color: var(--content-subtle);
+    line-height: 1.6;
+  }
+  .cover-meta a { color: var(--content-secondary); text-decoration: none; }
+  .cover-meta a:hover { color: var(--content-primary); }
+  .cover-ornament {
+    position: absolute;
+    right: var(--inset-slide-x); bottom: var(--space-80);
+    display: block;
+    max-width: min(229px, 28vw);
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    mix-blend-mode: lighten;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* SHARED SLIDE LAYOUTS — surface from theme */
+  .s-light {}
+  .s-dark {}
+  .s-sand {}
+  .s-green {}
+  .s-dark-green {}
+
+  .slide-inner {
+    flex: 1 1 auto;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-content: safe center;
+    padding-top: var(--inset-slide-y);
+    padding-left: var(--inset-slide-x);
+    padding-right: var(--inset-slide-x);
+    padding-bottom: calc(var(--inset-slide-y) + var(--nav-overlap));
+  }
+
+  .slide-header {
+    margin-bottom: var(--gap-section);
+  }
+
+  .section-label {
+    font-size: var(--text-label-caps);
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-16);
+    color: var(--content-secondary);
+    line-height: 1.4;
+  }
+
+  .slide-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--content-primary);
+  }
+  .title-lg { font-size: var(--text-headline-lg); }
+  .title-md { font-size: var(--text-headline-md); }
+
+  .lede {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: var(--text-body-intro);
+    font-weight: 300;
+    color: var(--content-primary);
+    line-height: 1.6;
+    letter-spacing: 0.01em;
+    max-width: 680px;
+  }
+  .lede-rule {
+    width: var(--space-40);
+    height: 1px;
+    background: var(--border-primary);
+    margin: var(--space-32) 0;
+  }
+
+  /* LIMITATIONS SLIDE */
+  .limits-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .limit-row {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-24);
+    padding: var(--space-16) 0;
+    border-bottom: 1px solid var(--border-secondary);
+  }
+  .limit-row:first-child { border-top: 1px solid var(--border-secondary); }
+  .limit-row--noborder { border-bottom: none; }
+  .limit-key {
+    font-size: var(--text-label-caps);
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--content-primary);
+    min-width: 160px;
+    padding-top: 2px;
+    flex-shrink: 0;
+    line-height: 1.4;
+  }
+  .limit-val {
+    font-size: var(--text-body-sm);
+    font-weight: 400;
+    color: var(--content-secondary);
+    line-height: 1.6;
+    letter-spacing: 0.02em;
+  }
+
+  /* PACKAGES SLIDE */
+  .packages-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: var(--space-8);
+  }
+  .packages-grid:has(> .pkg > .pkg-days) {
+    grid-template-rows: auto auto auto auto 1fr;
+  }
+  .packages-grid:has(> .pkg > .pkg-days) > .pkg {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 5;
+    min-height: 0;
+  }
+  .packages-grid:not(:has(> .pkg > .pkg-days)) {
+    grid-template-rows: auto auto auto 1fr;
+  }
+  .packages-grid:not(:has(> .pkg > .pkg-days)) > .pkg {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 4;
+    min-height: 0;
+  }
+  .pkg {
+    padding: var(--space-32) var(--space-24);
+    background: var(--bg-secondary);
+    color: var(--content-primary);
+  }
+  .pkg-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: var(--text-label);
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    margin-bottom: var(--gap-section);
+    color: var(--content-subtle);
+    line-height: 1.4;
+  }
+  .pkg-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: var(--text-headline-sm);
+    font-weight: 400;
+    line-height: 1.4;
+    margin-bottom: var(--space-24);
+    color: var(--content-primary);
+    align-self: center;
+  }
+  .pkg-days {
+    font-size: var(--text-label-caps);
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-24);
+    color: var(--content-subtle);
+    line-height: 1.4;
+  }
+  .pkg-divider {
+    height: 1px;
+    margin-bottom: var(--space-24);
+    background: var(--border-primary);
+  }
+  .pkg-items {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+    flex: 1;
+    min-height: 0;
+    color: var(--content-subtle);
+  }
+  .pkg-item {
+    font-size: var(--text-body-sm);
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-8);
+    color: var(--content-secondary);
+  }
+  .pkg-item::before {
+    content: '';
+    display: block;
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    margin-top: calc((1.6em - 4px) / 2);
+    flex-shrink: 0;
+    background: var(--border-primary);
+  }
+  .pkg-items > .pkg-item:only-child::before {
+    display: none;
+  }
+
+  /* TOTAL SLIDE */
+  .total-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-48);
+    align-items: center;
+  }
+  .total-equation {
+    font-size: var(--text-label-caps);
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--content-subtle);
+    margin-bottom: var(--space-24);
+    line-height: 1.4;
+  }
+  .total-amount {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: var(--text-display-numeric);
+    font-weight: 300;
+    color: var(--content-primary);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--gap-section);
+  }
+  .total-amount .currency {
+    font-size: min(26px, max(12px, 0.45em));
+    color: var(--content-subtle);
+    margin-left: var(--space-4);
+  }
+  .total-note {
+    font-size: var(--text-label);
+    font-weight: 400;
+    color: var(--content-subtle);
+    line-height: 1.6;
+    font-style: italic;
+    max-width: 340px;
+  }
+  .total-right {
+    border-left: 1px solid var(--border-primary);
+    padding-left: var(--space-48);
+  }
+  .costs-label {
+    font-size: var(--text-label-caps);
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--content-subtle);
+    margin-bottom: var(--space-24);
+    line-height: 1.4;
+  }
+  .cost-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: var(--space-16) 0;
+    border-bottom: none;
+    gap: var(--space-16);
+  }
+  .cost-key {
+    font-size: var(--text-label);
+    font-weight: 400;
+    color: var(--content-primary);
+    letter-spacing: 0.03em;
+    line-height: 1.6;
+  }
+  .cost-key strong {
+    display: block;
+    font-weight: 400;
+    font-size: var(--text-body-sm);
+    margin-bottom: 2px;
+    line-height: 1.4;
+  }
+  .cost-val {
+    font-size: var(--text-body-sm);
+    font-weight: 400;
+    color: var(--content-primary);
+    letter-spacing: 0.03em;
+    line-height: 1.4;
+    white-space: nowrap;
+    text-align: right;
+  }
+  .costs-disclaimer {
+    font-size: var(--text-label);
+    font-weight: 400;
+    color: var(--content-subtle);
+    font-style: italic;
+    line-height: 1.6;
+    margin-top: var(--space-12);
+    max-width: 340px;
+  }
+  .cost-tag {
+    font-size: var(--text-label-caps);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--content-secondary);
+    padding: 2px var(--space-8);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--space-40);
+    margin-right: var(--space-4);
+    line-height: 1.4;
+  }
+
+  /* TIMELINE */
+  .tl-launch {
+    margin-top: var(--space-40);
+    padding-top: var(--gap-section);
+    border-top: 1px solid var(--border-secondary);
+    font-size: var(--text-body-sm);
+    font-weight: 400;
+    color: var(--content-subtle);
+    letter-spacing: 0.05em;
+    line-height: 1.6;
+  }
+  .tl-launch strong {
+    font-weight: 400;
+    color: var(--content-primary);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: var(--text-serif-accent);
+    line-height: 1.4;
+  }
+
+  .slide-inner--bottompad {
+    padding-bottom: calc(var(--gap-section) + var(--nav-overlap));
+  }
+
+  /* —— Responsive: layout + spacing only at mobile (480px); tablet keeps desktop layouts —— */
+  @media (max-width: 480px) {
+    .packages-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+    }
+    .packages-grid:has(> .pkg > .pkg-days),
+    .packages-grid:not(:has(> .pkg > .pkg-days)) {
+      grid-template-rows: unset;
+    }
+    .packages-grid:has(> .pkg > .pkg-days) > .pkg,
+    .packages-grid:not(:has(> .pkg > .pkg-days)) > .pkg {
+      display: flex;
+      flex-direction: column;
+      grid-row: auto;
+      grid-template-rows: unset;
+      min-height: unset;
+    }
+    .pkg {
+      padding: var(--space-24) var(--space-16);
+    }
+    .pkg .pkg-title {
+      align-self: stretch;
+    }
+    .limit-row {
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--space-8);
+    }
+    .limit-key {
+      max-width: none;
+      flex: none;
+      min-width: 0;
+      padding-top: 0;
+    }
+    .limit-val {
+      flex: none;
+      min-width: 0;
+    }
+    .total-layout {
+      grid-template-columns: 1fr;
+      gap: var(--gap-section);
+      align-items: stretch;
+    }
+    .total-layout > * {
+      min-width: 0;
+    }
+    .total-right {
+      border-left: none;
+      padding-left: 0;
+      border-top: 1px solid var(--border-primary);
+      padding-top: var(--gap-section);
+    }
+    .total-note {
+      max-width: none;
+    }
+    .costs-disclaimer {
+      max-width: none;
+    }
+    .cost-row {
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--space-8);
+    }
+    .cost-val {
+      white-space: normal;
+      text-align: start;
+      align-self: flex-start;
+    }
+    .slide-inner:has(.packages-grid),
+    .slide-inner:has(.limits-list),
+    .slide-inner:has(.total-layout) {
+      padding-left: max(var(--space-32), env(safe-area-inset-left, 0px));
+      padding-right: max(var(--space-32), env(safe-area-inset-right, 0px));
+    }
+    .nav {
+      padding-left: var(--space-12);
+      padding-right: var(--space-12);
+    }
+  }
+
+  /* —— Print / Save as PDF (1280×832px, no pagination bar) —— */
+  @page {
+    size: 1280px 832px;
+    margin: 0;
+  }
+
+  @media print {
+    :root {
+      --nav-overlap: 0px;
+    }
+
+    html, body {
+      overflow: visible !important;
+      height: auto !important;
+      width: 100%;
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+
+    .nav {
+      display: none !important;
+    }
+
+    .deck {
+      position: static;
+      width: 100%;
+      height: auto;
+      min-height: 0;
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+
+    .slide {
+      position: relative !important;
+      inset: auto !important;
+      left: auto !important;
+      top: auto !important;
+      right: auto !important;
+      bottom: auto !important;
+      width: 100% !important;
+      min-height: 832px;
+      height: auto;
+      max-height: none;
+      display: flex !important;
+      flex-direction: column !important;
+      overflow: visible !important;
+      page-break-after: always;
+      break-after: page;
+      page-break-inside: avoid;
+      break-inside: avoid;
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+
+    .slide:last-child {
+      page-break-after: auto;
+      break-after: auto;
+    }
+
+    .slide.active {
+      overflow: visible !important;
+    }
+
+    #deck > .slide.s-cover.active {
+      left: auto !important;
+      top: auto !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+  <!-- SLIDE 1: COVER -->
+  <div class="slide s-cover theme-dark active" data-index="0">
+    <div class="eyebrow">Design Proposal · May 2026</div>
+    <h1>Desa Alam</h1>
+    <div class="subtitle">
+      Investor-facing website<br>
+      Design &amp; Webflow Development
+    </div>
+    <div class="cover-line"></div>
+    <div class="cover-meta">
+      Natalia Patiño<br>
+      <a href="mailto:hello@np.design">hello@np.design</a><br>
+      <a href="https://np.design">np.design</a>
+    </div>
+    <img class="cover-ornament" src="assets/desa-alam-logo.png" alt="Desa Alam Hotel &amp; Resort" width="229" height="180" decoding="async" />
+  </div>
+
+  <!-- SLIDE 2: OVERVIEW -->
+  <div class="slide s-light theme-light" data-index="1">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="section-label">Overview</div>
+        <h2 class="slide-title title-lg">Desa Alam Website</h2>
+      </div>
+      <div>
+        <p class="lede">
+          Proposal for the design and Webflow development of Desa Alam's investor-facing website: a multi-page digital presence communicating the project vision, investment opportunity, and team behind a luxury resort development on Lombok, Indonesia.
+        </p>
+        <div class="lede-rule"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: OBJECTIVES -->
+  <div class="slide s-light theme-light" data-index="2">
+    <div class="slide-inner slide-inner--bottompad">
+      <div class="slide-header">
+        <div class="section-label">Proposal</div>
+        <h2 class="slide-title title-md">Design Objectives</h2>
+      </div>
+      <div class="packages-grid">
+        <div class="pkg">
+          <div class="pkg-num">01</div>
+          <div class="pkg-title">Silent luxury</div>
+          <div class="pkg-divider"></div>
+          <div class="pkg-items">
+            <div class="pkg-item">Visual language in the spirit of Aman Resorts, editorial, calm, confident</div>
+          </div>
+        </div>
+        <div class="pkg">
+          <div class="pkg-num">02</div>
+          <div class="pkg-title">Elevated design</div>
+          <div class="pkg-divider"></div>
+          <div class="pkg-items">
+            <div class="pkg-item">A website that feels refined from day one, reflecting the ambition of the project.</div>
+          </div>
+        </div>
+        <div class="pkg">
+          <div class="pkg-num">03</div>
+          <div class="pkg-title">Selling with confidence</div>
+          <div class="pkg-divider"></div>
+          <div class="pkg-items">
+            <div class="pkg-item">Let the project speak for itself. The investment opportunity is presented with elegance, not pressure.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: SCOPE -->
+  <div class="slide s-light theme-light" data-index="3">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="section-label">Proposal</div>
+        <h2 class="slide-title title-md">Scope of Work</h2>
+      </div>
+      <div class="limits-list">
+        <div class="limit-row">
+          <div class="limit-key">Home</div>
+          <div class="limit-val">Vision, sense of location, navigation into key sections</div>
+        </div>
+        <div class="limit-row">
+          <div class="limit-key">The Investment</div>
+          <div class="limit-val">Opportunity overview, key metrics, investment structure, development timeline</div>
+        </div>
+        <div class="limit-row">
+          <div class="limit-key">The Experience</div>
+          <div class="limit-val">Amenities, location, resort concept, lifestyle</div>
+        </div>
+        <div class="limit-row">
+          <div class="limit-key">The Team</div>
+          <div class="limit-val">Developer profile, architecture studio, key team members, advisors</div>
+        </div>
+        <div class="limit-row">
+          <div class="limit-key">Ready to Invest</div>
+          <div class="limit-val">Next steps, contact form</div>
+        </div>
+        <div class="limit-row">
+          <div class="limit-key">FAQs</div>
+          <div class="limit-val">Answers to common questions</div>
+        </div>
+        <div class="limit-row limit-row--noborder">
+          <div class="limit-key">Legal Pages</div>
+          <div class="limit-val">Privacy Policy, Imprint, etc.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: LIMITATIONS -->
+  <div class="slide s-dark-green theme-dark" data-index="4">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="section-label">Proposal</div>
+        <h2 class="slide-title title-md">Scope Limitations</h2>
+      </div>
+      <div class="limits-list">
+        <div class="limit-row">
+          <div class="limit-key">Language</div>
+          <div class="limit-val">English only: single language, no localization</div>
+        </div>
+        <div class="limit-row">
+          <div class="limit-key">Content</div>
+          <div class="limit-val">Final copy, photography, and renders provided by the client. I advise on structure and content needs, and support with AI-generated imagery and copy drafts as needed.</div>
+        </div>
+        <div class="limit-row">
+          <div class="limit-key">SEO</div>
+          <div class="limit-val">Webflow outputs clean, fast, SEO-friendly code. Keyword strategy, content SEO, and ongoing optimisation are not included.</div>
+        </div>
+        <div class="limit-row">
+          <div class="limit-key">Analytics</div>
+          <div class="limit-val">Google Analytics can be connected via a simple embed at no extra cost. Event tracking, conversion funnels, and monitoring are not part of the scope.</div>
+        </div>
+        <div class="limit-row">
+          <div class="limit-key">Domain</div>
+          <div class="limit-val">The client is responsible for purchasing their own domain.</div>
+        </div>
+        <div class="limit-row limit-row--noborder">
+          <div class="limit-key">Investor Brochure</div>
+          <div class="limit-val">Design and layout of the downloadable PDF is not included in this scope, as the complexity and extent of the document is not yet defined. Depending on requirements, this can be scoped as a separate add-on.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 6: WORKING PACKAGES -->
+  <div class="slide s-light theme-light" data-index="5">
+    <div class="slide-inner slide-inner--bottompad">
+      <div class="slide-header">
+        <div class="section-label">Proposal</div>
+        <h2 class="slide-title title-md">Design Process</h2>
+      </div>
+      <div class="packages-grid">
+        <div class="pkg">
+          <div class="pkg-num">01</div>
+          <div class="pkg-title">Concept &amp; Structure</div>
+          <div class="pkg-days">2 days</div>
+          <div class="pkg-divider"></div>
+          <div class="pkg-items">
+            <div class="pkg-item">Information architecture and page structure for all pages</div>
+            <div class="pkg-item">Wireframe-level layouts</div>
+            <div class="pkg-item">Content briefing: defining what copy, imagery, and assets are needed per page</div>
+          </div>
+        </div>
+        <div class="pkg">
+          <div class="pkg-num">02</div>
+          <div class="pkg-title">Visual Design</div>
+          <div class="pkg-days">4 days</div>
+          <div class="pkg-divider"></div>
+          <div class="pkg-items">
+            <div class="pkg-item">High-fidelity design and visual language of the website</div>
+            <div class="pkg-item">Typography system, colour palette, UI components, spacing and layout (built on CI, logo and brand colours provided by client)</div>
+            <div class="pkg-item">Desktop, tablet and mobile layouts</div>
+          </div>
+        </div>
+        <div class="pkg">
+          <div class="pkg-num">03</div>
+          <div class="pkg-title">Webflow Build &amp; Launch</div>
+          <div class="pkg-days">4 days</div>
+          <div class="pkg-divider"></div>
+          <div class="pkg-items">
+            <div class="pkg-item">Full build in Webflow</div>
+            <div class="pkg-item">Responsive implementation (desktop, tablet, mobile)</div>
+            <div class="pkg-item">Pre-launch QA</div>
+            <div class="pkg-item">Domain connection</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 7: TOTAL + COSTS -->
+  <div class="slide s-light theme-light" data-index="6">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="section-label">Proposal</div>
+        <h2 class="slide-title title-md">Total effort</h2>
+      </div>
+      <div class="total-layout">
+        <div class="total-left">
+          <div class="total-equation">10 days × 800 EUR</div>
+          <div class="total-amount">8.000<span class="currency">EUR</span></div>
+        </div>
+        <div class="total-right">
+          <div class="costs-label">Ongoing client costs for Webflow hosting</div>
+          <div class="cost-row">
+            <div class="cost-key">
+              <strong>Webflow Premium Site Plan</strong>
+            </div>
+            <div class="cost-val">~$25 / month</div>
+          </div>
+          <div class="costs-disclaimer">
+            Indicative costs for orientation. Final hosting will depend on the site's actual needs.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 8: TIMELINE -->
+  <div class="slide s-light theme-light" data-index="7">
+    <div class="slide-inner slide-inner--bottompad">
+      <div class="slide-header">
+        <div class="section-label">Assuming Kick-off on June 1st</div>
+        <h2 class="slide-title title-md">Timeline</h2>
+      </div>
+      <div class="packages-grid">
+        <div class="pkg">
+          <div class="pkg-num">01</div>
+          <div class="pkg-title">Concept &amp; Structure</div>
+          <div class="pkg-days">CW 23: JUN 1 - 7</div>
+          <div class="pkg-divider"></div>
+          <div class="pkg-items">
+            <div class="pkg-item">Information architecture, wireframes, content briefing</div>
+          </div>
+        </div>
+        <div class="pkg">
+          <div class="pkg-num">02</div>
+          <div class="pkg-title">Visual Design</div>
+          <div class="pkg-days">CW 24 / 25: JUN 8 - 20</div>
+          <div class="pkg-divider"></div>
+          <div class="pkg-items">
+            <div class="pkg-item">High-fidelity design, visual language, desktop &amp; mobile</div>
+          </div>
+        </div>
+        <div class="pkg">
+          <div class="pkg-num">03</div>
+          <div class="pkg-title">Build &amp; Launch</div>
+          <div class="pkg-days">CW 26 / 27: JUN 21 - JUL 5</div>
+          <div class="pkg-divider"></div>
+          <div class="pkg-items">
+            <div class="pkg-item">Webflow build, QA, domain connection, handover</div>
+          </div>
+        </div>
+      </div>
+      <div class="tl-launch">
+        Target launch first week of July 2026.
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 9: CLOSING -->
+  <div class="slide s-cover theme-dark" data-index="8">
+    <div class="eyebrow">Desa Alam · Lombok</div>
+    <h1>Looking forward to hearing your thoughts.</h1>
+    <div class="subtitle">
+      Please reach out if you have any questions or if anything needs adjusting.
+    </div>
+    <div class="cover-line"></div>
+    <div class="cover-meta">
+      Natalia Patiño<br>
+      <a href="mailto:hello@np.design">hello@np.design</a><br>
+      <a href="https://np.design">np.design</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- NAV -->
+<nav class="nav appearance-on-dark" role="navigation" aria-label="Slide navigation">
+  <button type="button" onclick="go(-1)" aria-label="Previous slide"><span class="nav-btn-arrow" aria-hidden="true">←</span><span class="nav-btn-text">Prev</span></button>
+  <div class="nav-dots" id="dots"></div>
+  <button type="button" onclick="go(1)" aria-label="Next slide"><span class="nav-btn-arrow" aria-hidden="true">→</span><span class="nav-btn-text">Next</span></button>
+  <span class="slide-count" id="count"></span>
+</nav>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const dotsEl = document.getElementById('dots');
+const countEl = document.getElementById('count');
+const navEl = document.querySelector('.nav');
+let cur = 0;
+const total = slides.length;
+
+const SCROLL_DIR_THRESHOLD = 6;
+const SCROLL_HIDE_MIN = 28;
+let lastSlideScrollTop = 0;
+let navTouchStart = null;
+
+function showNav() {
+  if (navEl) navEl.classList.remove('nav--hidden');
+}
+
+function hideNav() {
+  if (navEl) navEl.classList.add('nav--hidden');
+}
+
+function onSlideScroll(e) {
+  const el = e.currentTarget;
+  const st = el.scrollTop;
+  const dy = st - lastSlideScrollTop;
+  if (Math.abs(dy) < SCROLL_DIR_THRESHOLD) {
+    lastSlideScrollTop = st;
+    return;
+  }
+  if (dy > 0 && st > SCROLL_HIDE_MIN) hideNav();
+  else if (dy < 0) showNav();
+  lastSlideScrollTop = st;
+}
+
+function bindActiveSlideScroll() {
+  slides.forEach((s) => s.removeEventListener('scroll', onSlideScroll));
+  const active = document.querySelector('.slide.active');
+  if (active) {
+    lastSlideScrollTop = active.scrollTop;
+    active.addEventListener('scroll', onSlideScroll, { passive: true });
+  }
+}
+
+document.addEventListener('click', (e) => {
+  if (!navEl || navEl.contains(e.target)) return;
+  showNav();
+});
+
+document.addEventListener('touchstart', (e) => {
+  if (e.touches.length !== 1) return;
+  const t = e.touches[0];
+  navTouchStart = { x: t.clientX, y: t.clientY };
+}, { passive: true });
+
+document.addEventListener('touchend', (e) => {
+  if (!navTouchStart || !navEl || !e.changedTouches.length) return;
+  const t = e.changedTouches[0];
+  const dx = Math.abs(t.clientX - navTouchStart.x);
+  const dy = Math.abs(t.clientY - navTouchStart.y);
+  navTouchStart = null;
+  if (dx > 22 || dy > 22) return;
+  if (!navEl.contains(t.target)) showNav();
+}, { passive: true });
+
+slides.forEach((_, i) => {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i === 0 ? ' active' : '');
+  d.onclick = () => goTo(i);
+  dotsEl.appendChild(d);
+});
+
+function updateNavAppearance() {
+  if (!navEl) return;
+  const active = document.querySelector('.slide.active');
+  navEl.classList.remove('appearance-on-light', 'appearance-on-dark');
+  if (active && active.classList.contains('theme-light')) {
+    navEl.classList.add('appearance-on-light');
+  } else {
+    navEl.classList.add('appearance-on-dark');
+  }
+}
+
+function goTo(n) {
+  slides[cur].classList.remove('active');
+  dotsEl.children[cur].classList.remove('active');
+  cur = Math.max(0, Math.min(total - 1, n));
+  slides[cur].classList.add('active');
+  dotsEl.children[cur].classList.add('active');
+  countEl.textContent = (cur + 1) + ' / ' + total;
+  updateNavAppearance();
+  showNav();
+  bindActiveSlideScroll();
+}
+
+function go(dir) { goTo(cur + dir); }
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(1);
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') go(-1);
+});
+
+goTo(0);
+</script>
+</body>
+</html>
