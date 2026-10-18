@@ -1,0 +1,19 @@
+---
+description: New client pitches change copy, colors, and fonts only
+alwaysApply: true
+---
+
+# Pitch decks
+
+This repo publishes one folder per client from `main` to `https://project.np.design/{slug}/`. Layout, spacing, type sizes, and navigation live in `template/` and stay frozen.
+
+For a new or updated pitch:
+
+- Edit `{slug}/pitch.json` and files in `{slug}/assets/` only.
+- Keep the eight slides in order: cover, overview, cards, list, list, process, cost, closing. Rows and cards inside a slide can be longer or shorter.
+- Put colors and the two Google Fonts in `theme`. Do not change spacing or type sizes.
+- Rebuild with `node scripts/build-pitch.js {slug}`.
+- Do not hand-edit `{slug}/index.html`.
+- Commit `{slug}/pitch.json`, `{slug}/assets/`, and the generated `{slug}/index.html`, then push `main`, only when asked to publish.
+
+Change `template/` only when the user explicitly asks to change the deck system. See `desa-alam/pitch.json` and `template/pitch.schema.json`.

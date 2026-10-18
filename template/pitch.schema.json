@@ -1,0 +1,238 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://project.np.design/pitch.schema.json",
+  "title": "Client pitch",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["slug", "title", "theme", "contact", "slides"],
+  "properties": {
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "Folder name and URL path, such as desa-alam."
+    },
+    "title": { "type": "string", "minLength": 1 },
+    "lang": { "type": "string", "minLength": 1, "default": "en" },
+    "theme": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["pageBackground", "light", "dark", "fonts"],
+      "properties": {
+        "pageBackground": { "$ref": "#/$defs/hex" },
+        "light": { "$ref": "#/$defs/palette" },
+        "dark": { "$ref": "#/$defs/palette" },
+        "fonts": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["sans", "serif"],
+          "properties": {
+            "sans": { "$ref": "#/$defs/font" },
+            "serif": { "$ref": "#/$defs/font" }
+          }
+        }
+      }
+    },
+    "contact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "email", "site", "siteLabel"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "email": { "type": "string", "format": "email" },
+        "site": { "type": "string", "pattern": "^https://" },
+        "siteLabel": { "type": "string", "minLength": 1 }
+      }
+    },
+    "slides": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "prefixItems": [
+        { "$ref": "#/$defs/cover" },
+        { "$ref": "#/$defs/overview" },
+        { "$ref": "#/$defs/cards" },
+        { "$ref": "#/$defs/list" },
+        { "$ref": "#/$defs/list" },
+        { "$ref": "#/$defs/process" },
+        { "$ref": "#/$defs/cost" },
+        { "$ref": "#/$defs/closing" }
+      ]
+    }
+  },
+  "$defs": {
+    "hex": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+    "text": { "type": "string", "minLength": 1 },
+    "palette": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["bgPrimary", "bgSecondary", "contentPrimary", "contentSecondary", "contentSubtle", "borderPrimary", "borderSecondary"],
+      "properties": {
+        "bgPrimary": { "$ref": "#/$defs/hex" },
+        "bgSecondary": { "$ref": "#/$defs/hex" },
+        "contentPrimary": { "$ref": "#/$defs/hex" },
+        "contentSecondary": { "$ref": "#/$defs/hex" },
+        "contentSubtle": { "$ref": "#/$defs/hex" },
+        "borderPrimary": { "$ref": "#/$defs/hex" },
+        "borderSecondary": { "$ref": "#/$defs/hex" }
+      }
+    },
+    "font": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["family", "google", "fallback"],
+      "properties": {
+        "family": { "type": "string", "description": "Google Font family name, such as Jost." },
+        "google": { "type": "string", "description": "Axis spec after the family name, such as wght@200;300;400." },
+        "fallback": { "enum": ["sans-serif", "serif"] }
+      }
+    },
+    "logo": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["src", "alt", "width", "height"],
+      "properties": {
+        "src": { "type": "string", "description": "Path inside the client folder, such as assets/logo.png." },
+        "alt": { "$ref": "#/$defs/text" },
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "cover": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "eyebrow", "title", "subtitle"],
+      "properties": {
+        "type": { "const": "cover" },
+        "eyebrow": { "$ref": "#/$defs/text" },
+        "title": { "$ref": "#/$defs/text" },
+        "subtitle": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/text" } },
+        "logo": { "$ref": "#/$defs/logo" }
+      }
+    },
+    "overview": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "label", "title", "lede"],
+      "properties": {
+        "type": { "const": "overview" },
+        "label": { "$ref": "#/$defs/text" },
+        "title": { "$ref": "#/$defs/text" },
+        "lede": { "$ref": "#/$defs/text" }
+      }
+    },
+    "cardItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "points"],
+      "properties": {
+        "title": { "$ref": "#/$defs/text" },
+        "points": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/text" } }
+      }
+    },
+    "cards": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "label", "title", "items"],
+      "properties": {
+        "type": { "const": "cards" },
+        "label": { "$ref": "#/$defs/text" },
+        "title": { "$ref": "#/$defs/text" },
+        "items": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/cardItem" } }
+      }
+    },
+    "list": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "label", "title", "rows"],
+      "properties": {
+        "type": { "const": "list" },
+        "label": { "$ref": "#/$defs/text" },
+        "title": { "$ref": "#/$defs/text" },
+        "rows": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["key", "value"],
+            "properties": {
+              "key": { "$ref": "#/$defs/text" },
+              "value": { "$ref": "#/$defs/text" }
+            }
+          }
+        }
+      }
+    },
+    "process": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "label", "title", "items", "launch"],
+      "properties": {
+        "type": { "const": "process" },
+        "label": { "$ref": "#/$defs/text" },
+        "title": { "$ref": "#/$defs/text" },
+        "launch": { "$ref": "#/$defs/text" },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["title", "days", "points"],
+            "properties": {
+              "title": { "$ref": "#/$defs/text" },
+              "days": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/text" } },
+              "points": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/text" } }
+            }
+          }
+        }
+      }
+    },
+    "cost": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "label", "title", "equation", "amount", "currency", "hosting"],
+      "properties": {
+        "type": { "const": "cost" },
+        "label": { "$ref": "#/$defs/text" },
+        "title": { "$ref": "#/$defs/text" },
+        "equation": { "$ref": "#/$defs/text" },
+        "amount": { "$ref": "#/$defs/text" },
+        "currency": { "$ref": "#/$defs/text" },
+        "hosting": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["label", "rows", "disclaimer"],
+          "properties": {
+            "label": { "$ref": "#/$defs/text" },
+            "disclaimer": { "$ref": "#/$defs/text" },
+            "rows": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["name", "value"],
+                "properties": {
+                  "name": { "$ref": "#/$defs/text" },
+                  "value": { "$ref": "#/$defs/text" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "closing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "eyebrow", "title", "subtitle"],
+      "properties": {
+        "type": { "const": "closing" },
+        "eyebrow": { "$ref": "#/$defs/text" },
+        "title": { "$ref": "#/$defs/text" },
+        "subtitle": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/text" } }
+      }
+    }
+  }
+}

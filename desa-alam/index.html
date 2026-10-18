@@ -7,27 +7,35 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@200;300;400&display=swap');
 
+  :root {
+    --font-sans: 'Jost', sans-serif;
+    --font-serif: 'Cormorant Garamond', serif;
+    --page-background: #2D3B2A;
+  }
+
+  .slide.theme-light {
+    --bg-primary: #F5F0E6;
+    --bg-secondary: #E8DFD0;
+    --content-primary: #1E1C1A;
+    --content-secondary: #3D4F38;
+    --content-subtle: #8C7B6E;
+    --border-primary: #C8B89A;
+    --border-secondary: #D4C8B4;
+  }
+  .slide.theme-dark {
+    --bg-primary: #2D3B2A;
+    --bg-secondary: #1E2820;
+    --content-primary: #F5F0E6;
+    --content-secondary: #C8B89A;
+    --content-subtle: #D6E0CE;
+    --border-primary: #C8B89A;
+    --border-secondary: #3D4F38;
+  }
+
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  /* —— Primitives (opaque hex only) —— */
+  /* Theme tokens are injected above this file by scripts/build-pitch.js */
   :root {
-    --color-white: #FFFFFF;
-    --color-black: #000000;
-    --beige-100: #F8F5EF;
-    --beige-200: #F5F0E6;
-    --beige-300: #EDE6D8;
-    --beige-400: #E8DFD0;
-    --beige-500: #D4C8B4;
-    --beige-600: #C8B89A;
-    --beige-700: #B5A898;
-    --beige-800: #8C7B6E;
-    --beige-900: #1E1C1A;
-    --green-100: #E8F0E4;
-    --green-200: #D6E0CE;
-    --green-400: #5A7254;
-    --green-600: #3D4F38;
-    --green-800: #2D3B2A;
-    --green-900: #1E2820;
     /* Nav-only transparency */
     --nav-white: #FFFFFF;
     --nav-black: #000000;
@@ -71,29 +79,11 @@
     --text-serif-accent: clamp(14px, 1.35vw + 0.55rem, 24px);
   }
 
-  .slide.theme-light {
-    --bg-primary: var(--beige-200);
-    --bg-secondary: var(--beige-400);
-    --content-primary: var(--beige-900);
-    --content-secondary: var(--green-600);
-    --content-subtle: var(--beige-800);
-    --border-primary: var(--beige-600);
-    --border-secondary: var(--beige-500);
-  }
-  .slide.theme-dark {
-    --bg-primary: var(--green-800);
-    --bg-secondary: var(--green-900);
-    --content-primary: var(--beige-200);
-    --content-secondary: var(--beige-600);
-    --content-subtle: var(--green-200);
-    --border-primary: var(--beige-600);
-    --border-secondary: var(--green-600);
-  }
 
   html, body {
     width: 100%; height: 100%;
-    background: var(--green-800);
-    font-family: 'Jost', sans-serif;
+    background: var(--page-background);
+    font-family: var(--font-sans);
     font-weight: 300;
     overflow: hidden;
   }
@@ -170,7 +160,7 @@
 
   .nav button {
     background: none; border: none;
-    font-family: 'Jost', sans-serif;
+    font-family: var(--font-sans);
     font-size: var(--text-label);
     font-weight: 300;
     letter-spacing: 0.15em;
@@ -218,7 +208,7 @@
     padding-right: var(--inset-slide-x);
   }
   .s-cover .eyebrow {
-    font-family: 'Jost', sans-serif;
+    font-family: var(--font-sans);
     font-size: var(--text-label-caps);
     font-weight: 300;
     letter-spacing: 0.25em;
@@ -228,7 +218,7 @@
     line-height: 1.4;
   }
   .s-cover h1 {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--font-serif);
     font-weight: 300;
     font-size: var(--text-display-lg);
     color: var(--content-primary);
@@ -316,7 +306,7 @@
   }
 
   .slide-title {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--font-serif);
     font-weight: 300;
     line-height: 1.4;
     letter-spacing: 0;
@@ -326,7 +316,7 @@
   .title-md { font-size: var(--text-headline-md); }
 
   .lede {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--font-serif);
     font-size: var(--text-body-intro);
     font-weight: 300;
     color: var(--content-primary);
@@ -413,7 +403,7 @@
     color: var(--content-primary);
   }
   .pkg-num {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--font-serif);
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0.2em;
@@ -422,7 +412,7 @@
     line-height: 1.4;
   }
   .pkg-title {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--font-serif);
     font-size: var(--text-headline-sm);
     font-weight: 400;
     line-height: 1.4;
@@ -497,7 +487,7 @@
     line-height: 1.4;
   }
   .total-amount {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--font-serif);
     font-size: var(--text-display-numeric);
     font-weight: 300;
     color: var(--content-primary);
@@ -600,7 +590,7 @@
   .tl-launch strong {
     font-weight: 400;
     color: var(--content-primary);
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--font-serif);
     font-size: var(--text-serif-accent);
     line-height: 1.4;
   }
@@ -773,6 +763,7 @@
 </head>
 <body>
 
+<!-- Generated from pitch.json. Edit pitch.json, then rebuild. -->
 <div class="deck" id="deck">
 
   <!-- SLIDE 1: COVER -->
@@ -920,7 +911,7 @@
     </div>
   </div>
 
-  <!-- SLIDE 6: WORKING PACKAGES -->
+  <!-- SLIDE 6: PROCESS -->
   <div class="slide s-light theme-light" data-index="5">
     <div class="slide-inner slide-inner--bottompad">
       <div class="slide-header">
@@ -931,7 +922,7 @@
         <div class="pkg">
           <div class="pkg-num">01</div>
           <div class="pkg-title">Concept &amp; Structure</div>
-          <div class="pkg-days">2 design days</br>Cal week 23</div>
+          <div class="pkg-days">2 design days<br>Cal week 23</div>
           <div class="pkg-divider"></div>
           <div class="pkg-items">
             <div class="pkg-item">Information architecture and page structure for all pages</div>
@@ -942,7 +933,7 @@
         <div class="pkg">
           <div class="pkg-num">02</div>
           <div class="pkg-title">Visual Design</div>
-          <div class="pkg-days">4 design days</br>Cal week 24/25</div>
+          <div class="pkg-days">4 design days<br>Cal week 24/25</div>
           <div class="pkg-divider"></div>
           <div class="pkg-items">
             <div class="pkg-item">High-fidelity design and visual language of the website</div>
@@ -953,7 +944,7 @@
         <div class="pkg">
           <div class="pkg-num">03</div>
           <div class="pkg-title">Webflow Build &amp; Launch</div>
-          <div class="pkg-days">4 design days</br>Cal week 26/27</div>
+          <div class="pkg-days">4 design days<br>Cal week 26/27</div>
           <div class="pkg-divider"></div>
           <div class="pkg-items">
             <div class="pkg-item">Full build in Webflow</div>
@@ -969,7 +960,7 @@
     </div>
   </div>
 
-  <!-- SLIDE 7: TOTAL + COSTS -->
+  <!-- SLIDE 7: TOTAL -->
   <div class="slide s-light theme-light" data-index="6">
     <div class="slide-inner">
       <div class="slide-header">

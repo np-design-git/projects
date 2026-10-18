@@ -1,0 +1,178 @@
+{
+  "slug": "desa-alam",
+  "title": "Desa Alam - Website Proposal",
+  "lang": "en",
+  "theme": {
+    "pageBackground": "#2D3B2A",
+    "light": {
+      "bgPrimary": "#F5F0E6",
+      "bgSecondary": "#E8DFD0",
+      "contentPrimary": "#1E1C1A",
+      "contentSecondary": "#3D4F38",
+      "contentSubtle": "#8C7B6E",
+      "borderPrimary": "#C8B89A",
+      "borderSecondary": "#D4C8B4"
+    },
+    "dark": {
+      "bgPrimary": "#2D3B2A",
+      "bgSecondary": "#1E2820",
+      "contentPrimary": "#F5F0E6",
+      "contentSecondary": "#C8B89A",
+      "contentSubtle": "#D6E0CE",
+      "borderPrimary": "#C8B89A",
+      "borderSecondary": "#3D4F38"
+    },
+    "fonts": {
+      "sans": {
+        "family": "Jost",
+        "google": "wght@200;300;400",
+        "fallback": "sans-serif"
+      },
+      "serif": {
+        "family": "Cormorant Garamond",
+        "google": "ital,wght@0,300;0,400;0,500;0,600;1,300;1,400",
+        "fallback": "serif"
+      }
+    }
+  },
+  "contact": {
+    "name": "Natalia Patiño",
+    "email": "hello@np.design",
+    "site": "https://np.design",
+    "siteLabel": "np.design"
+  },
+  "slides": [
+    {
+      "type": "cover",
+      "eyebrow": "Design Proposal · May 2026",
+      "title": "DESA ALAM",
+      "subtitle": [
+        "Investor-facing website",
+        "Design & Webflow Development"
+      ],
+      "logo": {
+        "src": "assets/desa-alam-logo.png",
+        "alt": "Desa Alam Hotel & Resort",
+        "width": 229,
+        "height": 180
+      }
+    },
+    {
+      "type": "overview",
+      "label": "Overview",
+      "title": "DESA ALAM Website",
+      "lede": "Proposal for the design and Webflow development of DESA ALAM's investor-facing website: a multi-page digital presence communicating the project vision, investment opportunity, and team behind a luxury resort development on Lombok, Indonesia."
+    },
+    {
+      "type": "cards",
+      "label": "Proposal",
+      "title": "Design Objectives",
+      "items": [
+        {
+          "title": "Silent Luxury",
+          "points": [
+            "Visual language in the spirit of Aman Resorts, editorial, calm, confident"
+          ]
+        },
+        {
+          "title": "Elevated Design",
+          "points": [
+            "A website that feels refined from day one, reflecting the ambition of the project."
+          ]
+        },
+        {
+          "title": "Selling with Confidence",
+          "points": [
+            "Let the project speak for itself. The investment opportunity is presented with elegance, not pressure."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "list",
+      "label": "Proposal",
+      "title": "Scope of Work",
+      "rows": [
+        { "key": "Home", "value": "Vision, sense of location, navigation into key sections" },
+        { "key": "The Investment", "value": "Opportunity overview, key metrics, investment structure, development timeline" },
+        { "key": "The Experience", "value": "Amenities, location, resort concept, lifestyle" },
+        { "key": "The Team", "value": "Developer profile, architecture studio, key team members, advisors" },
+        { "key": "Ready to Invest", "value": "Next steps, contact form" },
+        { "key": "FAQs", "value": "Answers to common questions" },
+        { "key": "Legal Pages", "value": "Privacy policy, imprint, etc." }
+      ]
+    },
+    {
+      "type": "list",
+      "label": "Proposal",
+      "title": "Scope Limitations",
+      "rows": [
+        { "key": "Language", "value": "English only: single language, no localization" },
+        { "key": "Content", "value": "Final copy, photography, and renders provided by the client. I advise on structure and content needs, and support with AI-generated imagery and copy drafts as needed." },
+        { "key": "SEO", "value": "Webflow outputs clean, fast, SEO-friendly code. Keyword strategy, content SEO, and ongoing optimisation are not included." },
+        { "key": "Analytics", "value": "Google Analytics can be connected via a simple embed at no extra cost. Event tracking, conversion funnels, and monitoring are not part of the scope." },
+        { "key": "Domain", "value": "The client is responsible for purchasing their own domain." },
+        { "key": "PDF Brochure", "value": "Design and layout of the downloadable PDF is not included in this scope, as the complexity and extent of the document is not yet defined. Depending on requirements, this can be scoped as a separate add-on." }
+      ]
+    },
+    {
+      "type": "process",
+      "label": "Proposal",
+      "title": "Design Process & Timeline",
+      "items": [
+        {
+          "title": "Concept & Structure",
+          "days": ["2 design days", "Cal week 23"],
+          "points": [
+            "Information architecture and page structure for all pages",
+            "Wireframe-level layouts",
+            "Content briefing: defining what copy, imagery, and assets are needed per page"
+          ]
+        },
+        {
+          "title": "Visual Design",
+          "days": ["4 design days", "Cal week 24/25"],
+          "points": [
+            "High-fidelity design and visual language of the website",
+            "Typography system, colour palette, UI components, spacing and layout (built on CI, logo and brand colours provided by client)",
+            "Desktop, tablet and mobile layouts"
+          ]
+        },
+        {
+          "title": "Webflow Build & Launch",
+          "days": ["4 design days", "Cal week 26/27"],
+          "points": [
+            "Full build in Webflow",
+            "Responsive implementation (desktop, tablet, mobile)",
+            "Pre-launch QA",
+            "Domain connection"
+          ]
+        }
+      ],
+      "launch": "Launch first week of July 2026 (assuming kick-off on June 1st)"
+    },
+    {
+      "type": "cost",
+      "label": "Proposal",
+      "title": "Total Cost",
+      "equation": "10 days × 800 EUR",
+      "amount": "8.000",
+      "currency": "EUR",
+      "hosting": {
+        "label": "Webflow hosting",
+        "rows": [
+          { "name": "Webflow Premium Plan", "value": "~$25 / month" }
+        ],
+        "disclaimer": "Indicative costs for orientation. Final hosting will depend on the site's actual needs."
+      }
+    },
+    {
+      "type": "closing",
+      "eyebrow": "DESA ALAM · Lombok",
+      "title": "Looking forward to hearing your thoughts.",
+      "subtitle": [
+        "Please reach out if you have any questions or if anything needs adjusting."
+      ]
+    }
+  ]
+}
