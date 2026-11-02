@@ -1,17 +1,17 @@
 {
   "slug": "ocumeda",
-  "title": "Ocumeda – Website-Update",
+  "title": "Ocumeda – Website-Restyling",
   "lang": "de",
   "noindex": true,
   "password": "q7n-w4ls",
   "theme": {
     "pageBackground": "#333D48",
     "light": {
-      "bgPrimary": "#EAF5FF",
-      "bgSecondary": "#FAFBF9",
+      "bgPrimary": "#FAFBF9",
+      "bgSecondary": "#EAF5FF",
       "contentPrimary": "#333D48",
       "contentSecondary": "#333D48",
-      "contentSubtle": "#5078FF",
+      "contentSubtle": "#333D48",
       "borderPrimary": "#5078FF",
       "borderSecondary": "#333D48"
     },
@@ -20,19 +20,19 @@
       "bgSecondary": "#333D48",
       "contentPrimary": "#FAFBF9",
       "contentSecondary": "#EAF5FF",
-      "contentSubtle": "#EAF5FF",
-      "borderPrimary": "#5078FF",
+      "contentSubtle": "#F5A624",
+      "borderPrimary": "#EAF5FF",
       "borderSecondary": "#EAF5FF"
     },
     "fonts": {
       "sans": {
-        "family": "Manrope",
-        "google": "wght@300;400;600",
+        "family": "Albert Sans",
+        "google": "ital,wght@0,300;0,500;1,300;1,500",
         "fallback": "sans-serif"
       },
       "serif": {
         "family": "Inria Serif",
-        "google": "ital,wght@0,300;0,400;1,300;1,400",
+        "google": "ital,wght@0,300;0,400;0,700;1,300;1,400",
         "fallback": "serif"
       }
     }
@@ -46,114 +46,123 @@
   "slides": [
     {
       "type": "cover",
-      "eyebrow": "Design Proposal · Entwurf",
+      "eyebrow": "Angebot",
       "title": "OCUMEDA",
       "subtitle": [
-        "Website-Update",
+        "Minimales Restyling",
         "Design und Framer"
-      ]
+      ],
+      "logo": {
+        "src": "assets/ocumeda-logo-light.svg",
+        "alt": "Ocumeda",
+        "width": 228,
+        "height": 60
+      }
     },
     {
       "type": "overview",
       "label": "Überblick",
       "title": "OCUMEDA Website",
-      "lede": "Vorschlag für die Aktualisierung der bestehenden OCUMEDA-Website: das neue Corporate Design wird auf die Site übertragen und in Framer umgesetzt."
+      "lede": "Angebot für das minimale Restyling der bestehenden OCUMEDA-Website in Framer. Das neue Corporate Design wird konsequent auf die Site übertragen: eine warme Medtech-Anmutung, eine klarere Storyline auf den Hauptseiten und Komponenten, die sich in Framer weiterpflegen lassen."
     },
     {
       "type": "cards",
-      "label": "Vorschlag",
+      "label": "Angebot",
       "title": "Ziele",
       "items": [
         {
-          "title": "Marke auf der Website",
+          "title": "Neues CI auf der Website",
           "points": [
-            "Logo, Farben und Schrift aus dem Brand Book."
+            "Farben, Typografie und Logo aus dem neuen Corporate Design, durchgängig auf der bestehenden Site."
           ]
         },
         {
-          "title": "Nahbar und klar",
+          "title": "Medtech mit Wärme",
           "points": [
-            "Echte Bildwelt, keine klinische Stock-Ästhetik."
+            "Eine nahbare Anmutung entlang der Richtung „Medtech, die Wärme ausstrahlt“."
           ]
         },
         {
-          "title": "Pflegbar in Framer",
+          "title": "Klar und pflegbar",
           "points": [
-            "Die Site kann nach dem Launch weitergeführt werden."
+            "Klarere Storyline auf Home, Ärzte, Optiker und Kunden. Die Komponenten bleiben in Framer pflegbar."
           ]
         }
       ]
     },
     {
       "type": "list",
-      "label": "Vorschlag",
+      "label": "Angebot",
       "title": "Leistungsumfang",
       "rows": [
-        { "key": "Bestandsaufnahme", "value": "Sichtung der bestehenden Website" },
-        { "key": "Visuelles Design", "value": "Übertragung des neuen Corporate Designs" },
-        { "key": "Aufbau in Framer", "value": "Umsetzung der Seiten in Framer" },
-        { "key": "Responsive Umsetzung", "value": "Desktop, Tablet und Mobile" },
-        { "key": "Inhalte", "value": "Struktur und Bedarf; finale Texte und Bilder folgen" },
-        { "key": "Launch", "value": "Veröffentlichung, sobald das Angebot steht" }
+        { "key": "CI-Review", "value": "Review des Corporate Designs und Feedback zu Storyline und Struktur" },
+        { "key": "UI-Styles", "value": "Farbpalette und Schriftskala" },
+        { "key": "Komponenten", "value": "Update und Erweiterung der bestehenden Framer-Komponenten; sie gelten danach für alle Seiten" },
+        { "key": "Grafik", "value": "Aktualisierung einzelner Grafiken mit den Halos von Ocumeda" },
+        { "key": "Hauptseiten", "value": "Inhaltsupdates auf Home, Ärzte, Optiker und Kunden" },
+        { "key": "QA", "value": "Prüfung über die Breakpoints. Das responsive Layout besteht bereits." }
       ]
     },
     {
       "type": "list",
-      "label": "Vorschlag",
+      "label": "Angebot",
       "title": "Nicht enthalten",
       "rows": [
-        { "key": "Sprache", "value": "Noch offen" },
-        { "key": "Inhalte", "value": "Finale Texte und Bilder stellt der Kunde" },
-        { "key": "SEO", "value": "Nicht enthalten" },
-        { "key": "Domain", "value": "Liegt beim Kunden" },
-        { "key": "Framer-Hosting", "value": "Separat, nicht Teil dieses Umfangs" }
+        { "key": "Animationen", "value": "Keine neuen Animationen" },
+        { "key": "Inhalte", "value": "Texte, Fotos und Halo-Grafiken stellt Ocumeda. Texterstellung und Bildproduktion sind nicht enthalten." },
+        { "key": "Übersetzungen", "value": "Keine Übersetzungen" },
+        { "key": "Seiten", "value": "Team, Karriere und Blog sind nicht enthalten. Standorte nur als Platzhalter." }
       ]
     },
     {
       "type": "process",
-      "label": "Vorschlag",
+      "label": "Angebot",
       "title": "Vorgehen",
       "items": [
         {
-          "title": "Sichtung und Struktur",
-          "days": ["Zeitplan folgt"],
+          "title": "Konzept",
+          "days": ["1 Tag"],
           "points": [
-            "Bestehende Website und Brand Book sichten",
-            "Seitenstruktur festlegen"
+            "Review des neuen Corporate Designs",
+            "Feedback zu Storyline und Struktur",
+            "Prüfung der Framer-Grenzen für SEO, CMS, Lokalisierung und Ladezeiten"
           ]
         },
         {
-          "title": "Design",
-          "days": ["Zeitplan folgt"],
+          "title": "Visual Design",
+          "days": ["3 Tage"],
           "points": [
-            "Visuelles Design auf Basis des Corporate Designs"
+            "UI-Styles: Farbpalette inklusive Zustände und Kontrast, Schriftskala",
+            "Komponentendesign",
+            "Grafiken mit den Halos und Fotos von Ocumeda"
           ]
         },
         {
-          "title": "Framer-Umsetzung und Launch",
-          "days": ["Zeitplan folgt"],
+          "title": "Implementierung & QA",
+          "days": ["3 Tage"],
           "points": [
-            "Aufbau in Framer",
-            "Responsive Umsetzung",
-            "Launch"
+            "Styles in Framer anlegen",
+            "Komponenten aktualisieren und erweitern",
+            "Inhalte auf den Hauptseiten aktualisieren",
+            "QA über Breakpoints und Sprachen"
           ]
         }
       ],
-      "launch": "Zeitplan folgt"
+      "launch": "Zeitplan nach Abstimmung. Abstimmungsgespräche sind in den Tagen enthalten."
     },
     {
       "type": "cost",
-      "label": "Vorschlag",
+      "label": "Angebot",
       "title": "Investition",
-      "equation": "Angebot folgt",
-      "amount": "offen",
-      "currency": "\u200b",
+      "equation": "7 Tage × 800 EUR",
+      "amount": "5.600",
+      "currency": "EUR",
       "hosting": {
         "label": "Framer-Hosting",
         "rows": [
-          { "name": "Hosting", "value": "folgt" }
+          { "name": "Bestehendes Hosting", "value": "unverändert" }
         ],
-        "disclaimer": "Hinweis folgt, sobald der Umfang feststeht."
+        "disclaimer": "Das bestehende Framer-Hosting bleibt, wie es ist, und ist nicht Teil dieses Angebots. Der Betrag versteht sich netto, ohne Rabatt."
       }
     },
     {
