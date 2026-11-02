@@ -12,6 +12,7 @@ For a new or updated pitch:
 - Edit `{slug}/pitch.json` and files in `{slug}/assets/` only.
 - Keep the eight slides in order: cover, overview, cards, list, list, process, cost, closing. Rows and cards inside a slide can be longer or shorter.
 - Put colors and the two Google Fonts in `theme`. Do not change spacing or type sizes.
+- Optional `password` adds a visual gate. Optional `noindex: true` adds a noindex tag. Omit both to leave a deck open and indexable.
 - Rebuild with `node scripts/build-pitch.js {slug}`.
 - Do not hand-edit `{slug}/index.html`.
 - Commit `{slug}/pitch.json`, `{slug}/assets/`, and the generated `{slug}/index.html`, then push `main`, only when asked to publish.

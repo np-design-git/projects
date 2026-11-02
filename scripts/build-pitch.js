@@ -76,6 +76,8 @@ function validatePitch(pitch, slug) {
   assert(pitch.slug === slug, `pitch.slug must match the folder name "${slug}"`);
   assertString(pitch.title, 'title');
   assert(pitch.lang === undefined || isNonEmptyString(pitch.lang), 'lang must be a language code');
+  assert(pitch.password === undefined || isNonEmptyString(pitch.password), 'password must be a non-empty string');
+  assert(pitch.noindex === undefined || typeof pitch.noindex === 'boolean', 'noindex must be true or false');
 
   assert(pitch.theme && typeof pitch.theme === 'object', 'theme is required');
   assertHex(pitch.theme.pageBackground, 'theme.pageBackground');
@@ -390,6 +392,104 @@ const RENDER = {
   closing: renderClosing,
 };
 
+function gate(pitch) {
+  if (!pitch.password) return { css: '', html: '', script: '', bodyClass: '' };
+  const password = JSON.stringify(pitch.password);
+  const storageKey = JSON.stringify(`pitch-unlock-${pitch.slug}`);
+  const css = `
+  #pitch-gate {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    background: ${pitch.theme.dark.bgPrimary};
+    color: ${pitch.theme.dark.contentPrimary};
+    font-family: var(--font-sans);
+    font-weight: 300;
+  }
+  #pitch-gate form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    width: min(100%, 320px);
+  }
+  #pitch-gate label {
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+  #pitch-gate input {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid ${pitch.theme.dark.borderPrimary};
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-size: 20px;
+    padding: 8px 0;
+    outline: none;
+  }
+  #pitch-gate button {
+    border: none;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 0;
+  }
+  body.is-locked .deck,
+  body.is-locked .nav {
+    display: none !important;
+  }
+`;
+  const html = `
+<div id="pitch-gate" role="dialog" aria-modal="true" aria-labelledby="pitch-gate-label">
+  <form id="pitch-gate-form">
+    <label id="pitch-gate-label" for="pitch-gate-input">Passwort</label>
+    <input id="pitch-gate-input" type="password" name="password" autocomplete="current-password" required>
+    <button type="submit">Öffnen</button>
+  </form>
+</div>
+`;
+  const script = `<script>
+(function () {
+  var password = ${password};
+  var key = ${storageKey};
+  var body = document.body;
+  var gate = document.getElementById('pitch-gate');
+  var form = document.getElementById('pitch-gate-form');
+  var input = document.getElementById('pitch-gate-input');
+  function unlock() {
+    body.classList.remove('is-locked');
+    if (gate) gate.remove();
+    try { sessionStorage.setItem(key, '1'); } catch (e) {}
+  }
+  try {
+    if (sessionStorage.getItem(key) === '1') {
+      unlock();
+      return;
+    }
+  } catch (e) {}
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    if (input.value === password) unlock();
+    else {
+      input.setAttribute('aria-invalid', 'true');
+      input.focus();
+    }
+  });
+})();
+</script>
+`;
+  return { css, html, script, bodyClass: ' class="is-locked"' };
+}
+
 function renderDocument(pitch, css, js) {
   const slides = pitch.slides.map((slide, index) => {
     const body = RENDER[slide.type](slide, pitch);
@@ -402,19 +502,21 @@ function renderDocument(pitch, css, js) {
   }).join('\n\n');
 
   const lang = esc(pitch.lang || 'en');
+  const lock = gate(pitch);
+  const robots = pitch.noindex ? '<meta name="robots" content="noindex, nofollow">\n' : '';
   return `<!DOCTYPE html>
 <html lang="${lang}">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${esc(pitch.title)}</title>
+${robots}<title>${esc(pitch.title)}</title>
 <style>
 ${themeCss(pitch.theme)}
-${css.trimEnd()}
+${lock.css}${css.trimEnd()}
 </style>
 </head>
-<body>
-
+<body${lock.bodyClass}>
+${lock.html}
 <!-- Generated from pitch.json. Edit pitch.json, then rebuild. -->
 <div class="deck" id="deck">
 
@@ -433,7 +535,7 @@ ${slides}
 <script>
 ${js.trimEnd()}
 </script>
-</body>
+${lock.script}</body>
 </html>
 `;
 }

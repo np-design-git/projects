@@ -13,6 +13,15 @@
     },
     "title": { "type": "string", "minLength": 1 },
     "lang": { "type": "string", "minLength": 1, "default": "en" },
+    "password": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Optional visual gate. Omit it to leave the deck open. The check runs in the browser, so the value is visible in the page source."
+    },
+    "noindex": {
+      "type": "boolean",
+      "description": "When true, the page asks search engines not to index it."
+    },
     "theme": {
       "type": "object",
       "additionalProperties": false,

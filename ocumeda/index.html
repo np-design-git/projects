@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Ocumeda – Website-Update</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Manrope:wght@300;400;600&display=swap');
+
+  :root {
+    --font-sans: 'Manrope', sans-serif;
+    --font-serif: 'Inria Serif', serif;
+    --page-background: #333D48;
+  }
+
+  .slide.theme-light {
+    --bg-primary: #EAF5FF;
+    --bg-secondary: #FAFBF9;
+    --content-primary: #333D48;
+    --content-secondary: #333D48;
+    --content-subtle: #5078FF;
+    --border-primary: #5078FF;
+    --border-secondary: #333D48;
+  }
+  .slide.theme-dark {
+    --bg-primary: #333D48;
+    --bg-secondary: #333D48;
+    --content-primary: #FAFBF9;
+    --content-secondary: #EAF5FF;
+    --content-subtle: #EAF5FF;
+    --border-primary: #5078FF;
+    --border-secondary: #EAF5FF;
+  }
+
+
+  #pitch-gate {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    background: #333D48;
+    color: #FAFBF9;
+    font-family: var(--font-sans);
+    font-weight: 300;
+  }
+  #pitch-gate form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    width: min(100%, 320px);
+  }
+  #pitch-gate label {
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+  #pitch-gate input {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #5078FF;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-size: 20px;
+    padding: 8px 0;
+    outline: none;
+  }
+  #pitch-gate button {
+    border: none;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 0;
+  }
+  body.is-locked .deck,
+  body.is-locked .nav {
+    display: none !important;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* Theme tokens are injected above this file by scripts/build-pitch.js */
+  :root {
+    /* Nav-only transparency */
+    --nav-white: #FFFFFF;
+    --nav-black: #000000;
+    --nav-alpha-strong: 0.72;
+    --nav-alpha-weak: 0.14;
+    /* Spacing (8px grid) */
+    --space-4: 4px;
+    --space-8: 8px;
+    --space-12: 12px;
+    --space-16: 16px;
+    --space-24: 24px;
+    --space-32: 32px;
+    --space-40: 40px;
+    --space-48: 48px;
+    --space-56: 56px;
+    --space-64: 64px;
+    --space-72: 72px;
+    --space-80: 80px;
+    --space-96: 96px;
+    --space-120: 120px;
+    --space-144: 144px;
+    --space-168: 168px;
+    --inset-slide-x: clamp(var(--space-32), 6vw, var(--space-96));
+    --inset-slide-y: clamp(var(--space-40), 5vh, var(--space-80));
+    --gap-section: clamp(var(--space-24), 2vh, var(--space-40));
+    /* Fixed bottom nav: offset from viewport + pill height + safe area */
+    --nav-overlap: calc(var(--space-32) + var(--space-80) + env(safe-area-inset-bottom, 0px));
+    /* Typography (subset, fluid; display+headline+label 1.4, body 1.6); min 12px for text tiers */
+    --text-display-lg: clamp(40px, 5.5vw, 72px);
+    --text-display-numeric: clamp(52px, 7vw, 96px);
+    --text-display-md: clamp(32px, 3.25vw + 1rem, 56px);
+    --text-headline-lg: clamp(28px, 3vw + 0.75rem, 68px);
+    --text-headline-md: clamp(32px, 2.5vw + 0.65rem, 52px);
+    --text-headline-sm: clamp(18px, 1.5vw + 0.7rem, 36px);
+    --text-body-intro: clamp(16px, 1.25vw + 0.55rem, 34px);
+    --text-body-md: clamp(12px, 0.5vw + 0.75rem, 20px);
+    --text-body-sm: clamp(12px, 0.4vw + 0.65rem, 17px);
+    --text-label: clamp(12px, 0.28vw + 0.58rem, 16px);
+    --text-label-caps: clamp(12px, 0.22vw + 0.52rem, 14px);
+    --text-name: clamp(18px, 1.35vw + 0.55rem, 28px);
+    --text-serif-accent: clamp(14px, 1.35vw + 0.55rem, 24px);
+  }
+
+
+  html, body {
+    width: 100%; height: 100%;
+    background: var(--page-background);
+    font-family: var(--font-sans);
+    font-weight: 300;
+    overflow: hidden;
+  }
+
+  .deck {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    position: relative;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    display: none;
+    flex-direction: column;
+    background: var(--bg-primary);
+    color: var(--content-primary);
+  }
+  .slide.active {
+    display: flex;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #deck > .slide.s-cover.active {
+    left: unset;
+    top: unset;
+  }
+
+  /* NAV — neutral only; alpha allowed here only */
+  .nav {
+    position: fixed;
+    bottom: var(--space-32); left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: var(--space-24);
+    z-index: 100;
+    backdrop-filter: blur(8px);
+    padding: var(--space-8) var(--space-24);
+    border-radius: var(--space-40);
+    transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.28s ease;
+  }
+  .nav.nav--hidden {
+    transform: translateX(-50%) translateY(calc(100% + var(--space-32) + env(safe-area-inset-bottom, 0px)));
+    opacity: 0;
+    pointer-events: none;
+  }
+  .nav.appearance-on-light {
+    background: rgba(0, 0, 0, 0.6);
+  }
+  .nav.appearance-on-light button {
+    color: var(--nav-white);
+  }
+  .nav.appearance-on-light button:hover { color: var(--nav-white); opacity: 0.85; }
+  .nav.appearance-on-light .slide-count { color: rgba(255, 255, 255, 0.55); }
+  .nav.appearance-on-light .dot { background: rgba(255, 255, 255, 0.35); }
+  .nav.appearance-on-light .dot.active { background: var(--nav-white); }
+
+  .nav.appearance-on-dark {
+    background: rgba(255, 255, 255, 0.6);
+  }
+  .nav.appearance-on-dark button {
+    color: var(--nav-black);
+  }
+  .nav.appearance-on-dark button:hover { opacity: 0.75; }
+  .nav.appearance-on-dark .slide-count { color: rgba(0, 0, 0, 0.5); }
+  .nav.appearance-on-dark .dot { background: rgba(0, 0, 0, 0.25); }
+  .nav.appearance-on-dark .dot.active { background: var(--nav-black); }
+
+  .nav button {
+    background: none; border: none;
+    font-family: var(--font-sans);
+    font-size: var(--text-label);
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: var(--space-4) var(--space-8);
+    transition: color 0.2s, opacity 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-4);
+  }
+  .nav-btn-arrow {
+    line-height: 1;
+  }
+  .nav-btn-text {
+    line-height: 1.2;
+  }
+  .nav-dots {
+    display: flex; gap: var(--space-8); align-items: center;
+  }
+  .dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    transition: background 0.3s, transform 0.3s;
+    cursor: pointer;
+  }
+  .dot.active { transform: scale(1.4); }
+  .slide-count {
+    font-size: var(--text-label-caps);
+    letter-spacing: 0.1em;
+    min-width: var(--space-40);
+    text-align: center;
+  }
+
+  /* SLIDE 1 — COVER */
+  .s-cover {
+    justify-content: center;
+    justify-content: safe center;
+    align-items: flex-start;
+    padding-top: var(--inset-slide-y);
+    padding-bottom: calc(var(--inset-slide-y) + var(--nav-overlap));
+    padding-left: var(--inset-slide-x);
+    padding-right: var(--inset-slide-x);
+  }
+  .s-cover .eyebrow {
+    font-family: var(--font-sans);
+    font-size: var(--text-label-caps);
+    font-weight: 300;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--content-secondary);
+    margin-bottom: var(--gap-section);
+    line-height: 1.4;
+  }
+  .s-cover h1 {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: var(--text-display-lg);
+    color: var(--content-primary);
+    line-height: 1.4;
+    letter-spacing: 0px;
+    margin-bottom: var(--space-24);
+  }
+  .s-cover h1.cover-brand-title {
+    letter-spacing: 4px;
+  }
+  .s-cover h1 em {
+    font-style: italic;
+    color: var(--content-secondary);
+  }
+  .s-cover .subtitle {
+    font-size: var(--text-body-md);
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    color: var(--content-secondary);
+    text-transform: uppercase;
+    margin-bottom: var(--space-48);
+    max-width: 1000px;
+    line-height: 1.6;
+  }
+  .cover-line {
+    width: var(--space-48); height: 1px;
+    background: var(--border-primary);
+    margin-bottom: var(--gap-section);
+  }
+  .cover-meta {
+    font-size: var(--text-label);
+    letter-spacing: 0.1em;
+    color: var(--content-subtle);
+    line-height: 1.6;
+  }
+  .cover-meta a { color: var(--content-secondary); text-decoration: none; }
+  .cover-meta a:hover { color: var(--content-primary); }
+  .cover-ornament {
+    position: absolute;
+    right: var(--inset-slide-x); bottom: calc(var(--space-80) + 40px);
+    display: block;
+    max-width: min(229px, 28vw);
+    min-width: 150px;
+    min-height: 56px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    mix-blend-mode: lighten;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* SHARED SLIDE LAYOUTS — surface from theme */
+  .s-light {}
+  .s-dark {}
+  .s-sand {}
+  .s-green {}
+  .s-dark-green {}
+
+  .slide-inner {
+    flex: 1 1 auto;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-content: safe center;
+    padding-top: var(--inset-slide-y);
+    padding-left: var(--inset-slide-x);
+    padding-right: var(--inset-slide-x);
+    padding-bottom: calc(var(--inset-slide-y) + var(--nav-overlap));
+  }
+
+  .slide-header {
+    margin-bottom: var(--gap-section);
+  }
+
+  .section-label {
+    font-size: var(--text-label-caps);
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-16);
+    color: var(--content-secondary);
+    line-height: 1.4;
+  }
+
+  .slide-title {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    line-height: 1.4;
+    letter-spacing: 0;
+    color: var(--content-primary);
+  }
+  .title-lg { font-size: var(--text-headline-lg); }
+  .title-md { font-size: var(--text-headline-md); }
+
+  .lede {
+    font-family: var(--font-serif);
+    font-size: var(--text-body-intro);
+    font-weight: 300;
+    color: var(--content-primary);
+    line-height: 1.6;
+    letter-spacing: 0.01em;
+    max-width: 1000px;
+  }
+  .lede-rule {
+    width: var(--space-40);
+    height: 1px;
+    background: var(--border-primary);
+    margin: var(--space-32) 0;
+  }
+
+  /* LIMITATIONS SLIDE */
+  .limits-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding-bottom: 96px;
+  }
+  .limit-row {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-24);
+    padding: var(--space-16) 0;
+    border-bottom: 1px solid var(--border-secondary);
+  }
+  .limit-row:first-child { border-top: 1px solid var(--border-secondary); }
+  .limit-row--noborder {
+    border-bottom: none;
+    padding-bottom: 16px;
+  }
+  .limit-key {
+    font-size: var(--text-label-caps);
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--content-primary);
+    min-width: 144px;
+    padding-top: 2px;
+    flex-shrink: 0;
+    line-height: 1.4;
+  }
+  .limit-val {
+    font-size: var(--text-body-sm);
+    font-weight: 300;
+    color: var(--content-secondary);
+    line-height: 1.6;
+    letter-spacing: 0.02em;
+  }
+
+  /* PACKAGES SLIDE */
+  .packages-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: var(--space-8);
+  }
+  .packages-grid--bottompad {
+    padding-bottom: 96px;
+  }
+  .packages-grid:has(> .pkg > .pkg-days) {
+    grid-template-rows: auto auto auto auto 1fr;
+  }
+  .packages-grid:has(> .pkg > .pkg-days) > .pkg {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 5;
+    min-height: 0;
+  }
+  .packages-grid:not(:has(> .pkg > .pkg-days)) {
+    grid-template-rows: auto auto auto 1fr;
+  }
+  .packages-grid:not(:has(> .pkg > .pkg-days)) > .pkg {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 4;
+    min-height: 0;
+  }
+  .pkg {
+    padding: var(--space-32) var(--space-24);
+    background: var(--bg-secondary);
+    color: var(--content-primary);
+  }
+  .pkg-num {
+    font-family: var(--font-serif);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    margin-bottom: var(--gap-section);
+    color: var(--content-subtle);
+    line-height: 1.4;
+  }
+  .pkg-title {
+    font-family: var(--font-serif);
+    font-size: var(--text-headline-sm);
+    font-weight: 400;
+    line-height: 1.4;
+    margin-bottom: var(--space-24);
+    color: var(--content-primary);
+    align-self: center;
+  }
+  .pkg-days {
+    font-size: var(--text-label-caps);
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-24);
+    color: var(--content-subtle);
+    line-height: 1.4;
+  }
+  .pkg-divider {
+    height: 1px;
+    margin-bottom: var(--space-24);
+    background: var(--border-primary);
+  }
+  .pkg-items {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+    flex: 1;
+    min-height: 0;
+    color: var(--content-subtle);
+  }
+  .pkg-item {
+    font-size: var(--text-body-sm);
+    font-weight: 300;
+    line-height: 1.6;
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-8);
+    color: var(--content-secondary);
+  }
+  .pkg-item::before {
+    content: '';
+    display: block;
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    margin-top: calc((1.6em - 4px) / 2);
+    flex-shrink: 0;
+    background: var(--border-primary);
+  }
+  .pkg-items > .pkg-item:only-child::before {
+    display: none;
+  }
+
+  /* TOTAL SLIDE */
+  .total-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-48);
+    align-items: center;
+  }
+  .total-left {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+  .total-equation {
+    font-size: var(--text-label-caps);
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--content-subtle);
+    margin-bottom: 0;
+    line-height: 1.4;
+  }
+  .total-amount {
+    font-family: var(--font-serif);
+    font-size: var(--text-display-numeric);
+    font-weight: 300;
+    color: var(--content-primary);
+    line-height: 1;
+    letter-spacing: 0;
+    margin-bottom: var(--gap-section);
+  }
+  .total-amount .currency {
+    font-size: min(26px, max(12px, 0.45em));
+    color: var(--content-subtle);
+    margin-left: var(--space-4);
+  }
+  .total-note {
+    font-size: var(--text-label);
+    font-weight: 300;
+    color: var(--content-subtle);
+    line-height: 1.6;
+    font-style: italic;
+    max-width: 340px;
+  }
+  .total-right {
+    border-left: 1px solid var(--border-primary);
+    padding-left: var(--space-48);
+  }
+  .costs-label {
+    font-size: var(--text-label-caps);
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--content-subtle);
+    margin-bottom: var(--space-24);
+    line-height: 1.4;
+  }
+  .cost-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: var(--space-16) 0;
+    border-bottom: none;
+    gap: var(--space-8);
+  }
+  .cost-key {
+    font-size: var(--text-label);
+    font-weight: 300;
+    color: var(--content-primary);
+    letter-spacing: 0.03em;
+    line-height: 1.6;
+  }
+  .cost-key strong {
+    display: block;
+    font-weight: 400;
+    font-size: var(--text-body-sm);
+    margin-bottom: 2px;
+    line-height: 1.4;
+  }
+  .cost-val {
+    font-size: var(--text-body-sm);
+    font-weight: 400;
+    color: var(--content-primary);
+    letter-spacing: 0.03em;
+    line-height: 1.4;
+    white-space: nowrap;
+    text-align: right;
+  }
+  .costs-disclaimer {
+    font-size: var(--text-label);
+    font-weight: 400;
+    color: var(--content-subtle);
+    font-style: italic;
+    line-height: 1.6;
+    margin-top: var(--space-12);
+    max-width: 340px;
+  }
+  .cost-tag {
+    font-size: var(--text-label-caps);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--content-secondary);
+    padding: 2px var(--space-8);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--space-40);
+    margin-right: var(--space-4);
+    line-height: 1.4;
+  }
+
+  /* TIMELINE */
+  .tl-launch {
+    margin-top: var(--space-40);
+    margin-bottom: 0;
+    padding-top: var(--gap-section);
+    padding-bottom: 104px;
+    border-top: 1px solid var(--border-secondary);
+    font-size: var(--text-body-sm);
+    font-weight: 300;
+    color: var(--content-subtle);
+    letter-spacing: 0.05em;
+    line-height: 1.6;
+  }
+  .tl-launch strong {
+    font-weight: 400;
+    color: var(--content-primary);
+    font-family: var(--font-serif);
+    font-size: var(--text-serif-accent);
+    line-height: 1.4;
+  }
+
+  .slide-inner--bottompad {
+    padding-bottom: calc(var(--gap-section) + var(--nav-overlap));
+  }
+
+  /* —— Responsive: package slides (three-box grid) at 568px; other slides at 480px; tablet keeps desktop layouts —— */
+  @media (max-width: 568px) {
+    .packages-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+    }
+    .packages-grid:has(> .pkg > .pkg-days),
+    .packages-grid:not(:has(> .pkg > .pkg-days)) {
+      grid-template-rows: unset;
+    }
+    .packages-grid:has(> .pkg > .pkg-days) > .pkg,
+    .packages-grid:not(:has(> .pkg > .pkg-days)) > .pkg {
+      display: flex;
+      flex-direction: column;
+      grid-row: auto;
+      grid-template-rows: unset;
+      min-height: unset;
+    }
+    .pkg {
+      padding: var(--space-24) var(--space-16);
+    }
+    .pkg .pkg-title {
+      align-self: stretch;
+    }
+    .slide-inner:has(.packages-grid) {
+      padding-left: max(var(--space-32), env(safe-area-inset-left, 0px));
+      padding-right: max(var(--space-32), env(safe-area-inset-right, 0px));
+    }
+  }
+
+  @media (max-width: 480px) {
+    .limit-row {
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--space-8);
+    }
+    .limit-key {
+      max-width: none;
+      flex: none;
+      min-width: 0;
+      padding-top: 0;
+    }
+    .limit-val {
+      flex: none;
+      min-width: 0;
+    }
+    .total-layout {
+      grid-template-columns: 1fr;
+      gap: var(--gap-section);
+      align-items: stretch;
+    }
+    .total-layout > * {
+      min-width: 0;
+    }
+    .total-right {
+      border-left: none;
+      padding-left: 0;
+      border-top: 1px solid var(--border-primary);
+      padding-top: var(--gap-section);
+    }
+    .total-note {
+      max-width: none;
+    }
+    .costs-disclaimer {
+      max-width: none;
+    }
+    .cost-row {
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--space-8);
+    }
+    .cost-val {
+      white-space: normal;
+      text-align: start;
+      align-self: flex-start;
+    }
+    .slide-inner:has(.limits-list),
+    .slide-inner:has(.total-layout) {
+      padding-left: max(var(--space-32), env(safe-area-inset-left, 0px));
+      padding-right: max(var(--space-32), env(safe-area-inset-right, 0px));
+    }
+    .nav {
+      padding-left: var(--space-12);
+      padding-right: var(--space-12);
+    }
+  }
+
+  /* —— Print / Save as PDF (1280×832px, no pagination bar) —— */
+  @page {
+    size: 1280px 832px;
+    margin: 0;
+  }
+
+  @media print {
+    :root {
+      --nav-overlap: 0px;
+    }
+
+    html, body {
+      overflow: visible !important;
+      height: auto !important;
+      width: 100%;
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+
+    .nav {
+      display: none !important;
+    }
+
+    .deck {
+      position: static;
+      width: 100%;
+      height: auto;
+      min-height: 0;
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+
+    .slide {
+      position: relative !important;
+      inset: auto !important;
+      left: auto !important;
+      top: auto !important;
+      right: auto !important;
+      bottom: auto !important;
+      width: 100% !important;
+      min-height: 832px;
+      height: auto;
+      max-height: none;
+      display: flex !important;
+      flex-direction: column !important;
+      overflow: visible !important;
+      page-break-after: always;
+      break-after: page;
+      page-break-inside: avoid;
+      break-inside: avoid;
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+
+    .slide:last-child {
+      page-break-after: auto;
+      break-after: auto;
+    }
+
+    .slide.active {
+      overflow: visible !important;
+    }
+
+    #deck > .slide.s-cover.active {
+      left: auto !important;
+      top: auto !important;
+    }
+
+    .limits-list,
+    .tl-launch {
+      padding-bottom: 0 !important;
+    }
+  }
+</style>
+</head>
+<body class="is-locked">
+
+<div id="pitch-gate" role="dialog" aria-modal="true" aria-labelledby="pitch-gate-label">
+  <form id="pitch-gate-form">
+    <label id="pitch-gate-label" for="pitch-gate-input">Passwort</label>
+    <input id="pitch-gate-input" type="password" name="password" autocomplete="current-password" required>
+    <button type="submit">Öffnen</button>
+  </form>
+</div>
+
+<!-- Generated from pitch.json. Edit pitch.json, then rebuild. -->
+<div class="deck" id="deck">
+
+  <!-- SLIDE 1: COVER -->
+  <div class="slide s-cover theme-dark active" data-index="0">
+    <div class="eyebrow">Design Proposal · Entwurf</div>
+    <h1 class="cover-brand-title">OCUMEDA</h1>
+    <div class="subtitle">
+      Website-Update<br>
+      Design und Framer
+    </div>
+    <div class="cover-line"></div>
+    <div class="cover-meta">
+      Natalia Patiño<br>
+      <a href="mailto:hello@np.design">hello@np.design</a><br>
+      <a href="https://np.design">np.design</a>
+    </div>
+  </div>
+
+  <!-- SLIDE 2: OVERVIEW -->
+  <div class="slide s-light theme-light" data-index="1">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="section-label">Überblick</div>
+        <h2 class="slide-title title-lg">OCUMEDA Website</h2>
+      </div>
+      <div>
+        <p class="lede">
+          Vorschlag für die Aktualisierung der bestehenden OCUMEDA-Website: das neue Corporate Design wird auf die Site übertragen und in Framer umgesetzt.
+        </p>
+        <div class="lede-rule"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: OBJECTIVES -->
+  <div class="slide s-light theme-light" data-index="2">
+    <div class="slide-inner slide-inner--bottompad">
+      <div class="slide-header">
+        <div class="section-label">Vorschlag</div>
+        <h2 class="slide-title title-md">Ziele</h2>
+      </div>
+      <div class="packages-grid packages-grid--bottompad">
+        <div class="pkg">
+          <div class="pkg-num">01</div>
+          <div class="pkg-title">Marke auf der Website</div>
+          <div class="pkg-divider"></div>
+          <div class="pkg-items">
+            <div class="pkg-item">Logo, Farben und Schrift aus dem Brand Book.</div>
+          </div>
+        </div>
+        <div class="pkg">
+          <div class="pkg-num">02</div>
+          <div class="pkg-title">Nahbar und klar</div>
+          <div class="pkg-divider"></div>
+          <div class="pkg-items">
+            <div class="pkg-item">Echte Bildwelt, keine klinische Stock-Ästhetik.</div>
+          </div>
+        </div>
+        <div class="pkg">
+          <div class="pkg-num">03</div>
+          <div class="pkg-title">Pflegbar in Framer</div>
+          <div class="pkg-divider"></div>
+          <div class="pkg-items">
+            <div class="pkg-item">Die Site kann nach dem Launch weitergeführt werden.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: SCOPE -->
+  <div class="slide s-light theme-light" data-index="3">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="section-label">Vorschlag</div>
+        <h2 class="slide-title title-md">Leistungsumfang</h2>
+      </div>
+      <div class="limits-list">
+        <div class="limit-row">
+          <div class="limit-key">Bestandsaufnahme</div>
+          <div class="limit-val">Sichtung der bestehenden Website</div>
+        </div>
+        <div class="limit-row">
+          <div class="limit-key">Visuelles Design</div>
+          <div class="limit-val">Übertragung des neuen Corporate Designs</div>
+        </div>
+        <div class="limit-row">
+          <div class="limit-key">Aufbau in Framer</div>
+          <div class="limit-val">Umsetzung der Seiten in Framer</div>
+        </div>
+        <div class="limit-row">
+          <div class="limit-key">Responsive Umsetzung</div>
+          <div class="limit-val">Desktop, Tablet und Mobile</div>
+        </div>
+        <div class="limit-row">
+          <div class="limit-key">Inhalte</div>
+          <div class="limit-val">Struktur und Bedarf; finale Texte und Bilder folgen</div>
+        </div>
+        <div class="limit-row limit-row--noborder">
+          <div class="limit-key">Launch</div>
+          <div class="limit-val">Veröffentlichung, sobald das Angebot steht</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: LIMITATIONS -->
+  <div class="slide s-dark-green theme-dark" data-index="4">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="section-label">Vorschlag</div>
+        <h2 class="slide-title title-md">Nicht enthalten</h2>
+      </div>
+      <div class="limits-list">
+        <div class="limit-row">
+          <div class="limit-key">Sprache</div>
+          <div class="limit-val">Noch offen</div>
+        </div>
+        <div class="limit-row">
+          <div class="limit-key">Inhalte</div>
+          <div class="limit-val">Finale Texte und Bilder stellt der Kunde</div>
+        </div>
+        <div class="limit-row">
+          <div class="limit-key">SEO</div>
+          <div class="limit-val">Nicht enthalten</div>
+        </div>
+        <div class="limit-row">
+          <div class="limit-key">Domain</div>
+          <div class="limit-val">Liegt beim Kunden</div>
+        </div>
+        <div class="limit-row limit-row--noborder">
+          <div class="limit-key">Framer-Hosting</div>
+          <div class="limit-val">Separat, nicht Teil dieses Umfangs</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 6: PROCESS -->
+  <div class="slide s-light theme-light" data-index="5">
+    <div class="slide-inner slide-inner--bottompad">
+      <div class="slide-header">
+        <div class="section-label">Vorschlag</div>
+        <h2 class="slide-title title-md">Vorgehen</h2>
+      </div>
+      <div class="packages-grid">
+        <div class="pkg">
+          <div class="pkg-num">01</div>
+          <div class="pkg-title">Sichtung und Struktur</div>
+          <div class="pkg-days">Zeitplan folgt</div>
+          <div class="pkg-divider"></div>
+          <div class="pkg-items">
+            <div class="pkg-item">Bestehende Website und Brand Book sichten</div>
+            <div class="pkg-item">Seitenstruktur festlegen</div>
+          </div>
+        </div>
+        <div class="pkg">
+          <div class="pkg-num">02</div>
+          <div class="pkg-title">Design</div>
+          <div class="pkg-days">Zeitplan folgt</div>
+          <div class="pkg-divider"></div>
+          <div class="pkg-items">
+            <div class="pkg-item">Visuelles Design auf Basis des Corporate Designs</div>
+          </div>
+        </div>
+        <div class="pkg">
+          <div class="pkg-num">03</div>
+          <div class="pkg-title">Framer-Umsetzung und Launch</div>
+          <div class="pkg-days">Zeitplan folgt</div>
+          <div class="pkg-divider"></div>
+          <div class="pkg-items">
+            <div class="pkg-item">Aufbau in Framer</div>
+            <div class="pkg-item">Responsive Umsetzung</div>
+            <div class="pkg-item">Launch</div>
+          </div>
+        </div>
+      </div>
+      <div class="tl-launch">
+        Zeitplan folgt
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 7: TOTAL -->
+  <div class="slide s-light theme-light" data-index="6">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="section-label">Vorschlag</div>
+        <h2 class="slide-title title-md">Investition</h2>
+      </div>
+      <div class="total-layout">
+        <div class="total-left">
+          <div class="total-equation">Angebot folgt</div>
+          <div class="total-amount">offen<span class="currency">​</span></div>
+        </div>
+        <div class="total-right">
+          <div class="costs-label">Framer-Hosting</div>
+          <div class="cost-row">
+            <div class="cost-key">
+              <strong>Hosting</strong>
+            </div>
+            <div class="cost-val">folgt</div>
+          </div>
+          <div class="costs-disclaimer">
+            Hinweis folgt, sobald der Umfang feststeht.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 8: CLOSING -->
+  <div class="slide s-cover theme-dark" data-index="7">
+    <div class="eyebrow">OCUMEDA</div>
+    <h1>Ich freue mich auf Ihre Rückmeldung.</h1>
+    <div class="subtitle">
+      Gern passe ich Umfang und Konditionen an.
+    </div>
+    <div class="cover-line"></div>
+    <div class="cover-meta">
+      Natalia Patiño<br>
+      <a href="mailto:hello@np.design">hello@np.design</a><br>
+      <a href="https://np.design">np.design</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- NAV -->
+<nav class="nav appearance-on-dark" role="navigation" aria-label="Slide navigation">
+  <button type="button" onclick="go(-1)" aria-label="Previous slide"><span class="nav-btn-arrow" aria-hidden="true">←</span><span class="nav-btn-text">Prev</span></button>
+  <div class="nav-dots" id="dots"></div>
+  <button type="button" onclick="go(1)" aria-label="Next slide"><span class="nav-btn-arrow" aria-hidden="true">→</span><span class="nav-btn-text">Next</span></button>
+  <span class="slide-count" id="count"></span>
+</nav>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const dotsEl = document.getElementById('dots');
+const countEl = document.getElementById('count');
+const navEl = document.querySelector('.nav');
+let cur = 0;
+const total = slides.length;
+
+const SCROLL_DIR_THRESHOLD = 6;
+const SCROLL_HIDE_MIN = 28;
+let lastSlideScrollTop = 0;
+let navTouchStart = null;
+
+function showNav() {
+  if (navEl) navEl.classList.remove('nav--hidden');
+}
+
+function hideNav() {
+  if (navEl) navEl.classList.add('nav--hidden');
+}
+
+function onSlideScroll(e) {
+  const el = e.currentTarget;
+  const st = el.scrollTop;
+  const dy = st - lastSlideScrollTop;
+  if (Math.abs(dy) < SCROLL_DIR_THRESHOLD) {
+    lastSlideScrollTop = st;
+    return;
+  }
+  if (dy > 0 && st > SCROLL_HIDE_MIN) hideNav();
+  else if (dy < 0) showNav();
+  lastSlideScrollTop = st;
+}
+
+function bindActiveSlideScroll() {
+  slides.forEach((s) => s.removeEventListener('scroll', onSlideScroll));
+  const active = document.querySelector('.slide.active');
+  if (active) {
+    lastSlideScrollTop = active.scrollTop;
+    active.addEventListener('scroll', onSlideScroll, { passive: true });
+  }
+}
+
+document.addEventListener('click', (e) => {
+  if (!navEl || navEl.contains(e.target)) return;
+  showNav();
+});
+
+document.addEventListener('touchstart', (e) => {
+  if (e.touches.length !== 1) return;
+  const t = e.touches[0];
+  navTouchStart = { x: t.clientX, y: t.clientY };
+}, { passive: true });
+
+document.addEventListener('touchend', (e) => {
+  if (!navTouchStart || !navEl || !e.changedTouches.length) return;
+  const t = e.changedTouches[0];
+  const dx = Math.abs(t.clientX - navTouchStart.x);
+  const dy = Math.abs(t.clientY - navTouchStart.y);
+  navTouchStart = null;
+  if (dx > 22 || dy > 22) return;
+  if (!navEl.contains(t.target)) showNav();
+}, { passive: true });
+
+slides.forEach((_, i) => {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i === 0 ? ' active' : '');
+  d.onclick = () => goTo(i);
+  dotsEl.appendChild(d);
+});
+
+function updateNavAppearance() {
+  if (!navEl) return;
+  const active = document.querySelector('.slide.active');
+  navEl.classList.remove('appearance-on-light', 'appearance-on-dark');
+  if (active && active.classList.contains('theme-light')) {
+    navEl.classList.add('appearance-on-light');
+  } else {
+    navEl.classList.add('appearance-on-dark');
+  }
+}
+
+function goTo(n) {
+  slides[cur].classList.remove('active');
+  dotsEl.children[cur].classList.remove('active');
+  cur = Math.max(0, Math.min(total - 1, n));
+  slides[cur].classList.add('active');
+  dotsEl.children[cur].classList.add('active');
+  countEl.textContent = (cur + 1) + ' / ' + total;
+  updateNavAppearance();
+  showNav();
+  bindActiveSlideScroll();
+}
+
+function go(dir) { goTo(cur + dir); }
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(1);
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') go(-1);
+});
+
+goTo(0);
+</script>
+<script>
+(function () {
+  var password = "q7n-w4ls";
+  var key = "pitch-unlock-ocumeda";
+  var body = document.body;
+  var gate = document.getElementById('pitch-gate');
+  var form = document.getElementById('pitch-gate-form');
+  var input = document.getElementById('pitch-gate-input');
+  function unlock() {
+    body.classList.remove('is-locked');
+    if (gate) gate.remove();
+    try { sessionStorage.setItem(key, '1'); } catch (e) {}
+  }
+  try {
+    if (sessionStorage.getItem(key) === '1') {
+      unlock();
+      return;
+    }
+  } catch (e) {}
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    if (input.value === password) unlock();
+    else {
+      input.setAttribute('aria-invalid', 'true');
+      input.focus();
+    }
+  });
+})();
+</script>
+</body>
+</html>

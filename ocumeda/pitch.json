@@ -1,0 +1,168 @@
+{
+  "slug": "ocumeda",
+  "title": "Ocumeda – Website-Update",
+  "lang": "de",
+  "noindex": true,
+  "password": "q7n-w4ls",
+  "theme": {
+    "pageBackground": "#333D48",
+    "light": {
+      "bgPrimary": "#EAF5FF",
+      "bgSecondary": "#FAFBF9",
+      "contentPrimary": "#333D48",
+      "contentSecondary": "#333D48",
+      "contentSubtle": "#5078FF",
+      "borderPrimary": "#5078FF",
+      "borderSecondary": "#333D48"
+    },
+    "dark": {
+      "bgPrimary": "#333D48",
+      "bgSecondary": "#333D48",
+      "contentPrimary": "#FAFBF9",
+      "contentSecondary": "#EAF5FF",
+      "contentSubtle": "#EAF5FF",
+      "borderPrimary": "#5078FF",
+      "borderSecondary": "#EAF5FF"
+    },
+    "fonts": {
+      "sans": {
+        "family": "Manrope",
+        "google": "wght@300;400;600",
+        "fallback": "sans-serif"
+      },
+      "serif": {
+        "family": "Inria Serif",
+        "google": "ital,wght@0,300;0,400;1,300;1,400",
+        "fallback": "serif"
+      }
+    }
+  },
+  "contact": {
+    "name": "Natalia Patiño",
+    "email": "hello@np.design",
+    "site": "https://np.design",
+    "siteLabel": "np.design"
+  },
+  "slides": [
+    {
+      "type": "cover",
+      "eyebrow": "Design Proposal · Entwurf",
+      "title": "OCUMEDA",
+      "subtitle": [
+        "Website-Update",
+        "Design und Framer"
+      ]
+    },
+    {
+      "type": "overview",
+      "label": "Überblick",
+      "title": "OCUMEDA Website",
+      "lede": "Vorschlag für die Aktualisierung der bestehenden OCUMEDA-Website: das neue Corporate Design wird auf die Site übertragen und in Framer umgesetzt."
+    },
+    {
+      "type": "cards",
+      "label": "Vorschlag",
+      "title": "Ziele",
+      "items": [
+        {
+          "title": "Marke auf der Website",
+          "points": [
+            "Logo, Farben und Schrift aus dem Brand Book."
+          ]
+        },
+        {
+          "title": "Nahbar und klar",
+          "points": [
+            "Echte Bildwelt, keine klinische Stock-Ästhetik."
+          ]
+        },
+        {
+          "title": "Pflegbar in Framer",
+          "points": [
+            "Die Site kann nach dem Launch weitergeführt werden."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "list",
+      "label": "Vorschlag",
+      "title": "Leistungsumfang",
+      "rows": [
+        { "key": "Bestandsaufnahme", "value": "Sichtung der bestehenden Website" },
+        { "key": "Visuelles Design", "value": "Übertragung des neuen Corporate Designs" },
+        { "key": "Aufbau in Framer", "value": "Umsetzung der Seiten in Framer" },
+        { "key": "Responsive Umsetzung", "value": "Desktop, Tablet und Mobile" },
+        { "key": "Inhalte", "value": "Struktur und Bedarf; finale Texte und Bilder folgen" },
+        { "key": "Launch", "value": "Veröffentlichung, sobald das Angebot steht" }
+      ]
+    },
+    {
+      "type": "list",
+      "label": "Vorschlag",
+      "title": "Nicht enthalten",
+      "rows": [
+        { "key": "Sprache", "value": "Noch offen" },
+        { "key": "Inhalte", "value": "Finale Texte und Bilder stellt der Kunde" },
+        { "key": "SEO", "value": "Nicht enthalten" },
+        { "key": "Domain", "value": "Liegt beim Kunden" },
+        { "key": "Framer-Hosting", "value": "Separat, nicht Teil dieses Umfangs" }
+      ]
+    },
+    {
+      "type": "process",
+      "label": "Vorschlag",
+      "title": "Vorgehen",
+      "items": [
+        {
+          "title": "Sichtung und Struktur",
+          "days": ["Zeitplan folgt"],
+          "points": [
+            "Bestehende Website und Brand Book sichten",
+            "Seitenstruktur festlegen"
+          ]
+        },
+        {
+          "title": "Design",
+          "days": ["Zeitplan folgt"],
+          "points": [
+            "Visuelles Design auf Basis des Corporate Designs"
+          ]
+        },
+        {
+          "title": "Framer-Umsetzung und Launch",
+          "days": ["Zeitplan folgt"],
+          "points": [
+            "Aufbau in Framer",
+            "Responsive Umsetzung",
+            "Launch"
+          ]
+        }
+      ],
+      "launch": "Zeitplan folgt"
+    },
+    {
+      "type": "cost",
+      "label": "Vorschlag",
+      "title": "Investition",
+      "equation": "Angebot folgt",
+      "amount": "offen",
+      "currency": "\u200b",
+      "hosting": {
+        "label": "Framer-Hosting",
+        "rows": [
+          { "name": "Hosting", "value": "folgt" }
+        ],
+        "disclaimer": "Hinweis folgt, sobald der Umfang feststeht."
+      }
+    },
+    {
+      "type": "closing",
+      "eyebrow": "OCUMEDA",
+      "title": "Ich freue mich auf Ihre Rückmeldung.",
+      "subtitle": [
+        "Gern passe ich Umfang und Konditionen an."
+      ]
+    }
+  ]
+}
