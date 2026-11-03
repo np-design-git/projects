@@ -123,10 +123,9 @@
       "label": "Proposal",
       "title": "Scope of Work",
       "rows": [
-        { "key": "Style Guide & UI Library", "value": "The new CI is applied across the whole website, through a style guide and UI library." },
+        { "key": "Style Guide &\nUI Library", "value": "The new CI is applied across the whole website, through a style guide and UI library." },
         { "key": "Concept", "value": "Visitors understand the product faster. Storyline, structure and information architecture set the path of the main pages." },
-        { "key": "UI Styles", "value": "The palette stays easy to read. Blue and Fog for clarity, Amber and Soft Orange for warmth." },
-        { "key": "Components", "value": "New pages are faster to build. Reusable Framer components are the pieces they are built from." },
+        { "key": "Components", "value": "The new structure gets the building blocks it needs. The UI library is extended with new components for the redesigned pages." },
         { "key": "Graphics", "value": "Visitors see the product itself. New graphics and product mockups, based on the new brand guidelines and the new photography style." },
         { "key": "Main Pages", "value": "Home, Ärzte, Optiker and Kunden explain the product with clarity and trust." },
         { "key": "QA", "value": "Every screen stays clear and comfortable. Breakpoints are checked so the layout holds together." }

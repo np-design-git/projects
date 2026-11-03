@@ -237,6 +237,10 @@ function esc(value) {
     .replace(/"/g, '&quot;');
 }
 
+function escBreaks(value) {
+  return String(value).split('\n').map(esc).join('<br>');
+}
+
 function cssFamily(font) {
   const quoted = `'${font.family}'`;
   return `${quoted}, ${font.fallback}`;
@@ -465,7 +469,7 @@ function renderList(slide) {
     const last = i === slide.rows.length - 1 ? ' limit-row--noborder' : '';
     return lines([
       `        <div class="limit-row${last}">`,
-      `          <div class="limit-key">${esc(row.key)}</div>`,
+      `          <div class="limit-key">${escBreaks(row.key)}</div>`,
       `          <div class="limit-val">${esc(row.value)}</div>`,
       '        </div>',
     ]);

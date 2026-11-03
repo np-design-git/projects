@@ -213,7 +213,10 @@
             "additionalProperties": false,
             "required": ["key", "value"],
             "properties": {
-              "key": { "$ref": "#/$defs/text" },
+              "key": {
+                "description": "Row label. A newline breaks the label onto another line.",
+                "allOf": [{ "$ref": "#/$defs/text" }]
+              },
               "value": { "$ref": "#/$defs/text" }
             }
           }
