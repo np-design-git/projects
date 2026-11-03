@@ -147,7 +147,8 @@
         "src": { "type": "string", "description": "Path inside the client folder, such as assets/logo.png." },
         "alt": { "$ref": "#/$defs/text" },
         "width": { "type": "integer", "minimum": 1 },
-        "height": { "type": "integer", "minimum": 1 }
+        "height": { "type": "integer", "minimum": 1 },
+        "blend": { "enum": ["lighten", "normal"], "description": "Cover logo blend. Defaults to lighten, which knocks a dark plate out of a light mark. Use normal for a dark mark on a light slide." }
       }
     },
     "cover": {
@@ -160,7 +161,9 @@
         "title": { "$ref": "#/$defs/text" },
         "subtitle": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/text" } },
         "logo": { "$ref": "#/$defs/logo" },
-        "decorations": { "$ref": "#/$defs/decorations" }
+        "decorations": { "$ref": "#/$defs/decorations" },
+        "theme": { "enum": ["light", "dark"], "description": "Overrides the default light or dark slide. Cover and closing are dark unless set to light." },
+        "background": { "$ref": "#/$defs/hex", "description": "Optional solid slide background. Text colors still come from the slide theme." }
       }
     },
     "overview": {
@@ -286,7 +289,9 @@
         "eyebrow": { "$ref": "#/$defs/text" },
         "title": { "$ref": "#/$defs/text" },
         "subtitle": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/text" } },
-        "decorations": { "$ref": "#/$defs/decorations" }
+        "decorations": { "$ref": "#/$defs/decorations" },
+        "theme": { "enum": ["light", "dark"] },
+        "background": { "$ref": "#/$defs/hex" }
       }
     }
   }

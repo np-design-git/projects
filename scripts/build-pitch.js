@@ -135,6 +135,11 @@ function validatePitch(pitch, slug) {
 const DECOR_POSITIONS = new Set(['top-left', 'top-right', 'bottom-left', 'bottom-right']);
 const DECOR_SIZE = /^\d+(?:\.\d+)?(?:px|vw|vh|vmin|vmax|%)$/;
 
+function validateSurface(slide, where) {
+  assert(slide.theme === undefined || slide.theme === 'light' || slide.theme === 'dark', `${where}.theme must be light or dark`);
+  if (slide.background !== undefined) assertHex(slide.background, `${where}.background`);
+}
+
 function validateDecorations(slide, where) {
   if (slide.decorations === undefined) return;
   assert(Array.isArray(slide.decorations) && slide.decorations.length > 0 && slide.decorations.length <= 2, `${where}.decorations must be one or two shapes`);
@@ -162,8 +167,10 @@ function validateSlide(slide, index) {
       assertString(slide.logo.alt, `${where}.logo.alt`);
       assert(Number.isInteger(slide.logo.width) && slide.logo.width > 0, `${where}.logo.width must be a positive integer`);
       assert(Number.isInteger(slide.logo.height) && slide.logo.height > 0, `${where}.logo.height must be a positive integer`);
+      assert(slide.logo.blend === undefined || slide.logo.blend === 'lighten' || slide.logo.blend === 'normal', `${where}.logo.blend must be lighten or normal`);
     }
     validateDecorations(slide, where);
+    validateSurface(slide, where);
     return;
   }
   if (slide.type === 'overview') {
@@ -218,6 +225,7 @@ function validateSlide(slide, index) {
     assertString(slide.title, `${where}.title`);
     assertStringList(slide.subtitle, `${where}.subtitle`);
     validateDecorations(slide, where);
+    validateSurface(slide, where);
   }
 }
 
@@ -292,9 +300,12 @@ ${block('.slide.theme-dark', theme.dark)}
 `;
 }
 
-function slideClasses(type, index) {
+function slideClasses(type, index, slide) {
   const surface = type === 'cover' || type === 'closing' ? 's-cover' : (index === 4 ? 's-dark-green' : 's-light');
-  const theme = DARK_SLIDES.has(index) ? 'theme-dark' : 'theme-light';
+  const themeName = slide && (slide.theme === 'light' || slide.theme === 'dark')
+    ? slide.theme
+    : (DARK_SLIDES.has(index) ? 'dark' : 'light');
+  const theme = `theme-${themeName}`;
   const active = index === 0 ? ' active' : '';
   return `${surface} ${theme}${active}`;
 }
@@ -390,9 +401,17 @@ function decorationCss(pitch) {
 `;
 }
 
+function logoBlendCss(pitch) {
+  const cover = pitch.slides[0];
+  if (!cover.logo || cover.logo.blend !== 'normal') return '';
+  return `
+  .cover-ornament--solid { mix-blend-mode: normal; }
+`;
+}
+
 function renderCover(slide, pitch) {
   const logo = slide.logo
-    ? `    <img class="cover-ornament" src="${esc(slide.logo.src)}" alt="${esc(slide.logo.alt)}" width="${slide.logo.width}" height="${slide.logo.height}" decoding="async" />`
+    ? `    <img class="cover-ornament${slide.logo.blend === 'normal' ? ' cover-ornament--solid' : ''}" src="${esc(slide.logo.src)}" alt="${esc(slide.logo.alt)}" width="${slide.logo.width}" height="${slide.logo.height}" decoding="async" />`
     : '';
   return lines([
     decorationsHtml(slide),
@@ -619,7 +638,7 @@ function renderDocument(pitch, css, js) {
     const body = RENDER[slide.type](slide, pitch);
     return lines([
       `  <!-- SLIDE ${index + 1}: ${SLIDE_LABELS[index]} -->`,
-      `  <div class="slide ${slideClasses(slide.type, index)}" data-index="${index}">`,
+      `  <div class="slide ${slideClasses(slide.type, index, slide)}" data-index="${index}"${slide.background ? ` style="background:${slide.background}"` : ''}>`,
       body,
       '  </div>',
     ]);
@@ -636,7 +655,7 @@ function renderDocument(pitch, css, js) {
 ${robots}<title>${esc(pitch.title)}</title>
 <style>
 ${themeCss(pitch.theme)}
-${lock.css}${css.trimEnd()}${decorationCss(pitch)}
+${lock.css}${css.trimEnd()}${decorationCss(pitch)}${logoBlendCss(pitch)}
 </style>
 </head>
 <body${lock.bodyClass}>

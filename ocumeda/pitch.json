@@ -73,14 +73,17 @@
         "Website restyling based on the new CI",
         "Design and Framer implementation"
       ],
+      "theme": "light",
+      "background": "#EAF5FF",
       "logo": {
-        "src": "assets/ocumeda-logo-light.svg",
+        "src": "assets/ocumeda-logo-dark.svg",
         "alt": "Ocumeda",
         "width": 228,
-        "height": 60
+        "height": 60,
+        "blend": "normal"
       },
       "decorations": [
-        { "src": "assets/halo-amber.svg", "position": "bottom-right", "size": "160vmin", "opacity": 0.42 }
+        { "src": "assets/halo-amber.svg", "position": "bottom-right", "size": "160vmin", "opacity": 0.38 }
       ]
     },
     {
@@ -192,13 +195,15 @@
     },
     {
       "type": "closing",
+      "theme": "light",
+      "background": "#EAF5FF",
       "eyebrow": "OCUMEDA",
       "title": "Looking forward to hearing your thoughts.",
       "subtitle": [
         "Please reach out if you have any questions or if anything needs adjusting."
       ],
       "decorations": [
-        { "src": "assets/halo-amber.svg", "position": "top-left", "size": "120vmin", "opacity": 0.42 }
+        { "src": "assets/halo-amber.svg", "position": "top-left", "size": "120vmin", "opacity": 0.38 }
       ]
     }
   ]
