@@ -83,7 +83,8 @@
         "blend": "normal"
       },
       "decorations": [
-        { "src": "assets/halo-amber.svg", "position": "bottom-right", "size": "160vmin", "opacity": 0.38 }
+        { "src": "assets/halo-amber-glow.svg", "position": "bottom-left", "size": "52vmin", "opacity": 0.55 },
+        { "src": "assets/halo-amber-sharp.svg", "position": "bottom-right", "size": "145vmin", "opacity": 1 }
       ]
     },
     {
@@ -203,7 +204,8 @@
         "Please reach out if you have any questions or if anything needs adjusting."
       ],
       "decorations": [
-        { "src": "assets/halo-amber.svg", "position": "top-left", "size": "120vmin", "opacity": 0.38 }
+        { "src": "assets/halo-amber-glow.svg", "position": "bottom-right", "size": "46vmin", "opacity": 0.45 },
+        { "src": "assets/halo-amber-sharp-mirror.svg", "position": "top-left", "size": "158vmin", "opacity": 1 }
       ]
     }
   ]
