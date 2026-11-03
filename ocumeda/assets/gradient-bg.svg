@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 1920 1080">
+  <!-- Generator: Adobe Illustrator 30.8.2, SVG Export Plug-In . SVG Version: 2.1.4 Build 7)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: none;
+      }
+
+      .st1 {
+        clip-path: url(#clippath-1);
+      }
+
+      .st2 {
+        clip-path: url(#clippath-2);
+      }
+
+      .st3 {
+        fill: #eaf5ff;
+      }
+
+      .st4 {
+        clip-path: url(#clippath);
+      }
+    </style>
+    <clipPath id="clippath">
+      <rect class="st0" width="1920" height="1080"/>
+    </clipPath>
+    <clipPath id="clippath-1">
+      <rect class="st0" width="1920" height="1079.9"/>
+    </clipPath>
+    <clipPath id="clippath-2">
+      <rect class="st0" width="1920" height="1079.9"/>
+    </clipPath>
+  </defs>
+  <g class="st4">
+    <rect class="st3" width="1920" height="1079.9"/>
+    <g class="st1">
+      <g class="st2">
+        <image width="1760" height="991" transform="translate(1921.0902 -1.3922) scale(-1.0925 1.0925)" xlink:href="gradient-bg-1.png"/>
+      </g>
+    </g>
+  </g>
+</svg>

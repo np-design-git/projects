@@ -47,10 +47,10 @@
     --bg-primary: #EAF5FF;
     --bg-secondary: #FAFBF9;
     --content-primary: #333D48;
-    --content-secondary: #333D48;
-    --content-subtle: #333D48;
-    --border-primary: rgba(80, 120, 255, 0.1);
-    --border-secondary: rgba(80, 120, 255, 0.1);
+    --content-secondary: #3A4C76;
+    --content-subtle: #7080A0;
+    --border-primary: #A2BAFF;
+    --border-secondary: #B7CCFF;
   }
   .slide.theme-dark {
     --bg-primary: #333D48;
@@ -58,8 +58,8 @@
     --content-primary: #FAFBF9;
     --content-secondary: #EAF5FF;
     --content-subtle: #F5A624;
-    --border-primary: rgba(80, 120, 255, 0.1);
-    --border-secondary: rgba(80, 120, 255, 0.1);
+    --border-primary: rgba(80, 120, 255, 0.25);
+    --border-secondary: rgba(80, 120, 255, 0.25);
   }
 
 
@@ -91,7 +91,7 @@
   #pitch-gate input {
     width: 100%;
     border: none;
-    border-bottom: 1px solid rgba(80, 120, 255, 0.1);
+    border-bottom: 1px solid rgba(80, 120, 255, 0.25);
     background: transparent;
     color: inherit;
     font: inherit;
@@ -840,42 +840,6 @@
       padding-bottom: 0 !important;
     }
   }
-  .slide-decor-layer {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    z-index: 0;
-    pointer-events: none;
-  }
-  .slide-decor {
-    position: absolute;
-    width: var(--decor-size, 70vmin);
-    height: var(--decor-size, 70vmin);
-    opacity: var(--decor-opacity, 1);
-    pointer-events: none;
-    user-select: none;
-  }
-  .slide-decor--top-left { left: 0; top: 0; transform: translate(-50%, -50%); }
-  .slide-decor--top-right { right: 0; top: 0; transform: translate(48%, -48%); }
-  .slide-decor--bottom-left { left: 0; bottom: 0; transform: translate(-48%, 48%); }
-  .slide-decor--bottom-right { right: 0; bottom: 0; transform: translate(50%, 50%); }
-  .slide-decor--right { right: 0; top: 50%; transform: translate(52%, -50%); }
-  .slide-decor--left { left: 0; top: 50%; transform: translate(-52%, -50%); }
-  .s-cover:has(.slide-decor--left) { padding-left: max(var(--inset-slide-x), 42%); }
-  @media (max-width: 600px) {
-    .slide-decor--right { transform: translate(80%, -50%); }
-    .slide-decor--left { transform: translate(-80%, -50%); }
-    .slide-decor--bottom-right { transform: translate(60%, 60%); }
-    .slide-decor--top-left { transform: translate(-60%, -60%); }
-    .s-cover:has(.slide-decor--left) { padding-left: var(--inset-slide-x); }
-  }
-  .s-cover .eyebrow,
-  .s-cover h1,
-  .s-cover .subtitle,
-  .s-cover .cover-line,
-  .s-cover .cover-meta { position: relative; z-index: 1; }
-  .s-cover .cover-ornament { z-index: 2; }
-
   .limits-list--key .limit-key {
     width: var(--limit-key-width);
     flex: 0 0 var(--limit-key-width);
@@ -888,6 +852,24 @@
       white-space: normal;
     }
   }
+
+  .slide-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+    pointer-events: none;
+    user-select: none;
+  }
+  .s-cover:has(.slide-bg) .eyebrow,
+  .s-cover:has(.slide-bg) h1,
+  .s-cover:has(.slide-bg) .subtitle,
+  .s-cover:has(.slide-bg) .cover-line,
+  .s-cover:has(.slide-bg) .cover-meta { position: relative; z-index: 1; }
+  .s-cover:has(.slide-bg) .cover-ornament { z-index: 2; }
 
   .cover-ornament--solid { mix-blend-mode: normal; }
 
@@ -907,11 +889,8 @@
 <div class="deck" id="deck">
 
   <!-- SLIDE 1: COVER -->
-  <div class="slide s-cover theme-light active" data-index="0" style="background:#EAF5FF">
-    <div class="slide-decor-layer" aria-hidden="true">
-      <img class="slide-decor slide-decor--bottom-right" src="assets/halo-amber-glow.svg" alt="" style="--decor-size:200vh;--decor-opacity:1" />
-      <img class="slide-decor slide-decor--bottom-right" src="assets/halo-amber-disc.svg" alt="" style="--decor-size:68vh;--decor-opacity:1" />
-    </div>
+  <div class="slide s-cover theme-light active" data-index="0" style="background:#EAF5FF;--content-secondary:#5078FF;--content-subtle:#5078FF">
+    <img class="slide-bg" src="assets/gradient-bg.webp" alt="" />
     <div class="eyebrow">Design Proposal · 3 Nov 2026</div>
     <h1 class="cover-brand-title">OCUMEDA</h1>
     <div class="subtitle">
@@ -1053,7 +1032,7 @@
       <div class="packages-grid">
         <div class="pkg">
           <div class="pkg-num">01</div>
-          <div class="pkg-title">Content &amp; Structure</div>
+          <div class="pkg-title">Concept &amp; Structure</div>
           <div class="pkg-days">1 design day<br>Cal week 46</div>
           <div class="pkg-divider"></div>
           <div class="pkg-items">
@@ -1074,7 +1053,7 @@
         </div>
         <div class="pkg">
           <div class="pkg-num">03</div>
-          <div class="pkg-title">Implementation &amp; QA</div>
+          <div class="pkg-title">Framer Implementation &amp; QA</div>
           <div class="pkg-days">3 design days<br>Cal week 48/49</div>
           <div class="pkg-divider"></div>
           <div class="pkg-items">
@@ -1086,7 +1065,7 @@
         </div>
       </div>
       <div class="tl-launch">
-        Launch by Sunday 6 December 2026 (kick-off Monday 9 November). Calls are included in these days.
+        Launch first week of December (assuming kick-off on November 9th).
       </div>
     </div>
   </div>
@@ -1120,11 +1099,8 @@
   </div>
 
   <!-- SLIDE 8: CLOSING -->
-  <div class="slide s-cover theme-light" data-index="7" style="background:#EAF5FF">
-    <div class="slide-decor-layer" aria-hidden="true">
-      <img class="slide-decor slide-decor--top-left" src="assets/halo-amber-glow-close.svg" alt="" style="--decor-size:66vh;--decor-opacity:1" />
-      <img class="slide-decor slide-decor--top-left" src="assets/halo-amber-disc.svg" alt="" style="--decor-size:40vh;--decor-opacity:1" />
-    </div>
+  <div class="slide s-cover theme-light" data-index="7" style="background:#EAF5FF;--content-secondary:#5078FF;--content-subtle:#5078FF">
+    <img class="slide-bg" src="assets/gradient-bg.webp" alt="" />
     <div class="eyebrow">OCUMEDA</div>
     <h1>Looking forward to hearing your thoughts.</h1>
     <div class="subtitle">

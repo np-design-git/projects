@@ -146,9 +146,17 @@ const DECOR_POSITIONS = new Set(['top-left', 'top-right', 'bottom-left', 'bottom
 const DECOR_SIZE = /^\d+(?:\.\d+)?(?:px|vw|vh|vmin|vmax|%)$/;
 const KEY_WIDTH = /^\d+(?:\.\d+)?(?:px|rem|em|ch)$/;
 
+function assertAssetPath(value, label) {
+  assertString(value, label);
+  assert(!value.includes('..') && !value.startsWith('/'), `${label} must be a file inside the client folder`);
+}
+
 function validateSurface(slide, where) {
   assert(slide.theme === undefined || slide.theme === 'light' || slide.theme === 'dark', `${where}.theme must be light or dark`);
   if (slide.background !== undefined) assertHex(slide.background, `${where}.background`);
+  if (slide.backgroundImage !== undefined) assertAssetPath(slide.backgroundImage, `${where}.backgroundImage`);
+  if (slide.contentSecondary !== undefined) assertColor(slide.contentSecondary, `${where}.contentSecondary`);
+  if (slide.contentSubtle !== undefined) assertColor(slide.contentSubtle, `${where}.contentSubtle`);
 }
 
 function validateDecorations(slide, where) {
@@ -427,6 +435,43 @@ function decorationCss(pitch) {
 `;
 }
 
+function backgroundImageHtml(slide) {
+  if (!slide.backgroundImage) return '';
+  return `    <img class="slide-bg" src="${esc(slide.backgroundImage)}" alt="" />`;
+}
+
+function backgroundImageCss(pitch) {
+  const used = pitch.slides.some((slide) => slide.backgroundImage);
+  if (!used) return '';
+  return `
+  .slide-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+    pointer-events: none;
+    user-select: none;
+  }
+  .s-cover:has(.slide-bg) .eyebrow,
+  .s-cover:has(.slide-bg) h1,
+  .s-cover:has(.slide-bg) .subtitle,
+  .s-cover:has(.slide-bg) .cover-line,
+  .s-cover:has(.slide-bg) .cover-meta { position: relative; z-index: 1; }
+  .s-cover:has(.slide-bg) .cover-ornament { z-index: 2; }
+`;
+}
+
+function slideStyle(slide) {
+  const parts = [];
+  if (slide.background) parts.push(`background:${slide.background}`);
+  if (slide.contentSecondary) parts.push(`--content-secondary:${slide.contentSecondary}`);
+  if (slide.contentSubtle) parts.push(`--content-subtle:${slide.contentSubtle}`);
+  return parts.length ? ` style="${parts.join(';')}"` : '';
+}
+
 function logoBlendCss(pitch) {
   const cover = pitch.slides[0];
   if (!cover.logo || cover.logo.blend !== 'normal') return '';
@@ -440,6 +485,7 @@ function renderCover(slide, pitch) {
     ? `    <img class="cover-ornament${slide.logo.blend === 'normal' ? ' cover-ornament--solid' : ''}" src="${esc(slide.logo.src)}" alt="${esc(slide.logo.alt)}" width="${slide.logo.width}" height="${slide.logo.height}" decoding="async" />`
     : '';
   return lines([
+    backgroundImageHtml(slide),
     decorationsHtml(slide),
     `    <div class="eyebrow">${esc(slide.eyebrow)}</div>`,
     `    <h1 class="cover-brand-title">${esc(slide.title)}</h1>`,
@@ -562,6 +608,7 @@ function renderCost(slide) {
 
 function renderClosing(slide, pitch) {
   return lines([
+    backgroundImageHtml(slide),
     decorationsHtml(slide),
     `    <div class="eyebrow">${esc(slide.eyebrow)}</div>`,
     `    <h1>${esc(slide.title)}</h1>`,
@@ -684,7 +731,7 @@ function renderDocument(pitch, css, js) {
     const body = RENDER[slide.type](slide, pitch);
     return lines([
       `  <!-- SLIDE ${index + 1}: ${SLIDE_LABELS[index]} -->`,
-      `  <div class="slide ${slideClasses(slide.type, index, slide)}" data-index="${index}"${slide.background ? ` style="background:${slide.background}"` : ''}>`,
+      `  <div class="slide ${slideClasses(slide.type, index, slide)}" data-index="${index}"${slideStyle(slide)}>`,
       body,
       '  </div>',
     ]);
@@ -701,7 +748,7 @@ function renderDocument(pitch, css, js) {
 ${robots}<title>${esc(pitch.title)}</title>
 <style>
 ${themeCss(pitch.theme)}
-${lock.css}${css.trimEnd()}${decorationCss(pitch)}${listKeyCss(pitch)}${logoBlendCss(pitch)}
+${lock.css}${css.trimEnd()}${decorationCss(pitch)}${listKeyCss(pitch)}${backgroundImageCss(pitch)}${logoBlendCss(pitch)}
 </style>
 </head>
 <body${lock.bodyClass}>
@@ -749,6 +796,9 @@ function build(slug) {
     assert(fs.existsSync(logoPath), `Missing logo file ${slug}/${cover.logo.src}`);
   }
   pitch.slides.forEach((slide) => {
+    if (slide.backgroundImage) {
+      assert(fs.existsSync(path.join(dir, slide.backgroundImage)), `Missing background image ${slug}/${slide.backgroundImage}`);
+    }
     if (!Array.isArray(slide.decorations)) return;
     slide.decorations.forEach((item) => {
       assert(fs.existsSync(path.join(dir, item.src)), `Missing decoration file ${slug}/${item.src}`);

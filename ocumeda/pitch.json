@@ -10,10 +10,10 @@
       "bgPrimary": "#EAF5FF",
       "bgSecondary": "#FAFBF9",
       "contentPrimary": "#333D48",
-      "contentSecondary": "#333D48",
-      "contentSubtle": "#333D48",
-      "borderPrimary": "rgba(80, 120, 255, 0.1)",
-      "borderSecondary": "rgba(80, 120, 255, 0.1)"
+      "contentSecondary": "#3A4C76",
+      "contentSubtle": "#7080A0",
+      "borderPrimary": "#A2BAFF",
+      "borderSecondary": "#B7CCFF"
     },
     "dark": {
       "bgPrimary": "#333D48",
@@ -21,8 +21,8 @@
       "contentPrimary": "#FAFBF9",
       "contentSecondary": "#EAF5FF",
       "contentSubtle": "#F5A624",
-      "borderPrimary": "rgba(80, 120, 255, 0.1)",
-      "borderSecondary": "rgba(80, 120, 255, 0.1)"
+      "borderPrimary": "rgba(80, 120, 255, 0.25)",
+      "borderSecondary": "rgba(80, 120, 255, 0.25)"
     },
     "fonts": {
       "sans": {
@@ -75,17 +75,16 @@
       ],
       "theme": "light",
       "background": "#EAF5FF",
+      "backgroundImage": "assets/gradient-bg.webp",
+      "contentSecondary": "#5078FF",
+      "contentSubtle": "#5078FF",
       "logo": {
         "src": "assets/ocumeda-logo-dark.svg",
         "alt": "Ocumeda",
         "width": 228,
         "height": 60,
         "blend": "normal"
-      },
-      "decorations": [
-        { "src": "assets/halo-amber-glow.svg", "position": "bottom-right", "size": "200vh", "opacity": 1 },
-        { "src": "assets/halo-amber-disc.svg", "position": "bottom-right", "size": "68vh", "opacity": 1 }
-      ]
+      }
     },
     {
       "type": "overview",
@@ -149,7 +148,7 @@
       "title": "Design Process & Timeline",
       "items": [
         {
-          "title": "Content & Structure",
+          "title": "Concept & Structure",
           "days": ["1 design day", "Cal week 46"],
           "points": [
             "Refine and finalize storyline and structure of the main pages",
@@ -166,7 +165,7 @@
           ]
         },
         {
-          "title": "Implementation & QA",
+          "title": "Framer Implementation & QA",
           "days": ["3 design days", "Cal week 48/49"],
           "points": [
             "Styles set up in Framer",
@@ -176,7 +175,7 @@
           ]
         }
       ],
-      "launch": "Launch by Sunday 6 December 2026 (kick-off Monday 9 November). Calls are included in these days."
+      "launch": "Launch first week of December (assuming kick-off on November 9th)."
     },
     {
       "type": "cost",
@@ -197,14 +196,13 @@
       "type": "closing",
       "theme": "light",
       "background": "#EAF5FF",
+      "backgroundImage": "assets/gradient-bg.webp",
+      "contentSecondary": "#5078FF",
+      "contentSubtle": "#5078FF",
       "eyebrow": "OCUMEDA",
       "title": "Looking forward to hearing your thoughts.",
       "subtitle": [
         "Please reach out if you have any questions or if anything needs adjusting."
-      ],
-      "decorations": [
-        { "src": "assets/halo-amber-glow-close.svg", "position": "top-left", "size": "66vh", "opacity": 1 },
-        { "src": "assets/halo-amber-disc.svg", "position": "top-left", "size": "40vh", "opacity": 1 }
       ]
     }
   ]
