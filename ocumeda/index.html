@@ -876,6 +876,19 @@
   .s-cover .cover-meta { position: relative; z-index: 1; }
   .s-cover .cover-ornament { z-index: 2; }
 
+  .limits-list--key .limit-key {
+    width: var(--limit-key-width);
+    flex: 0 0 var(--limit-key-width);
+    white-space: nowrap;
+  }
+  @media (max-width: 480px) {
+    .limits-list--key .limit-key {
+      width: auto;
+      flex: none;
+      white-space: normal;
+    }
+  }
+
   .cover-ornament--solid { mix-blend-mode: normal; }
 
 </style>
@@ -973,9 +986,9 @@
         <div class="section-label">Proposal</div>
         <h2 class="slide-title title-md">Scope of Work</h2>
       </div>
-      <div class="limits-list">
+      <div class="limits-list limits-list--key" style="--limit-key-width:15rem">
         <div class="limit-row">
-          <div class="limit-key">Style Guide &amp;<br>UI Library</div>
+          <div class="limit-key">Style Guide &amp; UI Library</div>
           <div class="limit-val">The new CI is applied across the whole website, through a style guide and UI library.</div>
         </div>
         <div class="limit-row">

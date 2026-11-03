@@ -205,6 +205,11 @@
         "type": { "const": "list" },
         "label": { "$ref": "#/$defs/text" },
         "title": { "$ref": "#/$defs/text" },
+        "keyWidth": {
+          "type": "string",
+          "pattern": "^\\d+(?:\\.\\d+)?(?:px|rem|em|ch)$",
+          "description": "Optional desktop width of the label column, such as 18rem. Omitted labels keep the shared minimum width. Below 480px the column stacks as usual."
+        },
         "rows": {
           "type": "array",
           "minItems": 1,

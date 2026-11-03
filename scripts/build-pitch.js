@@ -134,6 +134,7 @@ function validatePitch(pitch, slug) {
 
 const DECOR_POSITIONS = new Set(['top-left', 'top-right', 'bottom-left', 'bottom-right', 'left', 'right']);
 const DECOR_SIZE = /^\d+(?:\.\d+)?(?:px|vw|vh|vmin|vmax|%)$/;
+const KEY_WIDTH = /^\d+(?:\.\d+)?(?:px|rem|em|ch)$/;
 
 function validateSurface(slide, where) {
   assert(slide.theme === undefined || slide.theme === 'light' || slide.theme === 'dark', `${where}.theme must be light or dark`);
@@ -202,6 +203,7 @@ function validateSlide(slide, index) {
       assertString(row.key, `${where}.rows[${n}].key`);
       assertString(row.value, `${where}.rows[${n}].value`);
     });
+    assert(slide.keyWidth === undefined || KEY_WIDTH.test(slide.keyWidth), `${where}.keyWidth must be a length such as 18rem`);
     return;
   }
   if (slide.type === 'cost') {
@@ -464,6 +466,25 @@ function renderCards(slide) {
   ]);
 }
 
+function listKeyCss(pitch) {
+  const used = pitch.slides.some((slide) => slide.type === 'list' && slide.keyWidth);
+  if (!used) return '';
+  return `
+  .limits-list--key .limit-key {
+    width: var(--limit-key-width);
+    flex: 0 0 var(--limit-key-width);
+    white-space: nowrap;
+  }
+  @media (max-width: 480px) {
+    .limits-list--key .limit-key {
+      width: auto;
+      flex: none;
+      white-space: normal;
+    }
+  }
+`;
+}
+
 function renderList(slide) {
   const rows = slide.rows.map((row, i) => {
     const last = i === slide.rows.length - 1 ? ' limit-row--noborder' : '';
@@ -474,10 +495,11 @@ function renderList(slide) {
       '        </div>',
     ]);
   }).join('\n');
+  const keyed = slide.keyWidth ? ` limits-list--key" style="--limit-key-width:${slide.keyWidth}` : '';
   return lines([
     '    <div class="slide-inner">',
     header(slide, 'title-md'),
-    '      <div class="limits-list">',
+    `      <div class="limits-list${keyed}">`,
     rows,
     '      </div>',
     '    </div>',
@@ -669,7 +691,7 @@ function renderDocument(pitch, css, js) {
 ${robots}<title>${esc(pitch.title)}</title>
 <style>
 ${themeCss(pitch.theme)}
-${lock.css}${css.trimEnd()}${decorationCss(pitch)}${logoBlendCss(pitch)}
+${lock.css}${css.trimEnd()}${decorationCss(pitch)}${listKeyCss(pitch)}${logoBlendCss(pitch)}
 </style>
 </head>
 <body${lock.bodyClass}>

@@ -122,8 +122,9 @@
       "type": "list",
       "label": "Proposal",
       "title": "Scope of Work",
+      "keyWidth": "15rem",
       "rows": [
-        { "key": "Style Guide &\nUI Library", "value": "The new CI is applied across the whole website, through a style guide and UI library." },
+        { "key": "Style Guide & UI Library", "value": "The new CI is applied across the whole website, through a style guide and UI library." },
         { "key": "Concept", "value": "Visitors understand the product faster. Storyline, structure and information architecture set the path of the main pages." },
         { "key": "Components", "value": "The new structure gets the building blocks it needs. The UI library is extended with new components for the redesigned pages." },
         { "key": "Graphics", "value": "Visitors see the product itself. New graphics and product mockups, based on the new brand guidelines and the new photography style." },
