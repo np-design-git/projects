@@ -50,7 +50,7 @@
       "title": "OCUMEDA",
       "subtitle": [
         "Website restyling based on the new CI",
-        "Design & Framer"
+        "Design and Framer implementation"
       ],
       "logo": {
         "src": "assets/ocumeda-logo-light.svg",
@@ -63,7 +63,7 @@
       "type": "overview",
       "label": "Overview",
       "title": "OCUMEDA Website",
-      "lede": "Proposal for a restyling of OCUMEDA's existing website in Framer, based on the new CI: \"Med-tech that radiates warmth\", a clearer story on the main pages, and reusable Framer components that work across all pages."
+      "lede": "Proposal for the design and Framer implementation of OCUMEDA's website restyling, based on the new CI: \"Med-tech that radiates warmth\", a clearer story on the main pages, and reusable Framer components that work across all pages."
     },
     {
       "type": "cards",
@@ -141,7 +141,7 @@
           "title": "Implementation & QA",
           "days": ["3 design days"],
           "points": [
-            "Styles set up in Framer",
+            "Styles set up in the Framer implementation",
             "Components updated and extended",
             "Content updated on the main pages",
             "QA across breakpoints and languages"
