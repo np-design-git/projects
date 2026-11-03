@@ -52,7 +52,7 @@
     --border-primary: #A2BAFF;
     --border-secondary: #B7CCFF;
   }
-  .slide.theme-dark {
+  .slide.theme-dark, #pitch-gate {
     --bg-primary: #333D48;
     --bg-secondary: #333D48;
     --content-primary: #FAFBF9;
@@ -62,57 +62,6 @@
     --border-secondary: rgba(80, 120, 255, 0.25);
   }
 
-
-  #pitch-gate {
-    position: fixed;
-    inset: 0;
-    z-index: 200;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 32px;
-    background: #333D48;
-    color: #FAFBF9;
-    font-family: var(--font-sans);
-    font-weight: 300;
-  }
-  #pitch-gate form {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-    width: min(100%, 320px);
-  }
-  #pitch-gate label {
-    font-size: 12px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-  }
-  #pitch-gate input {
-    width: 100%;
-    border: none;
-    border-bottom: 1px solid rgba(80, 120, 255, 0.25);
-    background: transparent;
-    color: inherit;
-    font: inherit;
-    font-size: 20px;
-    padding: 8px 0;
-    outline: none;
-  }
-  #pitch-gate button {
-    border: none;
-    background: transparent;
-    color: inherit;
-    font: inherit;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    cursor: pointer;
-    padding: 0;
-  }
-  body.is-locked .deck,
-  body.is-locked .nav {
-    display: none !important;
-  }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   /* Theme tokens are injected above this file by scripts/build-pitch.js */
@@ -767,6 +716,59 @@
     }
   }
 
+  /* PASSWORD GATE — colours come from the dark theme tokens on #pitch-gate */
+  #pitch-gate {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    background: var(--bg-primary);
+    color: var(--content-primary);
+    font-family: var(--font-sans);
+    font-weight: 300;
+  }
+  #pitch-gate form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    width: min(100%, 320px);
+  }
+  #pitch-gate label {
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--content-secondary);
+  }
+  #pitch-gate input {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid var(--border-primary);
+    background: transparent;
+    color: var(--content-primary);
+    font: inherit;
+    font-size: 20px;
+    padding: 8px 0;
+    outline: none;
+  }
+  #pitch-gate button {
+    border: none;
+    background: transparent;
+    color: var(--content-primary);
+    font: inherit;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 0;
+  }
+  body.is-locked .deck,
+  body.is-locked .nav {
+    display: none !important;
+  }
+
   /* —— Print / Save as PDF (1280×832px, no pagination bar) —— */
   @page {
     size: 1280px 832px;
@@ -786,7 +788,16 @@
       -webkit-print-color-adjust: exact;
     }
 
-    .nav {
+    .nav,
+    #pitch-gate {
+      display: none !important;
+    }
+
+    body.is-locked .deck {
+      display: block !important;
+    }
+
+    body.is-locked .nav {
       display: none !important;
     }
 

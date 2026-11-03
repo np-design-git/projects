@@ -320,7 +320,7 @@ function themeCss(theme) {
   }
 
 ${block('.slide.theme-light', theme.light)}
-${block('.slide.theme-dark', theme.dark)}
+${block('.slide.theme-dark, #pitch-gate', theme.dark)}
 `;
 }
 
@@ -635,58 +635,7 @@ function gate(pitch) {
   if (!pitch.password) return { css: '', html: '', script: '', bodyClass: '' };
   const password = JSON.stringify(pitch.password);
   const storageKey = JSON.stringify(`pitch-unlock-${pitch.slug}`);
-  const css = `
-  #pitch-gate {
-    position: fixed;
-    inset: 0;
-    z-index: 200;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 32px;
-    background: ${pitch.theme.dark.bgPrimary};
-    color: ${pitch.theme.dark.contentPrimary};
-    font-family: var(--font-sans);
-    font-weight: 300;
-  }
-  #pitch-gate form {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-    width: min(100%, 320px);
-  }
-  #pitch-gate label {
-    font-size: 12px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-  }
-  #pitch-gate input {
-    width: 100%;
-    border: none;
-    border-bottom: 1px solid ${pitch.theme.dark.borderPrimary};
-    background: transparent;
-    color: inherit;
-    font: inherit;
-    font-size: 20px;
-    padding: 8px 0;
-    outline: none;
-  }
-  #pitch-gate button {
-    border: none;
-    background: transparent;
-    color: inherit;
-    font: inherit;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    cursor: pointer;
-    padding: 0;
-  }
-  body.is-locked .deck,
-  body.is-locked .nav {
-    display: none !important;
-  }
-`;
+  const css = '';
   const html = `
 <div id="pitch-gate" role="dialog" aria-modal="true" aria-labelledby="pitch-gate-label">
   <form id="pitch-gate-form">
