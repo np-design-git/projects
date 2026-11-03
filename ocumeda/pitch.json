@@ -67,7 +67,7 @@
   "slides": [
     {
       "type": "cover",
-      "eyebrow": "Design Proposal · 9 Nov 2026",
+      "eyebrow": "Design Proposal · 3 Nov 2026",
       "title": "OCUMEDA",
       "subtitle": [
         "Website redesign based on the new CI",
@@ -101,7 +101,7 @@
         {
           "title": "The New CI",
           "points": [
-            "The new style runs through the whole website: clear and fresh, warm and human, precise without ever feeling clinical."
+            "Applying the new CI makes the website fresh, warm and human, without feeling clinical."
           ]
         },
         {
@@ -111,9 +111,9 @@
           ]
         },
         {
-          "title": "A Clear Story",
+          "title": "Show the Product",
           "points": [
-            "Home, Ärzte, Optiker and Kunden show the product in a clear story, with mockups instead of abstract animations."
+            "Showcase the product in a clear story, with mockups and photography instead of abstract animations."
           ]
         }
       ]
@@ -125,11 +125,11 @@
       "keyWidth": "15rem",
       "rows": [
         { "key": "Style Guide & UI Library", "value": "The new CI is applied across the whole website, through a style guide and UI library." },
-        { "key": "Concept", "value": "Visitors understand the product faster. Storyline, structure and information architecture set the path of the main pages." },
+        { "key": "Content & Structure", "value": "Ocumeda provides a baseline structure. Natalia helps refine it for the four main pages." },
         { "key": "Components", "value": "The new structure gets the building blocks it needs. The UI library is extended with new components for the redesigned pages." },
-        { "key": "Graphics", "value": "Visitors see the product itself. New graphics and product mockups, based on the new brand guidelines and the new photography style." },
-        { "key": "Main Pages", "value": "Home, Ärzte, Optiker and Kunden explain the product with clarity and trust." },
-        { "key": "QA", "value": "Every screen stays clear and comfortable. Breakpoints are checked so the layout holds together." }
+        { "key": "Graphics", "value": "New graphics and product mockups based on the new brand guidelines and the new photography style, as the main pages need them." },
+        { "key": "Main Pages", "value": "Structural redesign of Home, Ärzte (doctors), Optiker (opticians) and Kunden (customers), according to the new content and storyline." },
+        { "key": "QA", "value": "Pre-launch QA" }
       ]
     },
     {
@@ -137,10 +137,10 @@
       "label": "Proposal",
       "title": "Scope Limitations",
       "rows": [
-        { "key": "Animations", "value": "No complex animations" },
-        { "key": "Content", "value": "Text content is supplied by Ocumeda. Writing the copy is out of scope." },
+        { "key": "Animations", "value": "No new complex animations" },
+        { "key": "Copy", "value": "Copy content is supplied by Ocumeda. Writing the copy is out of scope." },
         { "key": "Translations", "value": "Translations are not included." },
-        { "key": "Pages", "value": "Team, Karriere, Blog and other secondary pages get no structural or content changes. Standorte stays a placeholder. The new CI still reaches them through the reusable components." }
+        { "key": "Pages", "value": "Team, Karriere, Blog and other secondary pages get no structural or content changes. The locations map stays as a placeholder. The new CI still reaches them through the components." }
       ]
     },
     {
@@ -149,34 +149,34 @@
       "title": "Design Process & Timeline",
       "items": [
         {
-          "title": "Concept",
-          "days": ["1 design day", "9–13 Nov"],
+          "title": "Content & Structure",
+          "days": ["1 design day", "Cal week 46"],
           "points": [
-            "Storyline and structure of the main pages",
-            "Framer's limits for SEO, CMS, localisation and load times"
+            "Refine and finalize storyline and structure of the main pages",
+            "Wireframe-level layouts"
           ]
         },
         {
           "title": "Visual Design",
-          "days": ["3 design days", "16–20 Nov"],
+          "days": ["3 design days", "Cal week 47/48"],
           "points": [
-            "Style guide and UI library for the website",
-            "Component designs",
-            "Graphics and product mockups"
+            "High-fidelity design and visual language of the website",
+            "Typography system, colour palette, UI components, spacing and layout (built on the new CI)",
+            "Desktop, tablet and mobile layouts"
           ]
         },
         {
           "title": "Implementation & QA",
-          "days": ["3 design days", "23 Nov–4 Dec"],
+          "days": ["3 design days", "Cal week 48/49"],
           "points": [
             "Styles set up in Framer",
-            "Components built in Framer",
-            "Content placed on the main pages",
-            "QA across screen sizes and languages"
+            "Full build in Framer",
+            "Responsive implementation (desktop, tablet, mobile)",
+            "Pre-launch QA"
           ]
         }
       ],
-      "launch": "Monday 9 November to Friday 4 December 2026. Framer implementation from 23 November, QA and launch by 4 December. Calls are included in these days."
+      "launch": "Launch by Sunday 6 December 2026 (kick-off Monday 9 November). Calls are included in these days."
     },
     {
       "type": "cost",
@@ -188,9 +188,9 @@
       "hosting": {
         "label": "Framer hosting",
         "rows": [
-          { "name": "Current plan", "value": "unchanged" }
+          { "name": "Ongoing cost", "value": "depending on the plan" }
         ],
-        "disclaimer": "Framer hosting stays as it is and is not part of this proposal. The total is net, with no discount."
+        "disclaimer": "Framer hosting stays as it is and is not part of this proposal."
       }
     },
     {
