@@ -6,84 +6,71 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Ocumeda - Website Proposal</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Albert+Sans:ital,wght@0,300;0,500;1,300;1,500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap');
+
+  @font-face {
+    font-family: 'TT Commons Pro';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url('assets/fonts/TTCommonsPro-Light.woff2') format('woff2'), url('assets/fonts/TTCommonsPro-Light.woff') format('woff');
+  }
+  @font-face {
+    font-family: 'TT Commons Pro';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('assets/fonts/TTCommonsPro-Medium.woff2') format('woff2'), url('assets/fonts/TTCommonsPro-Medium.woff') format('woff');
+  }
+  @font-face {
+    font-family: 'TT Commons Pro';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('assets/fonts/TTCommonsPro-Medium.woff2') format('woff2'), url('assets/fonts/TTCommonsPro-Medium.woff') format('woff');
+  }
+  @font-face {
+    font-family: 'TT Commons Pro';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('assets/fonts/TTCommonsPro-Bold.woff2') format('woff2'), url('assets/fonts/TTCommonsPro-Bold.woff') format('woff');
+  }
 
   :root {
-    --font-sans: 'Albert Sans', sans-serif;
+    --font-sans: 'TT Commons Pro', sans-serif;
     --font-serif: 'Inria Serif', serif;
     --page-background: #333D48;
   }
 
   .slide.theme-light {
-    --bg-primary: #FAFBF9;
-    --bg-secondary: #EAF5FF;
+    --bg-primary: #EAF5FF;
+    --bg-secondary: #FAFBF9;
     --content-primary: #333D48;
-    --content-secondary: #333D48;
-    --content-subtle: #333D48;
-    --border-primary: #5078FF;
-    --border-secondary: #333D48;
+    --content-secondary: #3A4C76;
+    --content-subtle: #7080A0;
+    --border-primary: #A2BAFF;
+    --border-secondary: #B7CCFF;
   }
-  .slide.theme-dark {
+  .slide.theme-dark, #pitch-gate {
     --bg-primary: #333D48;
     --bg-secondary: #333D48;
     --content-primary: #FAFBF9;
     --content-secondary: #EAF5FF;
-    --content-subtle: #F5A624;
-    --border-primary: #EAF5FF;
-    --border-secondary: #EAF5FF;
+    --content-subtle: #F5F8FE;
+    --border-primary: rgba(80, 120, 255, 0.25);
+    --border-secondary: rgba(80, 120, 255, 0.25);
   }
 
 
-  #pitch-gate {
-    position: fixed;
-    inset: 0;
-    z-index: 200;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 32px;
-    background: #333D48;
-    color: #FAFBF9;
-    font-family: var(--font-sans);
-    font-weight: 300;
-  }
-  #pitch-gate form {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-    width: min(100%, 320px);
-  }
-  #pitch-gate label {
+  #pitch-gate [data-gate-error] {
+    display: none;
+    margin: 0;
+    color: var(--content-subtle);
     font-size: 12px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
+    line-height: 1.4;
   }
-  #pitch-gate input {
-    width: 100%;
-    border: none;
-    border-bottom: 1px solid #EAF5FF;
-    background: transparent;
-    color: inherit;
-    font: inherit;
-    font-size: 20px;
-    padding: 8px 0;
-    outline: none;
-  }
-  #pitch-gate button {
-    border: none;
-    background: transparent;
-    color: inherit;
-    font: inherit;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    cursor: pointer;
-    padding: 0;
-  }
-  body.is-locked .deck,
-  body.is-locked .nav {
-    display: none !important;
-  }
+  #pitch-gate [data-gate-error].is-visible { display: block; }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   /* Theme tokens are injected above this file by scripts/build-pitch.js */
@@ -738,6 +725,59 @@
     }
   }
 
+  /* PASSWORD GATE — colours come from the dark theme tokens on #pitch-gate */
+  #pitch-gate {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    background: var(--bg-primary);
+    color: var(--content-primary);
+    font-family: var(--font-sans);
+    font-weight: 300;
+  }
+  #pitch-gate form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    width: min(100%, 320px);
+  }
+  #pitch-gate label {
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--content-secondary);
+  }
+  #pitch-gate input {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid var(--border-primary);
+    background: transparent;
+    color: var(--content-primary);
+    font: inherit;
+    font-size: 20px;
+    padding: 8px 0;
+    outline: none;
+  }
+  #pitch-gate button {
+    border: none;
+    background: transparent;
+    color: var(--content-primary);
+    font: inherit;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 0;
+  }
+  body.is-locked .deck,
+  body.is-locked .nav {
+    display: none !important;
+  }
+
   /* —— Print / Save as PDF (1280×832px, no pagination bar) —— */
   @page {
     size: 1280px 832px;
@@ -757,7 +797,16 @@
       -webkit-print-color-adjust: exact;
     }
 
-    .nav {
+    .nav,
+    #pitch-gate {
+      display: none !important;
+    }
+
+    body.is-locked .deck {
+      display: block !important;
+    }
+
+    body.is-locked .nav {
       display: none !important;
     }
 
@@ -811,15 +860,52 @@
       padding-bottom: 0 !important;
     }
   }
+  .limits-list--key .limit-key {
+    width: var(--limit-key-width);
+    flex: 0 0 var(--limit-key-width);
+    white-space: nowrap;
+  }
+  @media (max-width: 480px) {
+    .limits-list--key .limit-key {
+      width: auto;
+      flex: none;
+      white-space: normal;
+    }
+  }
+
+  .slide-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+    pointer-events: none;
+    user-select: none;
+  }
+  @media (max-width: 900px), (orientation: portrait) {
+    .slide-bg { object-position: left center; }
+  }
+  .s-cover:has(.slide-bg) .eyebrow,
+  .s-cover:has(.slide-bg) h1,
+  .s-cover:has(.slide-bg) .subtitle,
+  .s-cover:has(.slide-bg) .cover-line,
+  .s-cover:has(.slide-bg) .cover-meta { position: relative; z-index: 1; }
+  .s-cover:has(.slide-bg) .cover-ornament { z-index: 2; }
+
+  .cover-ornament--solid { mix-blend-mode: normal; }
+
 </style>
 </head>
 <body class="is-locked">
 
 <div id="pitch-gate" role="dialog" aria-modal="true" aria-labelledby="pitch-gate-label">
   <form id="pitch-gate-form">
-    <label id="pitch-gate-label" for="pitch-gate-input">Passwort</label>
-    <input id="pitch-gate-input" type="password" name="password" autocomplete="current-password" required>
-    <button type="submit">Öffnen</button>
+    <label id="pitch-gate-label" for="pitch-gate-input">Password</label>
+    <input id="pitch-gate-input" type="password" name="password" autocomplete="current-password" required aria-describedby="pitch-gate-error">
+    <p id="pitch-gate-error" data-gate-error role="alert"></p>
+    <button type="submit">Open</button>
   </form>
 </div>
 
@@ -827,12 +913,13 @@
 <div class="deck" id="deck">
 
   <!-- SLIDE 1: COVER -->
-  <div class="slide s-cover theme-dark active" data-index="0">
-    <div class="eyebrow">Design Proposal</div>
+  <div class="slide s-cover theme-light active" data-index="0" style="background:#EAF5FF">
+    <img class="slide-bg" src="assets/gradient-bg.webp" alt="" />
+    <div class="eyebrow">Design Proposal · November 2026</div>
     <h1 class="cover-brand-title">OCUMEDA</h1>
     <div class="subtitle">
-      Website restyling based on the new CI<br>
-      Design and Framer implementation
+      Website redesign based on the new CI<br>
+      Design &amp; Framer Implementation
     </div>
     <div class="cover-line"></div>
     <div class="cover-meta">
@@ -840,7 +927,7 @@
       <a href="mailto:hello@np.design">hello@np.design</a><br>
       <a href="https://np.design">np.design</a>
     </div>
-    <img class="cover-ornament" src="assets/ocumeda-logo-light.svg" alt="Ocumeda" width="228" height="60" decoding="async" />
+    <img class="cover-ornament cover-ornament--solid" src="assets/ocumeda-logo-dark.svg" alt="Ocumeda" width="228" height="60" decoding="async" />
   </div>
 
   <!-- SLIDE 2: OVERVIEW -->
@@ -852,7 +939,7 @@
       </div>
       <div>
         <p class="lede">
-          Proposal for the design and Framer implementation of OCUMEDA's website restyling, based on the new CI: &quot;Med-tech that radiates warmth&quot;, a clearer story on the main pages, and reusable Framer components that work across all pages.
+          Proposal for the design and Framer implementation of Ocumeda's website redesign.
         </p>
         <div class="lede-rule"></div>
       </div>
@@ -872,7 +959,7 @@
           <div class="pkg-title">The New CI</div>
           <div class="pkg-divider"></div>
           <div class="pkg-items">
-            <div class="pkg-item">Colour, type and logo from the new CI, carried through the existing site.</div>
+            <div class="pkg-item">Applying the new CI makes the website fresh, warm and human, without feeling clinical.</div>
           </div>
         </div>
         <div class="pkg">
@@ -880,15 +967,15 @@
           <div class="pkg-title">Warm Med-tech</div>
           <div class="pkg-divider"></div>
           <div class="pkg-items">
-            <div class="pkg-item">A close, human feeling: &quot;Med-tech that radiates warmth&quot;.</div>
+            <div class="pkg-item">Approachable and trustworthy: medical expertise with a human face. &quot;Med-tech that radiates warmth&quot;.</div>
           </div>
         </div>
         <div class="pkg">
           <div class="pkg-num">03</div>
-          <div class="pkg-title">A Clearer Story</div>
+          <div class="pkg-title">Show the Product</div>
           <div class="pkg-divider"></div>
           <div class="pkg-items">
-            <div class="pkg-item">Home, Ärzte, Optiker and Kunden tell a clearer story. Reusable Framer components work across all pages.</div>
+            <div class="pkg-item">Showcase the product in a clear story, with mockups and photography instead of abstract animations.</div>
           </div>
         </div>
       </div>
@@ -902,30 +989,30 @@
         <div class="section-label">Proposal</div>
         <h2 class="slide-title title-md">Scope of Work</h2>
       </div>
-      <div class="limits-list">
+      <div class="limits-list limits-list--key" style="--limit-key-width:15rem">
         <div class="limit-row">
-          <div class="limit-key">CI Review</div>
-          <div class="limit-val">Review of the CI, and feedback on storyline and structure</div>
+          <div class="limit-key">Style Guide &amp; UI Library</div>
+          <div class="limit-val">The new CI is applied across the whole website, through a style guide and UI library.</div>
         </div>
         <div class="limit-row">
-          <div class="limit-key">UI Styles</div>
-          <div class="limit-val">Colour palette and type scale</div>
+          <div class="limit-key">Content &amp; Structure</div>
+          <div class="limit-val">Ocumeda provides a baseline structure. Natalia helps refine it for the four main pages.</div>
         </div>
         <div class="limit-row">
           <div class="limit-key">Components</div>
-          <div class="limit-val">Existing Framer components updated and extended into a reusable set that works across all pages</div>
+          <div class="limit-val">The new structure gets the building blocks it needs. The UI library is extended with new components for the redesigned pages.</div>
         </div>
         <div class="limit-row">
           <div class="limit-key">Graphics</div>
-          <div class="limit-val">Selected graphics updated with Ocumeda's halos</div>
+          <div class="limit-val">New graphics and product mockups based on the new brand guidelines and the new photography style, as the main pages need them.</div>
         </div>
         <div class="limit-row">
           <div class="limit-key">Main Pages</div>
-          <div class="limit-val">Content updates on Home, Ärzte, Optiker and Kunden</div>
+          <div class="limit-val">Structural redesign of Home, Ärzte (doctors), Optiker (opticians) and Kunden (customers), according to the new content and storyline.</div>
         </div>
         <div class="limit-row limit-row--noborder">
           <div class="limit-key">QA</div>
-          <div class="limit-val">Checked across breakpoints. The responsive layout already exists.</div>
+          <div class="limit-val">Pre-launch QA</div>
         </div>
       </div>
     </div>
@@ -941,11 +1028,11 @@
       <div class="limits-list">
         <div class="limit-row">
           <div class="limit-key">Animations</div>
-          <div class="limit-val">No new animations</div>
+          <div class="limit-val">No new complex animations</div>
         </div>
         <div class="limit-row">
-          <div class="limit-key">Content</div>
-          <div class="limit-val">Copy, photography and halo graphics are provided by Ocumeda. Copywriting and image production are not included.</div>
+          <div class="limit-key">Copy</div>
+          <div class="limit-val">Copy content is supplied by Ocumeda. Writing the copy is out of scope.</div>
         </div>
         <div class="limit-row">
           <div class="limit-key">Translations</div>
@@ -953,7 +1040,7 @@
         </div>
         <div class="limit-row limit-row--noborder">
           <div class="limit-key">Pages</div>
-          <div class="limit-val">Team, Karriere and Blog are not included. Standorte stays a placeholder.</div>
+          <div class="limit-val">Team, Karriere, Blog and other secondary pages get no structural or content changes. The locations map stays as a placeholder. The new CI still reaches them through the components.</div>
         </div>
       </div>
     </div>
@@ -969,41 +1056,40 @@
       <div class="packages-grid">
         <div class="pkg">
           <div class="pkg-num">01</div>
-          <div class="pkg-title">Concept</div>
-          <div class="pkg-days">1 design day</div>
+          <div class="pkg-title">Concept &amp; Structure</div>
+          <div class="pkg-days">1 design day<br>Cal week 46</div>
           <div class="pkg-divider"></div>
           <div class="pkg-items">
-            <div class="pkg-item">Review of the new CI</div>
-            <div class="pkg-item">Feedback on storyline and structure</div>
-            <div class="pkg-item">Framer's limits for SEO, CMS, localisation and load times</div>
+            <div class="pkg-item">Refine and finalize storyline and structure of the main pages</div>
+            <div class="pkg-item">Wireframe-level layouts</div>
           </div>
         </div>
         <div class="pkg">
           <div class="pkg-num">02</div>
           <div class="pkg-title">Visual Design</div>
-          <div class="pkg-days">3 design days</div>
+          <div class="pkg-days">3 design days<br>Cal week 47/48</div>
           <div class="pkg-divider"></div>
           <div class="pkg-items">
-            <div class="pkg-item">UI styles: colour palette, including states and contrast, and a type scale</div>
-            <div class="pkg-item">Component design</div>
-            <div class="pkg-item">Graphics with Ocumeda's halos and photos</div>
+            <div class="pkg-item">High-fidelity design and visual language of the website</div>
+            <div class="pkg-item">Typography system, colour palette, UI components, spacing and layout (built on the new CI)</div>
+            <div class="pkg-item">Desktop, tablet and mobile layouts</div>
           </div>
         </div>
         <div class="pkg">
           <div class="pkg-num">03</div>
-          <div class="pkg-title">Implementation &amp; QA</div>
-          <div class="pkg-days">3 design days</div>
+          <div class="pkg-title">Framer Implementation &amp; QA</div>
+          <div class="pkg-days">3 design days<br>Cal week 48/49</div>
           <div class="pkg-divider"></div>
           <div class="pkg-items">
             <div class="pkg-item">Styles set up in Framer</div>
-            <div class="pkg-item">Components updated and extended</div>
-            <div class="pkg-item">Content updated on the main pages</div>
-            <div class="pkg-item">QA across breakpoints and languages</div>
+            <div class="pkg-item">Full build in Framer</div>
+            <div class="pkg-item">Responsive implementation (desktop, tablet, mobile)</div>
+            <div class="pkg-item">Pre-launch QA</div>
           </div>
         </div>
       </div>
       <div class="tl-launch">
-        Timeline to be agreed. Calls are included in these days.
+        Launch first week of December (assuming kick-off on November 9th).
       </div>
     </div>
   </div>
@@ -1024,12 +1110,12 @@
           <div class="costs-label">Framer hosting</div>
           <div class="cost-row">
             <div class="cost-key">
-              <strong>Existing hosting</strong>
+              <strong>Ongoing cost</strong>
             </div>
-            <div class="cost-val">unchanged</div>
+            <div class="cost-val">depending on the plan</div>
           </div>
           <div class="costs-disclaimer">
-            The existing Framer hosting stays as it is and is not part of this proposal. The total is net, with no discount.
+            Framer hosting stays as it is and is not part of this proposal.
           </div>
         </div>
       </div>
@@ -1037,7 +1123,8 @@
   </div>
 
   <!-- SLIDE 8: CLOSING -->
-  <div class="slide s-cover theme-dark" data-index="7">
+  <div class="slide s-cover theme-light" data-index="7" style="background:#EAF5FF">
+    <img class="slide-bg" src="assets/gradient-bg.webp" alt="" />
     <div class="eyebrow">OCUMEDA</div>
     <h1>Looking forward to hearing your thoughts.</h1>
     <div class="subtitle">
@@ -1168,6 +1255,7 @@ goTo(0);
 (function () {
   var password = "ocumeda2026!";
   var key = "pitch-unlock-ocumeda";
+  var errorText = "Incorrect password.";
   var body = document.body;
   var gate = document.getElementById('pitch-gate');
   var form = document.getElementById('pitch-gate-form');
@@ -1185,9 +1273,14 @@ goTo(0);
   } catch (e) {}
   form.addEventListener('submit', function (event) {
     event.preventDefault();
+    var error = document.getElementById('pitch-gate-error');
     if (input.value === password) unlock();
     else {
       input.setAttribute('aria-invalid', 'true');
+      if (error) {
+        error.textContent = errorText;
+        error.classList.add('is-visible');
+      }
       input.focus();
     }
   });

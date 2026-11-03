@@ -7,28 +7,49 @@
   "theme": {
     "pageBackground": "#333D48",
     "light": {
-      "bgPrimary": "#FAFBF9",
-      "bgSecondary": "#EAF5FF",
+      "bgPrimary": "#EAF5FF",
+      "bgSecondary": "#FAFBF9",
       "contentPrimary": "#333D48",
-      "contentSecondary": "#333D48",
-      "contentSubtle": "#333D48",
-      "borderPrimary": "#5078FF",
-      "borderSecondary": "#333D48"
+      "contentSecondary": "#3A4C76",
+      "contentSubtle": "#7080A0",
+      "borderPrimary": "#A2BAFF",
+      "borderSecondary": "#B7CCFF"
     },
     "dark": {
       "bgPrimary": "#333D48",
       "bgSecondary": "#333D48",
       "contentPrimary": "#FAFBF9",
       "contentSecondary": "#EAF5FF",
-      "contentSubtle": "#F5A624",
-      "borderPrimary": "#EAF5FF",
-      "borderSecondary": "#EAF5FF"
+      "contentSubtle": "#F5F8FE",
+      "borderPrimary": "rgba(80, 120, 255, 0.25)",
+      "borderSecondary": "rgba(80, 120, 255, 0.25)"
     },
     "fonts": {
       "sans": {
-        "family": "Albert Sans",
-        "google": "ital,wght@0,300;0,500;1,300;1,500",
-        "fallback": "sans-serif"
+        "family": "TT Commons Pro",
+        "fallback": "sans-serif",
+        "files": [
+          {
+            "weight": 300,
+            "style": "normal",
+            "src": ["assets/fonts/TTCommonsPro-Light.woff2", "assets/fonts/TTCommonsPro-Light.woff"]
+          },
+          {
+            "weight": 400,
+            "style": "normal",
+            "src": ["assets/fonts/TTCommonsPro-Medium.woff2", "assets/fonts/TTCommonsPro-Medium.woff"]
+          },
+          {
+            "weight": 500,
+            "style": "normal",
+            "src": ["assets/fonts/TTCommonsPro-Medium.woff2", "assets/fonts/TTCommonsPro-Medium.woff"]
+          },
+          {
+            "weight": 700,
+            "style": "normal",
+            "src": ["assets/fonts/TTCommonsPro-Bold.woff2", "assets/fonts/TTCommonsPro-Bold.woff"]
+          }
+        ]
       },
       "serif": {
         "family": "Inria Serif",
@@ -46,24 +67,28 @@
   "slides": [
     {
       "type": "cover",
-      "eyebrow": "Design Proposal",
+      "eyebrow": "Design Proposal · November 2026",
       "title": "OCUMEDA",
       "subtitle": [
-        "Website restyling based on the new CI",
-        "Design and Framer implementation"
+        "Website redesign based on the new CI",
+        "Design & Framer Implementation"
       ],
+      "theme": "light",
+      "background": "#EAF5FF",
+      "backgroundImage": "assets/gradient-bg.webp",
       "logo": {
-        "src": "assets/ocumeda-logo-light.svg",
+        "src": "assets/ocumeda-logo-dark.svg",
         "alt": "Ocumeda",
         "width": 228,
-        "height": 60
+        "height": 60,
+        "blend": "normal"
       }
     },
     {
       "type": "overview",
       "label": "Overview",
       "title": "OCUMEDA Website",
-      "lede": "Proposal for the design and Framer implementation of OCUMEDA's website restyling, based on the new CI: \"Med-tech that radiates warmth\", a clearer story on the main pages, and reusable Framer components that work across all pages."
+      "lede": "Proposal for the design and Framer implementation of Ocumeda's website redesign."
     },
     {
       "type": "cards",
@@ -73,19 +98,19 @@
         {
           "title": "The New CI",
           "points": [
-            "Colour, type and logo from the new CI, carried through the existing site."
+            "Applying the new CI makes the website fresh, warm and human, without feeling clinical."
           ]
         },
         {
           "title": "Warm Med-tech",
           "points": [
-            "A close, human feeling: \"Med-tech that radiates warmth\"."
+            "Approachable and trustworthy: medical expertise with a human face. \"Med-tech that radiates warmth\"."
           ]
         },
         {
-          "title": "A Clearer Story",
+          "title": "Show the Product",
           "points": [
-            "Home, Ärzte, Optiker and Kunden tell a clearer story. Reusable Framer components work across all pages."
+            "Showcase the product in a clear story, with mockups and photography instead of abstract animations."
           ]
         }
       ]
@@ -94,13 +119,14 @@
       "type": "list",
       "label": "Proposal",
       "title": "Scope of Work",
+      "keyWidth": "15rem",
       "rows": [
-        { "key": "CI Review", "value": "Review of the CI, and feedback on storyline and structure" },
-        { "key": "UI Styles", "value": "Colour palette and type scale" },
-        { "key": "Components", "value": "Existing Framer components updated and extended into a reusable set that works across all pages" },
-        { "key": "Graphics", "value": "Selected graphics updated with Ocumeda's halos" },
-        { "key": "Main Pages", "value": "Content updates on Home, Ärzte, Optiker and Kunden" },
-        { "key": "QA", "value": "Checked across breakpoints. The responsive layout already exists." }
+        { "key": "Style Guide & UI Library", "value": "The new CI is applied across the whole website, through a style guide and UI library." },
+        { "key": "Content & Structure", "value": "Ocumeda provides a baseline structure. Natalia helps refine it for the four main pages." },
+        { "key": "Components", "value": "The new structure gets the building blocks it needs. The UI library is extended with new components for the redesigned pages." },
+        { "key": "Graphics", "value": "New graphics and product mockups based on the new brand guidelines and the new photography style, as the main pages need them." },
+        { "key": "Main Pages", "value": "Structural redesign of Home, Ärzte (doctors), Optiker (opticians) and Kunden (customers), according to the new content and storyline." },
+        { "key": "QA", "value": "Pre-launch QA" }
       ]
     },
     {
@@ -108,10 +134,10 @@
       "label": "Proposal",
       "title": "Scope Limitations",
       "rows": [
-        { "key": "Animations", "value": "No new animations" },
-        { "key": "Content", "value": "Copy, photography and halo graphics are provided by Ocumeda. Copywriting and image production are not included." },
+        { "key": "Animations", "value": "No new complex animations" },
+        { "key": "Copy", "value": "Copy content is supplied by Ocumeda. Writing the copy is out of scope." },
         { "key": "Translations", "value": "Translations are not included." },
-        { "key": "Pages", "value": "Team, Karriere and Blog are not included. Standorte stays a placeholder." }
+        { "key": "Pages", "value": "Team, Karriere, Blog and other secondary pages get no structural or content changes. The locations map stays as a placeholder. The new CI still reaches them through the components." }
       ]
     },
     {
@@ -120,35 +146,34 @@
       "title": "Design Process & Timeline",
       "items": [
         {
-          "title": "Concept",
-          "days": ["1 design day"],
+          "title": "Concept & Structure",
+          "days": ["1 design day", "Cal week 46"],
           "points": [
-            "Review of the new CI",
-            "Feedback on storyline and structure",
-            "Framer's limits for SEO, CMS, localisation and load times"
+            "Refine and finalize storyline and structure of the main pages",
+            "Wireframe-level layouts"
           ]
         },
         {
           "title": "Visual Design",
-          "days": ["3 design days"],
+          "days": ["3 design days", "Cal week 47/48"],
           "points": [
-            "UI styles: colour palette, including states and contrast, and a type scale",
-            "Component design",
-            "Graphics with Ocumeda's halos and photos"
+            "High-fidelity design and visual language of the website",
+            "Typography system, colour palette, UI components, spacing and layout (built on the new CI)",
+            "Desktop, tablet and mobile layouts"
           ]
         },
         {
-          "title": "Implementation & QA",
-          "days": ["3 design days"],
+          "title": "Framer Implementation & QA",
+          "days": ["3 design days", "Cal week 48/49"],
           "points": [
             "Styles set up in Framer",
-            "Components updated and extended",
-            "Content updated on the main pages",
-            "QA across breakpoints and languages"
+            "Full build in Framer",
+            "Responsive implementation (desktop, tablet, mobile)",
+            "Pre-launch QA"
           ]
         }
       ],
-      "launch": "Timeline to be agreed. Calls are included in these days."
+      "launch": "Launch first week of December (assuming kick-off on November 9th)."
     },
     {
       "type": "cost",
@@ -160,13 +185,16 @@
       "hosting": {
         "label": "Framer hosting",
         "rows": [
-          { "name": "Existing hosting", "value": "unchanged" }
+          { "name": "Ongoing cost", "value": "depending on the plan" }
         ],
-        "disclaimer": "The existing Framer hosting stays as it is and is not part of this proposal. The total is net, with no discount."
+        "disclaimer": "Framer hosting stays as it is and is not part of this proposal."
       }
     },
     {
       "type": "closing",
+      "theme": "light",
+      "background": "#EAF5FF",
+      "backgroundImage": "assets/gradient-bg.webp",
       "eyebrow": "OCUMEDA",
       "title": "Looking forward to hearing your thoughts.",
       "subtitle": [

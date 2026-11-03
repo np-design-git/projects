@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000">
+  <!-- Ocumeda Halo, Amber #F5A624. Profile matched to brand book p.9 halo: solid core ~25% of radius, 50% alpha ~60%, transparent at edge -->
+  <defs>
+    <radialGradient id="halo" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#F5A624" stop-opacity="1"/>
+      <stop offset="0.25" stop-color="#F5A624" stop-opacity="1"/>
+      <stop offset="0.45" stop-color="#F5A624" stop-opacity="0.8"/>
+      <stop offset="0.62" stop-color="#F5A624" stop-opacity="0.5"/>
+      <stop offset="0.8" stop-color="#F5A624" stop-opacity="0.15"/>
+      <stop offset="1" stop-color="#F5A624" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <circle cx="500" cy="500" r="500" fill="url(#halo)"/>
+</svg>
