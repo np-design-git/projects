@@ -859,6 +859,14 @@
   .slide-decor--top-right { right: 0; top: 0; transform: translate(48%, -48%); }
   .slide-decor--bottom-left { left: 0; bottom: 0; transform: translate(-48%, 48%); }
   .slide-decor--bottom-right { right: 0; bottom: 0; transform: translate(48%, 48%); }
+  .slide-decor--right { right: 0; top: 50%; transform: translate(52%, -50%); }
+  .slide-decor--left { left: 0; top: 50%; transform: translate(-52%, -50%); }
+  .s-cover:has(.slide-decor--left) { padding-left: max(var(--inset-slide-x), 42%); }
+  @media (max-width: 600px) {
+    .slide-decor--right { transform: translate(80%, -50%); }
+    .slide-decor--left { transform: translate(-80%, -50%); }
+    .s-cover:has(.slide-decor--left) { padding-left: var(--inset-slide-x); }
+  }
   .s-cover .eyebrow,
   .s-cover h1,
   .s-cover .subtitle,
@@ -886,8 +894,8 @@
   <!-- SLIDE 1: COVER -->
   <div class="slide s-cover theme-light active" data-index="0" style="background:#EAF5FF">
     <div class="slide-decor-layer" aria-hidden="true">
-      <img class="slide-decor slide-decor--bottom-left" src="assets/halo-amber-glow.svg" alt="" style="--decor-size:52vmin;--decor-opacity:0.55" />
-      <img class="slide-decor slide-decor--bottom-right" src="assets/halo-amber-sharp.svg" alt="" style="--decor-size:145vmin;--decor-opacity:1" />
+      <img class="slide-decor slide-decor--bottom-left" src="assets/halo-amber-glow.svg" alt="" style="--decor-size:42vmin;--decor-opacity:0.45" />
+      <img class="slide-decor slide-decor--right" src="assets/halo-amber-disc.svg" alt="" style="--decor-size:162vh;--decor-opacity:1" />
     </div>
     <div class="eyebrow">Design Proposal · 9 Nov 2026</div>
     <h1 class="cover-brand-title">OCUMEDA</h1>
@@ -1104,8 +1112,8 @@
   <!-- SLIDE 8: CLOSING -->
   <div class="slide s-cover theme-light" data-index="7" style="background:#EAF5FF">
     <div class="slide-decor-layer" aria-hidden="true">
-      <img class="slide-decor slide-decor--bottom-right" src="assets/halo-amber-glow.svg" alt="" style="--decor-size:46vmin;--decor-opacity:0.45" />
-      <img class="slide-decor slide-decor--top-left" src="assets/halo-amber-sharp-mirror.svg" alt="" style="--decor-size:158vmin;--decor-opacity:1" />
+      <img class="slide-decor slide-decor--bottom-right" src="assets/halo-amber-glow.svg" alt="" style="--decor-size:38vmin;--decor-opacity:0.4" />
+      <img class="slide-decor slide-decor--left" src="assets/halo-amber-disc.svg" alt="" style="--decor-size:162vh;--decor-opacity:1" />
     </div>
     <div class="eyebrow">OCUMEDA</div>
     <h1>Looking forward to hearing your thoughts.</h1>

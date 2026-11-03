@@ -134,7 +134,7 @@
       "required": ["src", "position"],
       "properties": {
         "src": { "type": "string", "minLength": 1, "description": "Path inside the client folder, such as assets/halo.svg." },
-        "position": { "enum": ["top-left", "top-right", "bottom-left", "bottom-right"] },
+        "position": { "enum": ["top-left", "top-right", "bottom-left", "bottom-right", "left", "right"] },
         "size": { "type": "string", "pattern": "^\\d+(?:\\.\\d+)?(?:px|vw|vh|vmin|vmax|%)$" },
         "opacity": { "type": "number", "minimum": 0, "maximum": 1 }
       }

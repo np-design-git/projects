@@ -132,7 +132,7 @@ function validatePitch(pitch, slug) {
   pitch.slides.forEach((slide, i) => validateSlide(slide, i));
 }
 
-const DECOR_POSITIONS = new Set(['top-left', 'top-right', 'bottom-left', 'bottom-right']);
+const DECOR_POSITIONS = new Set(['top-left', 'top-right', 'bottom-left', 'bottom-right', 'left', 'right']);
 const DECOR_SIZE = /^\d+(?:\.\d+)?(?:px|vw|vh|vmin|vmax|%)$/;
 
 function validateSurface(slide, where) {
@@ -392,6 +392,14 @@ function decorationCss(pitch) {
   .slide-decor--top-right { right: 0; top: 0; transform: translate(48%, -48%); }
   .slide-decor--bottom-left { left: 0; bottom: 0; transform: translate(-48%, 48%); }
   .slide-decor--bottom-right { right: 0; bottom: 0; transform: translate(48%, 48%); }
+  .slide-decor--right { right: 0; top: 50%; transform: translate(52%, -50%); }
+  .slide-decor--left { left: 0; top: 50%; transform: translate(-52%, -50%); }
+  .s-cover:has(.slide-decor--left) { padding-left: max(var(--inset-slide-x), 42%); }
+  @media (max-width: 600px) {
+    .slide-decor--right { transform: translate(80%, -50%); }
+    .slide-decor--left { transform: translate(-80%, -50%); }
+    .s-cover:has(.slide-decor--left) { padding-left: var(--inset-slide-x); }
+  }
   .s-cover .eyebrow,
   .s-cover h1,
   .s-cover .subtitle,
