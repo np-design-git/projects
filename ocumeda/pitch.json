@@ -141,7 +141,7 @@
           "title": "Implementation & QA",
           "days": ["3 design days"],
           "points": [
-            "Styles set up in the Framer implementation",
+            "Styles set up in Framer",
             "Components updated and extended",
             "Content updated on the main pages",
             "QA across breakpoints and languages"
