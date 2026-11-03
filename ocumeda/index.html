@@ -57,7 +57,7 @@
     --bg-secondary: #333D48;
     --content-primary: #FAFBF9;
     --content-secondary: #EAF5FF;
-    --content-subtle: #F5A624;
+    --content-subtle: #F5F8FE;
     --border-primary: rgba(80, 120, 255, 0.25);
     --border-secondary: rgba(80, 120, 255, 0.25);
   }
@@ -864,14 +864,15 @@
     pointer-events: none;
     user-select: none;
   }
+  @media (max-width: 900px), (orientation: portrait) {
+    .slide-bg { object-position: left center; }
+  }
   .s-cover:has(.slide-bg) .eyebrow,
   .s-cover:has(.slide-bg) h1,
   .s-cover:has(.slide-bg) .subtitle,
   .s-cover:has(.slide-bg) .cover-line,
   .s-cover:has(.slide-bg) .cover-meta { position: relative; z-index: 1; }
   .s-cover:has(.slide-bg) .cover-ornament { z-index: 2; }
-
-  .cover-meta-name { color: var(--content-primary); }
 
   .cover-ornament--solid { mix-blend-mode: normal; }
 
@@ -897,11 +898,11 @@
     <h1 class="cover-brand-title">OCUMEDA</h1>
     <div class="subtitle">
       Website redesign based on the new CI<br>
-      Design and Framer implementation
+      Design &amp; Framer Implementation
     </div>
     <div class="cover-line"></div>
     <div class="cover-meta">
-      <span class="cover-meta-name">Natalia Patiño</span><br>
+      Natalia Patiño<br>
       <a href="mailto:hello@np.design">hello@np.design</a><br>
       <a href="https://np.design">np.design</a>
     </div>

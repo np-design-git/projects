@@ -20,7 +20,7 @@
       "bgSecondary": "#333D48",
       "contentPrimary": "#FAFBF9",
       "contentSecondary": "#EAF5FF",
-      "contentSubtle": "#F5A624",
+      "contentSubtle": "#F5F8FE",
       "borderPrimary": "rgba(80, 120, 255, 0.25)",
       "borderSecondary": "rgba(80, 120, 255, 0.25)"
     },
@@ -71,12 +71,11 @@
       "title": "OCUMEDA",
       "subtitle": [
         "Website redesign based on the new CI",
-        "Design and Framer implementation"
+        "Design & Framer Implementation"
       ],
       "theme": "light",
       "background": "#EAF5FF",
       "backgroundImage": "assets/gradient-bg.webp",
-      "nameColor": "primary",
       "logo": {
         "src": "assets/ocumeda-logo-white.svg",
         "alt": "Ocumeda",

@@ -188,7 +188,6 @@ function validateSlide(slide, index) {
       assert(Number.isInteger(slide.logo.height) && slide.logo.height > 0, `${where}.logo.height must be a positive integer`);
       assert(slide.logo.blend === undefined || slide.logo.blend === 'lighten' || slide.logo.blend === 'normal', `${where}.logo.blend must be lighten or normal`);
     }
-    assert(slide.nameColor === undefined || slide.nameColor === 'primary', `${where}.nameColor must be primary`);
     validateDecorations(slide, where);
     validateSurface(slide, where);
     return;
@@ -339,13 +338,10 @@ function lines(parts) {
   return parts.filter((part) => part !== '').join('\n');
 }
 
-function coverMeta(contact, nameColor) {
-  const name = nameColor === 'primary'
-    ? `<span class="cover-meta-name">${esc(contact.name)}</span>`
-    : esc(contact.name);
+function coverMeta(contact) {
   return lines([
     '    <div class="cover-meta">',
-    `      ${name}<br>`,
+    `      ${esc(contact.name)}<br>`,
     `      <a href="mailto:${esc(contact.email)}">${esc(contact.email)}</a><br>`,
     `      <a href="${esc(contact.site)}">${esc(contact.siteLabel)}</a>`,
     '    </div>',
@@ -459,6 +455,9 @@ function backgroundImageCss(pitch) {
     pointer-events: none;
     user-select: none;
   }
+  @media (max-width: 900px), (orientation: portrait) {
+    .slide-bg { object-position: left center; }
+  }
   .s-cover:has(.slide-bg) .eyebrow,
   .s-cover:has(.slide-bg) h1,
   .s-cover:has(.slide-bg) .subtitle,
@@ -474,14 +473,6 @@ function slideStyle(slide) {
   if (slide.contentSecondary) parts.push(`--content-secondary:${slide.contentSecondary}`);
   if (slide.contentSubtle) parts.push(`--content-subtle:${slide.contentSubtle}`);
   return parts.length ? ` style="${parts.join(';')}"` : '';
-}
-
-function nameColorCss(pitch) {
-  const used = pitch.slides.some((slide) => slide.nameColor === 'primary');
-  if (!used) return '';
-  return `
-  .cover-meta-name { color: var(--content-primary); }
-`;
 }
 
 function logoBlendCss(pitch) {
@@ -503,7 +494,7 @@ function renderCover(slide, pitch) {
     `    <h1 class="cover-brand-title">${esc(slide.title)}</h1>`,
     subtitle(slide.subtitle),
     '    <div class="cover-line"></div>',
-    coverMeta(pitch.contact, slide.nameColor),
+    coverMeta(pitch.contact),
     logo,
   ]);
 }
@@ -760,7 +751,7 @@ function renderDocument(pitch, css, js) {
 ${robots}<title>${esc(pitch.title)}</title>
 <style>
 ${themeCss(pitch.theme)}
-${lock.css}${css.trimEnd()}${decorationCss(pitch)}${listKeyCss(pitch)}${backgroundImageCss(pitch)}${nameColorCss(pitch)}${logoBlendCss(pitch)}
+${lock.css}${css.trimEnd()}${decorationCss(pitch)}${listKeyCss(pitch)}${backgroundImageCss(pitch)}${logoBlendCss(pitch)}
 </style>
 </head>
 <body${lock.bodyClass}>
