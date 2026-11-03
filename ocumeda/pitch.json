@@ -70,7 +70,7 @@
       "eyebrow": "Design Proposal · 9 Nov 2026",
       "title": "OCUMEDA",
       "subtitle": [
-        "Website restyling based on the new CI",
+        "Website redesign based on the new CI",
         "Design and Framer implementation"
       ],
       "theme": "light",
@@ -91,7 +91,7 @@
       "type": "overview",
       "label": "Overview",
       "title": "OCUMEDA Website",
-      "lede": "Design and Framer implementation of a website restyling based on the new CI. Reusable Framer components carry the new style through every page. Home, Ärzte, Optiker and Kunden show the product in a clear story, with mockups instead of abstract animations."
+      "lede": "Design and Framer implementation of a website redesign based on the new CI. Reusable Framer components carry the new style through every page. Home, Ärzte, Optiker and Kunden show the product in a clear story, with mockups instead of abstract animations."
     },
     {
       "type": "cards",
