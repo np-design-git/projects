@@ -63,7 +63,7 @@
       "type": "overview",
       "label": "Overview",
       "title": "OCUMEDA Website",
-      "lede": "Proposal for the design and Framer implementation of OCUMEDA's website restyling, based on the new CI: \"Med-tech that radiates warmth\", a clearer story through product mockups instead of abstract animations, and reusable Framer components that work across all pages."
+      "lede": "Proposal for the design and Framer implementation of OCUMEDA's website restyling. The new style runs through the whole website: clear and fresh, warm and human, precise without ever feeling clinical. The main pages show the product through mockups, and reusable Framer components work across every page."
     },
     {
       "type": "cards",
@@ -73,13 +73,13 @@
         {
           "title": "The New CI",
           "points": [
-            "Colour, type and logo from the new CI, carried through the existing site."
+            "The new style runs through the whole website: clear and fresh, warm and human, precise without ever feeling clinical."
           ]
         },
         {
           "title": "Warm Med-tech",
           "points": [
-            "A close, human feeling: \"Med-tech that radiates warmth\"."
+            "Medical expertise with a human face: \"Med-tech that radiates warmth\"."
           ]
         },
         {
@@ -95,10 +95,11 @@
       "label": "Proposal",
       "title": "Scope of Work",
       "rows": [
-        { "key": "CI Review", "value": "Review of the CI, and feedback on storyline and structure" },
-        { "key": "UI Styles", "value": "Colour palette and type scale" },
-        { "key": "Components", "value": "Existing Framer components updated and extended into a reusable set that works across all pages" },
-        { "key": "Graphics", "value": "Selected graphics updated with Ocumeda's halos" },
+        { "key": "CI Review", "value": "Review of the new CI and how it translates to the website's visual design" },
+        { "key": "Concept", "value": "Storyline, content structure and information architecture of the main pages" },
+        { "key": "UI Styles", "value": "Blue and Fog for clarity, Amber and Soft Orange for warmth, plus a type scale" },
+        { "key": "Components", "value": "Framer components updated and extended into a reusable set across the whole website" },
+        { "key": "Graphics", "value": "New visuals and graphics based on the new CI, including the product mockups" },
         { "key": "Main Pages", "value": "Content updates on Home, Ärzte, Optiker and Kunden" },
         { "key": "QA", "value": "Checked across breakpoints. The responsive layout already exists." }
       ]
@@ -109,7 +110,7 @@
       "title": "Scope Limitations",
       "rows": [
         { "key": "Animations", "value": "No new animations" },
-        { "key": "Content", "value": "Copy, photography and halo graphics are provided by Ocumeda. Copywriting and image production are not included." },
+        { "key": "Content", "value": "Copy and photography are provided by Ocumeda. Copywriting is not included. New visuals, graphics and product mockups are part of this scope." },
         { "key": "Translations", "value": "Translations are not included." },
         { "key": "Pages", "value": "Team, Karriere and Blog are not included. Standorte stays a placeholder." }
       ]
@@ -123,8 +124,7 @@
           "title": "Concept",
           "days": ["1 design day"],
           "points": [
-            "Review of the new CI",
-            "Feedback on storyline and structure",
+            "Storyline, content structure and information architecture of the main pages",
             "Framer's limits for SEO, CMS, localisation and load times"
           ]
         },
@@ -132,9 +132,10 @@
           "title": "Visual Design",
           "days": ["3 design days"],
           "points": [
-            "UI styles: colour palette, including states and contrast, and a type scale",
+            "Review of the new CI and how it translates to the visual design",
+            "UI styles: Blue and Fog for clarity, Amber and Soft Orange for warmth, with states, contrast and a type scale",
             "Component design",
-            "Graphics with Ocumeda's halos and photos"
+            "New visuals, graphics and product mockups based on the new CI"
           ]
         },
         {
