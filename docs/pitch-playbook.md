@@ -127,21 +127,33 @@ The nav pill is not a client token. It uses the fixed white and black in `templa
 
 A slide may set `background` to a theme base: `light.bgPrimary`, `dark.bgPrimary`, or `pageBackground`. Ocumeda's cover and closing use `#EAF5FF`, which is `light.bgPrimary`, under a full-bleed image. Per-slide `contentSecondary` or `contentSubtle` overrides are outside the system. Hex colours in the copy are outside the system. `rgba()` belongs in the theme when a line needs opacity, as with Ocumeda's dark `borderPrimary`.
 
-### Desa Alam steps
+### Role ranges
 
-Light base `#F5F0E6`, dark base `#2D3B2A`, ink `#1E1C1A`, accent `#3D4F38`. OKLab lightness, from the light base unless noted:
+Each text role is checked against both `bgPrimary` and `bgSecondary`. The range belongs to the role. Desa Alam's measured ratios are the reference example below, not the target.
 
-| Token | Light | Dark |
+| Role | Contrast on both backgrounds | Why this range |
 | --- | --- | --- |
-| `bgPrimary` | 0.956, the light base | 0.334, the dark base |
-| `bgSecondary` | 0.907, Δ −0.050 | 0.264, Δ −0.070 from the dark base |
-| `borderSecondary` | 0.837 | the accent, 0.405 |
-| `borderPrimary` | 0.788 | the light `borderPrimary` |
-| `contentSubtle` | 0.595 | 0.894, a light tint of the dark base |
-| `contentSecondary` | 0.405, the accent | the light `borderPrimary` |
-| `contentPrimary` | 0.228, the ink | the light base |
+| `contentPrimary` | at least 7:1, no cap | Titles stay strong. The quietest title in the two decks is Ocumeda's Coal on Fog, 9.99:1. |
+| `contentSecondary` | 4.5:1 to 9:1 | Labels stay readable and do not turn into a second title. The decks run from 5.90:1 (Ocumeda dark on Coal) to 8.17:1 (Ocumeda light on Not White). |
+| `contentSubtle` | at least 3:1, no cap | Meta can sit under the labels or above them. Desa Alam's light meta is 3.07:1 and 3.57:1, under the green. Its dark meta is 8.70:1 and 11.17:1, above the sand. |
 
-Measured contrast of each text role on the two surfaces:
+### Tones have to stay apart
+
+Primary, secondary, and subtle are compared in OKLab. At least two of the three pairs must be at least **0.08** apart. One just-noticeable step is about 0.02, so 0.08 is a clearly different tone. The rule is on the set, not on every pair: a title and a meta line may both be pale when the label is the tone that separates them.
+
+The old Ocumeda dark text, `#FAFBF9` / `#EAF5FF` / `#F5F8FE`, measures 0.029, 0.014, and 0.017. No pair clears 0.08, so those three near-whites are one tone. The current dark text keeps `#FAFBF9` and `#F5F8FE` (0.014) and puts the label at `#A9BDF0` (0.201 and 0.190). Two pairs clear 0.08. `node scripts/check-pitch.js --self-test` prints that comparison.
+
+### Surfaces and lines
+
+`bgSecondary` must be at least **0.02** OKLab away from `bgPrimary`. A card is a large field, so one visible step is enough. Ocumeda's Fog and Not White are 0.029 apart. The text-role gap of 0.08 would reject that pair, which is why surfaces use the smaller step.
+
+A border is measured after `rgba()` is composited onto the background. Each border needs at least **1.2:1** on both backgrounds. The quietest line in the decks is Desa Alam's light `borderSecondary` on the card, 1.25:1. Ocumeda's blue at 25% opacity is 1.30:1 on Coal.
+
+`borderSecondary` should be the quieter line. It may measure up to **0.4:1** stronger than `borderPrimary`, and no more. The slack is there because Ocumeda's solid dark line `#414E70` is 1.72:1 on the card while the 25% blue line is 1.37:1. A gap larger than 0.4:1 warns.
+
+### Desa Alam, as an example
+
+Light base `#F5F0E6`, dark base `#2D3B2A`, ink `#1E1C1A`, accent `#3D4F38`. These values illustrate the ranges. They are not the numbers a new deck has to hit.
 
 | Pair | Light | Dark |
 | --- | --- | --- |
@@ -152,7 +164,7 @@ Measured contrast of each text role on the two surfaces:
 | `contentSubtle` on `bgPrimary` | 3.57:1 | 8.70:1 |
 | `contentSubtle` on `bgSecondary` | 3.07:1 | 11.17:1 |
 
-Light meta text sits near 3:1 on purpose. Dark text is the light base and the sand border, so its contrast is higher. The check treats each of these ratios as the centre of a range: within 15% or within 0.45, whichever is wider. A ratio on either side of the reference is reported.
+OKLab lightness for the same palette: light page 0.956 and card 0.907; dark page 0.334 and card 0.264; light ink 0.228, accent 0.405, meta 0.595; dark title 0.956, label 0.788, meta 0.894. The dark title and meta are 0.065 apart, and the other two text gaps are 0.171 and 0.111, so the set still passes.
 
 ### Ocumeda mapping
 
@@ -168,22 +180,25 @@ The same roles, with Ocumeda's brand colours. Fog `#EAF5FF` is the light base an
 | `borderPrimary` | `#A2BAFF` | `rgba(80, 120, 255, 0.25)` |
 | `borderSecondary` | `#B7CCFF` | `#414E70` |
 
-Ocumeda's cards are lighter than the page. Desa Alam's cards are darker than the page. That is why Ocumeda's light `bgSecondary` is an override on the Desa Alam step, which darkens the card. Several Ocumeda text ratios sit outside the Desa Alam band. `scripts/check-pitch.js` reports them and leaves the deck as it is.
+Ocumeda's cards are lighter than the page. Desa Alam's cards are darker than the page. Both pass the surface rule. Both pass the text ranges above.
 
-`node scripts/pitch-palette.js` takes the four brand colours and optional `--set theme.token=#RRGGBB` overrides. Ink and accent are kept. The other tokens follow the Desa Alam lightness and chroma steps, and the dark theme reuses the light base, the light border, and the accent the way Desa Alam does. Passing Desa Alam's four colours reproduces that palette exactly.
+`node scripts/pitch-palette.js` takes the four brand colours and optional `--set theme.token=#RRGGBB` overrides. Ink and accent are kept. Passing Desa Alam's four colours reproduces that palette exactly, including every derived token.
+
+For any other inputs the derived tones aim at the middle of the ranges, not at Desa Alam's ratios. Dark title, label, and meta aim at 10:1, 6.75:1, and 8:1. Light meta aims at 4.5:1, the middle of a quiet 3:1 to 6:1 band under a secondary label. Borders aim at 1.7:1 and 1.4:1. The card steps 0.04 in OKLab lightness away from the page, between the 0.02 minimum and Desa Alam's larger step. If those midpoints would still collapse the three text tones, meta moves along its lightness until two OKLab gaps reach 0.08, staying at or above 3:1. An override replaces one token after that and does not rebuild the others.
 
 ```bash
 node scripts/pitch-palette.js --light #F5F0E6 --dark #2D3B2A --ink #1E1C1A --accent #3D4F38
 node scripts/pitch-palette.js --light #EAF5FF --dark #333D48 --ink #333D48 --accent #3A4C76 --set light.bgSecondary=#FAFBF9
 ```
 
-An override replaces that one token after the steps run. It does not rebuild the tokens that were copied from it.
-
 ## Check
 
 `node scripts/check-pitch.js` reads every `pitch.json`, or the slugs you pass. It prints the contrast ratios and checks:
 
-- each text role against its two backgrounds, compared with the Desa Alam ratios
+- each text role against both backgrounds, inside the role range above
+- text roles at least 0.08 OKLab apart on two of the three pairs
+- `bgSecondary` at least 0.02 OKLab from `bgPrimary`
+- borders at least 1.2:1, with `borderSecondary` no more than 0.4:1 stronger than `borderPrimary`
 - per-slide colour overrides and hex colours outside `theme`, with cover and closing backgrounds allowed when they match a theme base
 - the banned words, including calls
 - `&` in titles and labels, and `and` in sentences and bullets
@@ -192,7 +207,7 @@ An override replaces that one token after the steps run. It does not rebuild the
 - a launch footnote in the form above
 - a cost equation whose day count is the sum of the phases, and an amount equal to days times the rate
 
-Warnings are printed and the command still exits 0. A missing or unreadable `pitch.json` exits 1. The check does not edit the deck.
+Warnings are printed and the command still exits 0. A missing or unreadable `pitch.json` exits 1. The check does not edit the deck. `node scripts/check-pitch.js --self-test` checks the old Ocumeda dark text, the current dark text, and Desa Alam's exact reproduction. That command exits 1 when one of those assertions fails.
 
 ## Scaffold
 

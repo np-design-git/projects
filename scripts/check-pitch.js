@@ -1,16 +1,18 @@
 #!/usr/bin/env node
 /**
  * Check a pitch.json against the deck system.
- * Contrast is compared with Desa Alam. Other findings are warnings.
+ * Contrast uses a range per text role. Desa Alam is an example, not the target.
  * Usage: node scripts/check-pitch.js [slug ...]
  *        node scripts/check-pitch.js            # every folder with pitch.json
+ *        node scripts/check-pitch.js --self-test
  *
  * Exit 0 when the files can be read. Warnings do not fail the run.
+ * --self-test exits 1 when a built-in assertion fails.
  */
 
 const fs = require('fs');
 const path = require('path');
-const { DESA, contrastRatio } = require('./pitch-palette');
+const { RULES, contrastRatio, oklabDistance, visibleHex } = require('./pitch-palette');
 
 const root = path.join(__dirname, '..');
 const MONTHS = 'January|February|March|April|May|June|July|August|September|October|November|December';
@@ -23,14 +25,13 @@ const AMOUNT = /^\d{1,3}(?:\.\d{3})+$|^\d+$/;
 const HEX_IN_TEXT = /#[0-9A-Fa-f]{3,8}\b|rgba\s*\(/i;
 const DATE_HINT = new RegExp(`\\b(?:${MONTHS})\\b|\\b\\d{1,2}[./]\\d{1,2}\\b|\\b20\\d{2}\\b`, 'i');
 
-const PAIRS = [
-  ['contentPrimary', 'bgPrimary'],
-  ['contentPrimary', 'bgSecondary'],
-  ['contentSecondary', 'bgPrimary'],
-  ['contentSecondary', 'bgSecondary'],
-  ['contentSubtle', 'bgPrimary'],
-  ['contentSubtle', 'bgSecondary'],
-];
+const TEXT_ROLES = ['contentPrimary', 'contentSecondary', 'contentSubtle'];
+const SURFACES = ['bgPrimary', 'bgSecondary'];
+const ROLE_RANGE = {
+  contentPrimary: { min: RULES.primaryMin, max: null, label: `>= ${RULES.primaryMin}` },
+  contentSecondary: { min: RULES.secondaryMin, max: RULES.secondaryMax, label: `${RULES.secondaryMin}–${RULES.secondaryMax}` },
+  contentSubtle: { min: RULES.subtleMin, max: null, label: `>= ${RULES.subtleMin}` },
+};
 
 const BANNED = [
   ['minimal', /\bminimal\b/i],
@@ -111,44 +112,87 @@ function roleOf(tokenPath) {
   return null;
 }
 
-function referenceContrasts() {
-  const table = {};
-  for (const theme of ['light', 'dark']) {
-    table[theme] = PAIRS.map(([text, surface]) => ({
-      text,
-      surface,
-      ratio: contrastRatio(DESA[theme][text], DESA[theme][surface]),
-    }));
-  }
-  return table;
+function inContrastRange(role, ratio) {
+  const range = ROLE_RANGE[role];
+  if (ratio == null) return false;
+  if (ratio < range.min) return false;
+  if (range.max != null && ratio > range.max) return false;
+  return true;
 }
 
-function inRange(actual, reference) {
-  const gap = Math.abs(actual - reference);
-  return gap <= 0.45 || gap / reference <= 0.15;
-}
-
-function checkContrast(pitch, reference, lines, warnings) {
-  lines.push('  contrast');
-  for (const theme of ['light', 'dark']) {
-    const palette = pitch.theme && pitch.theme[theme];
-    if (!palette) {
-      warnings.push(`${theme} palette is missing`);
-      lines.push(`    ${theme}  missing`);
-      continue;
+function textGaps(palette) {
+  const seen = TEXT_ROLES.map((role) => visibleHex(palette[role], palette.bgPrimary));
+  const gaps = [];
+  for (let i = 0; i < seen.length; i += 1) {
+    for (let j = i + 1; j < seen.length; j += 1) {
+      if (!seen[i] || !seen[j]) return null;
+      gaps.push(oklabDistance(seen[i], seen[j]));
     }
-    for (const pair of reference[theme]) {
-      const actual = contrastRatio(palette[pair.text], palette[pair.surface]);
-      const label = `${theme} ${pair.text} on ${pair.surface}`;
-      if (actual == null) {
-        warnings.push(`${label} could not be measured`);
-        lines.push(`    ${label}  unreadable`);
+  }
+  return gaps;
+}
+
+function checkPalette(theme, palette, lines, warnings) {
+  if (!palette) {
+    warnings.push(`${theme} palette is missing`);
+    lines.push(`  ${theme}  missing`);
+    return;
+  }
+  lines.push(`  ${theme} contrast`);
+  for (const role of TEXT_ROLES) {
+    for (const surface of SURFACES) {
+      const ratio = contrastRatio(palette[role], palette[surface]);
+      const label = `${role} on ${surface}`;
+      const range = ROLE_RANGE[role].label;
+      if (ratio == null) {
+        warnings.push(`${theme} ${label} could not be measured`);
+        lines.push(`    ${label.padEnd(36)} unreadable`);
         continue;
       }
-      const ok = inRange(actual, pair.ratio);
-      if (!ok) warnings.push(`${label} is ${actual.toFixed(2)}:1, outside the Desa Alam ${pair.ratio.toFixed(2)}:1 range`);
-      lines.push(`    ${label.padEnd(46)} ${actual.toFixed(2).padStart(5)}:1   reference ${pair.ratio.toFixed(2)}:1   ${ok ? 'ok' : 'warning'}`);
+      const ok = inContrastRange(role, ratio);
+      if (!ok) warnings.push(`${theme} ${label} is ${ratio.toFixed(2)}:1, outside ${range}`);
+      lines.push(`    ${label.padEnd(36)} ${ratio.toFixed(2).padStart(5)}:1   ${range.padEnd(8)} ${ok ? 'ok' : 'warning'}`);
     }
+  }
+
+  const gaps = textGaps(palette);
+  if (!gaps) {
+    warnings.push(`${theme} text roles could not be compared`);
+    lines.push(`  ${theme} tones      unreadable`);
+  } else {
+    const wide = gaps.filter((gap) => gap >= RULES.textGap).length;
+    const ok = wide >= RULES.textGapPairs;
+    if (!ok) {
+      warnings.push(`${theme} text roles collapse into one tone (${gaps.map((gap) => gap.toFixed(3)).join(', ')} OKLab; need ${RULES.textGapPairs} gaps of at least ${RULES.textGap})`);
+    }
+    lines.push(`  ${theme} tones      gaps ${gaps.map((gap) => gap.toFixed(3)).join(', ')}   ${ok ? 'ok' : 'warning'}`);
+  }
+
+  const bgSeen = [
+    visibleHex(palette.bgPrimary, palette.bgPrimary),
+    visibleHex(palette.bgSecondary, palette.bgPrimary),
+  ];
+  if (!bgSeen[0] || !bgSeen[1]) {
+    warnings.push(`${theme} backgrounds could not be compared`);
+  } else {
+    const gap = oklabDistance(bgSeen[0], bgSeen[1]);
+    const ok = gap >= RULES.bgGap;
+    if (!ok) warnings.push(`${theme} bgSecondary is not distinct from bgPrimary (${gap.toFixed(3)} OKLab, minimum ${RULES.bgGap})`);
+    lines.push(`  ${theme} surfaces   bg gap ${gap.toFixed(3)}   ${ok ? 'ok' : 'warning'}`);
+  }
+
+  for (const surface of SURFACES) {
+    const primary = contrastRatio(palette.borderPrimary, palette[surface]);
+    const secondary = contrastRatio(palette.borderSecondary, palette[surface]);
+    if (primary == null || secondary == null) {
+      warnings.push(`${theme} borders on ${surface} could not be measured`);
+      continue;
+    }
+    const visible = primary >= RULES.borderMin && secondary >= RULES.borderMin;
+    const quieter = secondary <= primary + RULES.borderQuietSlack;
+    if (!visible) warnings.push(`${theme} borders on ${surface} are faint (${primary.toFixed(2)}:1 and ${secondary.toFixed(2)}:1, minimum ${RULES.borderMin}:1)`);
+    if (!quieter) warnings.push(`${theme} borderSecondary on ${surface} is louder than borderPrimary (${secondary.toFixed(2)}:1 vs ${primary.toFixed(2)}:1)`);
+    lines.push(`  ${theme} borders    ${surface} ${primary.toFixed(2)}:1 / ${secondary.toFixed(2)}:1   ${visible && quieter ? 'ok' : 'warning'}`);
   }
 }
 
@@ -251,7 +295,7 @@ function checkCopy(pitch, lines, warnings) {
   }
 }
 
-function checkDeck(slug, reference) {
+function checkDeck(slug) {
   const file = path.join(root, slug, 'pitch.json');
   if (!fs.existsSync(file)) fail(`No pitch.json in ${slug}/`);
   let pitch;
@@ -262,7 +306,8 @@ function checkDeck(slug, reference) {
   }
   const lines = [slug];
   const warnings = [];
-  checkContrast(pitch, reference, lines, warnings);
+  checkPalette('light', pitch.theme && pitch.theme.light, lines, warnings);
+  checkPalette('dark', pitch.theme && pitch.theme.dark, lines, warnings);
   checkSlideColours(pitch, lines, warnings);
   checkCopy(pitch, lines, warnings);
   if (warnings.length) {
@@ -273,13 +318,83 @@ function checkDeck(slug, reference) {
   return { lines, warnings: warnings.length };
 }
 
+function selfTest() {
+  const { generatePalette, DESA } = require('./pitch-palette');
+  const failures = [];
+  const oldDark = {
+    bgPrimary: '#333D48',
+    bgSecondary: '#242B3C',
+    contentPrimary: '#FAFBF9',
+    contentSecondary: '#EAF5FF',
+    contentSubtle: '#F5F8FE',
+    borderPrimary: 'rgba(80, 120, 255, 0.25)',
+    borderSecondary: '#414E70',
+  };
+  const currentDark = {
+    bgPrimary: '#333D48',
+    bgSecondary: '#242B3C',
+    contentPrimary: '#FAFBF9',
+    contentSecondary: '#A9BDF0',
+    contentSubtle: '#F5F8FE',
+    borderPrimary: 'rgba(80, 120, 255, 0.25)',
+    borderSecondary: '#414E70',
+  };
+  const oldLines = [];
+  const oldWarnings = [];
+  checkPalette('old-dark', oldDark, oldLines, oldWarnings);
+  const currentLines = [];
+  const currentWarnings = [];
+  checkPalette('current-dark', currentDark, currentLines, currentWarnings);
+  const oldTone = oldWarnings.find((warning) => warning.includes('collapse into one tone'));
+  const currentTone = currentWarnings.find((warning) => warning.includes('collapse into one tone'));
+  process.stdout.write(`${oldLines.join('\n')}\n`);
+  process.stdout.write(oldTone ? `  distinguish   fail  ${oldTone}\n\n` : '  distinguish   unexpectedly passed\n\n');
+  process.stdout.write(`${currentLines.join('\n')}\n`);
+  process.stdout.write(`  distinguish   ${currentTone ? 'fail' : 'pass'}\n\n`);
+  if (!oldTone) failures.push('old Ocumeda dark text did not fail distinguishability');
+  if (currentTone) failures.push('current Ocumeda dark text failed distinguishability');
+
+  const reproduced = generatePalette({
+    light: DESA.light.bgPrimary,
+    dark: DESA.dark.bgPrimary,
+    ink: DESA.light.contentPrimary,
+    accent: DESA.light.contentSecondary,
+  });
+  for (const theme of ['light', 'dark']) {
+    for (const [key, value] of Object.entries(DESA[theme])) {
+      if (reproduced[theme][key].toLowerCase() !== value.toLowerCase()) {
+        failures.push(`Desa Alam ${theme}.${key} reproduced as ${reproduced[theme][key]}`);
+      }
+    }
+  }
+  const generated = generatePalette({
+    light: '#F4EFE6',
+    dark: '#243028',
+    ink: '#241C16',
+    accent: '#3E5340',
+  });
+  const generatedWarnings = [];
+  checkPalette('generated-light', generated.light, [], generatedWarnings);
+  checkPalette('generated-dark', generated.dark, [], generatedWarnings);
+  if (generatedWarnings.length) failures.push(`generated palette warnings: ${generatedWarnings.join('; ')}`);
+  if (failures.length) {
+    for (const failure of failures) process.stderr.write(`${failure}\n`);
+    process.exit(1);
+  }
+  process.stdout.write('self-test: old dark text fails distinguishability, current dark text passes, Desa Alam reproduces\n');
+}
+
 function main() {
-  const slugs = discover(process.argv.slice(2));
+  const args = process.argv.slice(2);
+  if (args.includes('--self-test')) {
+    selfTest();
+    return;
+  }
+  const slugs = discover(args);
   if (!slugs.length) fail('No pitch.json folders found');
-  const reference = referenceContrasts();
   let warnings = 0;
   for (const slug of slugs) {
-    const report = checkDeck(slug, reference);
+    const report = checkDeck(slug);
     warnings += report.warnings;
     process.stdout.write(`${report.lines.join('\n')}\n\n`);
   }
@@ -288,4 +403,4 @@ function main() {
 
 if (require.main === module) main();
 
-module.exports = { checkDeck, referenceContrasts };
+module.exports = { checkDeck, checkPalette };

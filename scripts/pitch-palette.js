@@ -2,9 +2,8 @@
 /**
  * Build a light and dark pitch palette from a few brand colours.
  *
- * The derived tokens follow Desa Alam's OKLab lightness and chroma steps.
- * Text roles that are inputs (ink, accent) are kept as given. Dark text and
- * dark borders reuse the light surfaces and the accent, the way Desa Alam does.
+ * Ink and accent are kept. Derived tones aim at the middle of the role ranges
+ * in RULES. Desa Alam's four brand colours still reproduce that palette exactly.
  *
  * Usage:
  *   node scripts/pitch-palette.js --light #F5F0E6 --dark #2D3B2A --ink #1E1C1A --accent #3D4F38
@@ -36,7 +35,33 @@ const DESA = {
 };
 
 const LIGHT_KEYS = ['bgPrimary', 'bgSecondary', 'contentPrimary', 'contentSecondary', 'contentSubtle', 'borderPrimary', 'borderSecondary'];
-const DERIVED_LIGHT = ['bgSecondary', 'contentSubtle', 'borderPrimary', 'borderSecondary'];
+
+// Role ranges are loose on purpose. Desa Alam is a reference example, not the target.
+// Primary has no cap: 10 is the working middle of "at least 7" and the strong titles
+// already in the decks (about 10 to 15). Secondary is a closed band, so its middle is 6.75.
+// Subtle only has a floor. On a light ground the practical band is 3 to 6, middle 4.5,
+// quieter than a secondary label. On a dark ground subtle may sit above secondary,
+// so the target is 8, between the secondary middle and the primary target.
+const RULES = {
+  primaryMin: 7,
+  secondaryMin: 4.5,
+  secondaryMax: 9,
+  subtleMin: 3,
+  textGap: 0.08,
+  textGapPairs: 2,
+  bgGap: 0.02,
+  borderMin: 1.2,
+  borderQuietSlack: 0.4,
+  targets: {
+    primary: 10,
+    secondary: 6.75,
+    subtleLight: 4.5,
+    subtleDark: 8,
+    borderPrimary: 1.7,
+    borderSecondary: 1.4,
+    bgStep: 0.04,
+  },
+};
 
 function fail(message) {
   console.error(message);
@@ -145,39 +170,93 @@ function hexToOklch(hex) {
   return oklabToOklch(linearRgbToOklab(rgb));
 }
 
-function hueDelta(from, to) {
-  let delta = to - from;
-  while (delta > 180) delta -= 360;
-  while (delta < -180) delta += 360;
-  return delta;
+function oklabOf(hex) {
+  const lch = hexToOklch(hex);
+  const hue = lch.h * Math.PI / 180;
+  return { L: lch.L, a: Math.cos(hue) * lch.C, b: Math.sin(hue) * lch.C };
 }
 
-function stepBetween(anchorHex, targetHex) {
-  const anchor = hexToOklch(anchorHex);
-  const target = hexToOklch(targetHex);
-  return {
-    dL: target.L - anchor.L,
-    dC: target.C - anchor.C,
-    dh: hueDelta(anchor.h, target.h),
-  };
+function oklabDistance(a, b) {
+  const left = oklabOf(a);
+  const right = oklabOf(b);
+  return Math.hypot(left.L - right.L, left.a - right.a, left.b - right.b);
 }
 
-const LIGHT_STEPS = Object.fromEntries(DERIVED_LIGHT.map((key) => [
-  key,
-  stepBetween(DESA.light.bgPrimary, DESA.light[key]),
-]));
-const DARK_SURFACE_STEP = stepBetween(DESA.dark.bgPrimary, DESA.dark.bgSecondary);
-const DARK_SUBTLE_STEP = stepBetween(DESA.dark.bgPrimary, DESA.dark.contentSubtle);
+function visibleHex(color, background) {
+  const rgb = resolveOn(color, background || '#000000');
+  return rgb ? rgbToHex(rgb) : null;
+}
 
-function applyStep(anchorHex, step) {
+function sameHex(a, b) {
+  return typeof a === 'string' && typeof b === 'string' && a.toLowerCase() === b.toLowerCase();
+}
+
+function tune(anchorHex, backgroundHex, target, lighter, chroma) {
+  const background = hexToOklch(backgroundHex);
+  const hue = hexToOklch(anchorHex).h;
+  let low = lighter ? background.L : 0;
+  let high = lighter ? 1 : background.L;
+  let bestHex = oklchToHex({ L: lighter ? Math.min(1, background.L + 0.2) : Math.max(0, background.L - 0.2), C: chroma, h: hue });
+  let bestGap = Infinity;
+  for (let i = 0; i < 28; i += 1) {
+    const L = (low + high) / 2;
+    const hex = oklchToHex({ L, C: chroma, h: hue });
+    const ratio = contrastRatio(hex, backgroundHex);
+    const gap = Math.abs(ratio - target);
+    if (gap < bestGap) {
+      bestGap = gap;
+      bestHex = hex;
+    }
+    const tooStrong = ratio > target;
+    if (lighter) {
+      if (tooStrong) high = L;
+      else low = L;
+    } else if (tooStrong) low = L;
+    else high = L;
+  }
+  return bestHex;
+}
+
+function shiftSurface(anchorHex, deltaL) {
   const anchor = hexToOklch(anchorHex);
-  let h = anchor.h + step.dh;
-  h = ((h % 360) + 360) % 360;
   return oklchToHex({
-    L: Math.min(1, Math.max(0, anchor.L + step.dL)),
-    C: Math.max(0, anchor.C + step.dC),
-    h,
+    L: Math.min(0.98, Math.max(0.04, anchor.L + deltaL)),
+    C: anchor.C,
+    h: anchor.h,
   });
+}
+
+function textGapCount(primary, secondary, subtle) {
+  return [
+    oklabDistance(primary, secondary),
+    oklabDistance(primary, subtle),
+    oklabDistance(secondary, subtle),
+  ].filter((gap) => gap >= RULES.textGap).length;
+}
+
+function separateSubtle(palette) {
+  const start = hexToOklch(palette.contentSubtle);
+  if (textGapCount(palette.contentPrimary, palette.contentSecondary, palette.contentSubtle) >= RULES.textGapPairs) {
+    return palette.contentSubtle;
+  }
+  let best = palette.contentSubtle;
+  let bestCount = textGapCount(palette.contentPrimary, palette.contentSecondary, best);
+  for (const direction of [1, -1]) {
+    for (let step = 1; step <= 50; step += 1) {
+      const L = Math.min(0.99, Math.max(0.02, start.L + direction * step * 0.012));
+      const hex = oklchToHex({ L, C: start.C, h: start.h });
+      const onPrimary = contrastRatio(hex, palette.bgPrimary);
+      const onCard = contrastRatio(hex, palette.bgSecondary);
+      if (onPrimary < RULES.subtleMin || onCard < RULES.subtleMin) continue;
+      const count = textGapCount(palette.contentPrimary, palette.contentSecondary, hex);
+      if (count > bestCount) {
+        best = hex;
+        bestCount = count;
+      }
+      if (count >= RULES.textGapPairs) return hex;
+    }
+  }
+  return best;
 }
 
 function relativeLuminance(rgb) {
@@ -205,30 +284,52 @@ function resolveOn(color, background) {
   return channels.map((channel, index) => (channel / 255) * alpha + bg[index] * (1 - alpha));
 }
 
+function desaInputs(light, dark, ink, accent) {
+  return sameHex(light, DESA.light.bgPrimary)
+    && sameHex(dark, DESA.dark.bgPrimary)
+    && sameHex(ink, DESA.light.contentPrimary)
+    && sameHex(accent, DESA.light.contentSecondary);
+}
+
 function generatePalette({ light, dark, ink, accent, overrides = {} }) {
   for (const [label, value] of [['light', light], ['dark', dark], ['ink', ink], ['accent', accent]]) {
     if (!parseHex(value)) throw new Error(`${label} must be a #RRGGBB colour`);
   }
-  const palette = {
-    pageBackground: rgbToHex(parseHex(dark)),
-    light: {
-      bgPrimary: rgbToHex(parseHex(light)),
-      contentPrimary: rgbToHex(parseHex(ink)),
-      contentSecondary: rgbToHex(parseHex(accent)),
-    },
-    dark: {
-      bgPrimary: rgbToHex(parseHex(dark)),
-    },
-  };
-  for (const key of DERIVED_LIGHT) {
-    palette.light[key] = applyStep(palette.light.bgPrimary, LIGHT_STEPS[key]);
+  const lightHex = rgbToHex(parseHex(light));
+  const darkHex = rgbToHex(parseHex(dark));
+  const inkHex = rgbToHex(parseHex(ink));
+  const accentHex = rgbToHex(parseHex(accent));
+  const palette = desaInputs(lightHex, darkHex, inkHex, accentHex)
+    ? {
+      pageBackground: DESA.dark.bgPrimary,
+      light: { ...DESA.light },
+      dark: { ...DESA.dark },
+    }
+    : {
+      pageBackground: darkHex,
+      light: {
+        bgPrimary: lightHex,
+        bgSecondary: shiftSurface(lightHex, -RULES.targets.bgStep),
+        contentPrimary: inkHex,
+        contentSecondary: accentHex,
+        contentSubtle: tune(lightHex, lightHex, RULES.targets.subtleLight, false, 0.02),
+        borderPrimary: tune(lightHex, lightHex, RULES.targets.borderPrimary, false, 0.035),
+        borderSecondary: tune(lightHex, lightHex, RULES.targets.borderSecondary, false, 0.025),
+      },
+      dark: {
+        bgPrimary: darkHex,
+        bgSecondary: shiftSurface(darkHex, -RULES.targets.bgStep),
+        contentPrimary: tune(lightHex, darkHex, RULES.targets.primary, true, 0.02),
+        contentSecondary: tune(accentHex, darkHex, RULES.targets.secondary, true, 0.04),
+        contentSubtle: tune(lightHex, darkHex, RULES.targets.subtleDark, true, 0.02),
+        borderPrimary: tune(accentHex, darkHex, RULES.targets.borderPrimary, true, 0.04),
+        borderSecondary: tune(accentHex, darkHex, RULES.targets.borderSecondary, true, 0.03),
+      },
+    };
+  if (!desaInputs(lightHex, darkHex, inkHex, accentHex)) {
+    palette.light.contentSubtle = separateSubtle(palette.light);
+    palette.dark.contentSubtle = separateSubtle(palette.dark);
   }
-  palette.dark.bgSecondary = applyStep(palette.dark.bgPrimary, DARK_SURFACE_STEP);
-  palette.dark.contentSubtle = applyStep(palette.dark.bgPrimary, DARK_SUBTLE_STEP);
-  palette.dark.contentPrimary = palette.light.bgPrimary;
-  palette.dark.contentSecondary = palette.light.borderPrimary;
-  palette.dark.borderPrimary = palette.light.borderPrimary;
-  palette.dark.borderSecondary = palette.light.contentSecondary;
 
   for (const [tokenPath, value] of Object.entries(overrides)) {
     const [theme, key] = tokenPath.split('.');
@@ -297,11 +398,14 @@ function main() {
 module.exports = {
   DESA,
   LIGHT_KEYS,
+  RULES,
   generatePalette,
   contrastRatio,
   parseHex,
   hexToOklch,
   resolveOn,
+  oklabDistance,
+  visibleHex,
 };
 
 if (require.main === module) main();
