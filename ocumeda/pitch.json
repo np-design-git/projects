@@ -99,7 +99,7 @@
         { "key": "Concept", "value": "Visitors understand the product faster. Storyline, structure and information architecture give the main pages a clear, human path." },
         { "key": "UI Styles", "value": "Every page feels consistent. Blue and Fog keep it clear, Amber and Soft Orange bring warmth, and the type stays precise rather than clinical." },
         { "key": "Components", "value": "New pages are faster to build, and the brand stays consistent on every page. Reusable Framer components carry that style through the whole website." },
-        { "key": "Graphics", "value": "Visitors see the product itself. New visuals, graphics and product mockups feel warm, human and precise." },
+        { "key": "Graphics", "value": "Visitors see the product itself. New graphics and product mockups, based on the new brand guidelines and the new photography style." },
         { "key": "Main Pages", "value": "Home, Ärzte, Optiker and Kunden explain the product with clarity and trust, in a warm, human tone." },
         { "key": "QA", "value": "Every screen stays clear and comfortable. Breakpoints are checked so the layout holds together." }
       ]
@@ -110,9 +110,9 @@
       "title": "Scope Limitations",
       "rows": [
         { "key": "Animations", "value": "No complex animations" },
-        { "key": "Content", "value": "Copy and photography are provided by Ocumeda. Copywriting is not included. New visuals, graphics and product mockups are part of this scope." },
+        { "key": "Content", "value": "Text content is supplied by Ocumeda. Writing the copy is out of scope." },
         { "key": "Translations", "value": "Translations are not included." },
-        { "key": "Pages", "value": "Team, Karriere and Blog are not included. Standorte stays a placeholder." }
+        { "key": "Pages", "value": "Team, Karriere, Blog and other secondary pages get no structural or content changes. Standorte stays a placeholder. The new CI still reaches them through the reusable components." }
       ]
     },
     {
@@ -135,7 +135,7 @@
             "Review of the new CI and how it translates to the visual design",
             "UI styles: Blue and Fog for clarity, Amber and Soft Orange for warmth, with states, contrast and a type scale",
             "Component design",
-            "New visuals, graphics and product mockups based on the new CI"
+            "New graphics and product mockups, based on the new brand guidelines and the new photography style"
           ]
         },
         {
