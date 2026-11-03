@@ -17,12 +17,12 @@
     },
     "dark": {
       "bgPrimary": "#333D48",
-      "bgSecondary": "#333D48",
+      "bgSecondary": "#242B3C",
       "contentPrimary": "#FAFBF9",
-      "contentSecondary": "#EAF5FF",
+      "contentSecondary": "#A9BDF0",
       "contentSubtle": "#F5F8FE",
       "borderPrimary": "rgba(80, 120, 255, 0.25)",
-      "borderSecondary": "rgba(80, 120, 255, 0.25)"
+      "borderSecondary": "#414E70"
     },
     "fonts": {
       "sans": {
@@ -110,7 +110,7 @@
         {
           "title": "Show the Product",
           "points": [
-            "Showcase the product in a clear story, with mockups and photography instead of abstract animations."
+            "Showcase the product and tell a clear story with mockups and photography instead of abstract animations."
           ]
         }
       ]
@@ -122,10 +122,10 @@
       "keyWidth": "15rem",
       "rows": [
         { "key": "Style Guide & UI Library", "value": "The new CI is applied across the whole website, through a style guide and UI library." },
-        { "key": "Content & Structure", "value": "Ocumeda provides a baseline structure. Natalia helps refine it for the four main pages." },
+        { "key": "Content & Structure", "value": "Refined content and structure for the four main pages, based on the structure provided by Ocumeda." },
         { "key": "Components", "value": "The new structure gets the building blocks it needs. The UI library is extended with new components for the redesigned pages." },
         { "key": "Graphics", "value": "New graphics and product mockups based on the new brand guidelines and the new photography style, as the main pages need them." },
-        { "key": "Main Pages", "value": "Structural redesign of Home, Ärzte (doctors), Optiker (opticians) and Kunden (customers), according to the new content and storyline." },
+        { "key": "Main Pages", "value": "Structural redesign of Home, Doctors, Opticians and Customers, according to the new content and storyline." },
         { "key": "QA", "value": "Pre-launch QA" }
       ]
     },
@@ -137,7 +137,7 @@
         { "key": "Animations", "value": "No new complex animations" },
         { "key": "Copy", "value": "Copy content is supplied by Ocumeda. Writing the copy is out of scope." },
         { "key": "Translations", "value": "Translations are not included." },
-        { "key": "Pages", "value": "Team, Karriere, Blog and other secondary pages get no structural or content changes. The locations map stays as a placeholder. The new CI still reaches them through the components." }
+        { "key": "Pages", "value": "Team, Career and News get no structural or content changes. The new CI still reaches them through the components and style guide." }
       ]
     },
     {
@@ -163,7 +163,7 @@
           ]
         },
         {
-          "title": "Framer Implementation & QA",
+          "title": "Implementation & QA",
           "days": ["3 design days", "Cal week 48/49"],
           "points": [
             "Styles set up in Framer",
