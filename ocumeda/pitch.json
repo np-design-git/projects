@@ -63,7 +63,7 @@
       "type": "overview",
       "label": "Overview",
       "title": "OCUMEDA Website",
-      "lede": "Proposal for a restyling of OCUMEDA's existing website in Framer, based on the new CI: \"Med-tech that radiates warmth\", a clearer story on the main pages, and components that are easy to update in Framer."
+      "lede": "Proposal for a restyling of OCUMEDA's existing website in Framer, based on the new CI: \"Med-tech that radiates warmth\", a clearer story on the main pages, and reusable Framer components that work across all pages."
     },
     {
       "type": "cards",
@@ -85,7 +85,7 @@
         {
           "title": "A Clearer Story",
           "points": [
-            "Home, Ärzte, Optiker and Kunden tell a clearer story. Components are easy to update in Framer."
+            "Home, Ärzte, Optiker and Kunden tell a clearer story. Reusable Framer components work across all pages."
           ]
         }
       ]
@@ -97,7 +97,7 @@
       "rows": [
         { "key": "CI Review", "value": "Review of the CI, and feedback on storyline and structure" },
         { "key": "UI Styles", "value": "Colour palette and type scale" },
-        { "key": "Components", "value": "Existing Framer components updated and extended, then used across all pages" },
+        { "key": "Components", "value": "Existing Framer components updated and extended into a reusable set that works across all pages" },
         { "key": "Graphics", "value": "Selected graphics updated with Ocumeda's halos" },
         { "key": "Main Pages", "value": "Content updates on Home, Ärzte, Optiker and Kunden" },
         { "key": "QA", "value": "Checked across breakpoints. The responsive layout already exists." }
