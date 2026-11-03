@@ -166,7 +166,7 @@
           "title": "Implementation & QA",
           "days": ["3 design days", "Cal week 48/49"],
           "points": [
-            "Styles set up in Framer",
+            "Styles and components set up in Framer",
             "Full build in Framer",
             "Responsive implementation (desktop, tablet, mobile)",
             "Pre-launch QA"
