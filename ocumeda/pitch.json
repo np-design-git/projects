@@ -147,7 +147,7 @@
       "items": [
         {
           "title": "Concept & Structure",
-          "days": ["1 design day", "Cal week 46"],
+          "days": ["2 design days", "Cal week 46"],
           "points": [
             "Refine and finalize storyline and structure of the main pages",
             "Wireframe-level layouts"
@@ -179,8 +179,8 @@
       "type": "cost",
       "label": "Proposal",
       "title": "Total Cost",
-      "equation": "7 days × 800 EUR",
-      "amount": "5.600",
+      "equation": "8 days × 800 EUR",
+      "amount": "6.400",
       "currency": "EUR",
       "hosting": {
         "label": "Framer hosting",
