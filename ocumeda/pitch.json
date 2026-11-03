@@ -7,13 +7,13 @@
   "theme": {
     "pageBackground": "#333D48",
     "light": {
-      "bgPrimary": "#FAFBF9",
-      "bgSecondary": "#EAF5FF",
+      "bgPrimary": "#EAF5FF",
+      "bgSecondary": "#FAFBF9",
       "contentPrimary": "#333D48",
       "contentSecondary": "#333D48",
       "contentSubtle": "#333D48",
-      "borderPrimary": "#A8BBFF",
-      "borderSecondary": "#C8CDD2"
+      "borderPrimary": "rgba(80, 120, 255, 0.1)",
+      "borderSecondary": "rgba(80, 120, 255, 0.1)"
     },
     "dark": {
       "bgPrimary": "#333D48",
@@ -21,8 +21,8 @@
       "contentPrimary": "#FAFBF9",
       "contentSecondary": "#EAF5FF",
       "contentSubtle": "#F5A624",
-      "borderPrimary": "#6A747E",
-      "borderSecondary": "#6A747E"
+      "borderPrimary": "rgba(80, 120, 255, 0.1)",
+      "borderSecondary": "rgba(80, 120, 255, 0.1)"
     },
     "fonts": {
       "sans": {

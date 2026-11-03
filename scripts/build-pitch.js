@@ -22,6 +22,7 @@ const COLOR_KEYS = [
   'borderSecondary',
 ];
 const HEX = /^#[0-9A-Fa-f]{6}$/;
+const RGBA = /^rgba\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(0|1|0?\.\d+)\s*\)$/;
 
 function fail(message) {
   console.error(message);
@@ -57,9 +58,18 @@ function assertHex(value, label) {
   assert(typeof value === 'string' && HEX.test(value), `${label} must be a #RRGGBB color`);
 }
 
+function assertColor(value, label) {
+  if (typeof value === 'string' && HEX.test(value)) return;
+  const match = typeof value === 'string' ? value.match(RGBA) : null;
+  assert(match, `${label} must be a #RRGGBB color or rgba()`);
+  assert([match[1], match[2], match[3]].every((channel) => Number(channel) <= 255), `${label} rgba() channels must be 0 to 255`);
+  const alpha = Number(match[4]);
+  assert(alpha >= 0 && alpha <= 1, `${label} rgba() alpha must be 0 to 1`);
+}
+
 function validatePalette(palette, label) {
   assert(palette && typeof palette === 'object', `${label} palette is required`);
-  for (const key of COLOR_KEYS) assertHex(palette[key], `${label}.${key}`);
+  for (const key of COLOR_KEYS) assertColor(palette[key], `${label}.${key}`);
 }
 
 function hasFontFiles(font) {

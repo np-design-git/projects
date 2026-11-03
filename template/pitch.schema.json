@@ -70,19 +70,29 @@
   },
   "$defs": {
     "hex": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+    "color": {
+      "description": "Solid #RRGGBB, or rgba() when a line needs opacity. Hex decks render as before.",
+      "oneOf": [
+        { "$ref": "#/$defs/hex" },
+        {
+          "type": "string",
+          "pattern": "^rgba\\(\\s*(?:25[0-5]|2[0-4]\\d|1?\\d{1,2})\\s*,\\s*(?:25[0-5]|2[0-4]\\d|1?\\d{1,2})\\s*,\\s*(?:25[0-5]|2[0-4]\\d|1?\\d{1,2})\\s*,\\s*(?:0|1|0?\\.\\d+)\\s*\\)$"
+        }
+      ]
+    },
     "text": { "type": "string", "minLength": 1 },
     "palette": {
       "type": "object",
       "additionalProperties": false,
       "required": ["bgPrimary", "bgSecondary", "contentPrimary", "contentSecondary", "contentSubtle", "borderPrimary", "borderSecondary"],
       "properties": {
-        "bgPrimary": { "$ref": "#/$defs/hex" },
-        "bgSecondary": { "$ref": "#/$defs/hex" },
-        "contentPrimary": { "$ref": "#/$defs/hex" },
-        "contentSecondary": { "$ref": "#/$defs/hex" },
-        "contentSubtle": { "$ref": "#/$defs/hex" },
-        "borderPrimary": { "$ref": "#/$defs/hex" },
-        "borderSecondary": { "$ref": "#/$defs/hex" }
+        "bgPrimary": { "$ref": "#/$defs/color" },
+        "bgSecondary": { "$ref": "#/$defs/color" },
+        "contentPrimary": { "$ref": "#/$defs/color" },
+        "contentSecondary": { "$ref": "#/$defs/color" },
+        "contentSubtle": { "$ref": "#/$defs/color" },
+        "borderPrimary": { "$ref": "#/$defs/color" },
+        "borderSecondary": { "$ref": "#/$defs/color" }
       }
     },
     "font": {
