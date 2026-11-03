@@ -49,7 +49,7 @@
       "eyebrow": "Angebot",
       "title": "OCUMEDA",
       "subtitle": [
-        "Minimales Restyling",
+        "Website-Restyling auf Basis des neuen CI",
         "Design und Framer"
       ],
       "logo": {
@@ -63,7 +63,7 @@
       "type": "overview",
       "label": "Überblick",
       "title": "OCUMEDA Website",
-      "lede": "Angebot für das minimale Restyling der bestehenden OCUMEDA-Website in Framer. Das neue Corporate Design wird konsequent auf die Site übertragen: eine warme Medtech-Anmutung, eine klarere Storyline auf den Hauptseiten und Komponenten, die sich in Framer weiterpflegen lassen."
+      "lede": "Ich überarbeite eure bestehende OCUMEDA-Website in Framer auf Basis des neuen CI. Die Site wirkt wärmer und nahbar. Die Hauptseiten erzählen klarer, und die Komponenten bleiben in Framer pflegbar."
     },
     {
       "type": "cards",
@@ -73,19 +73,19 @@
         {
           "title": "Neues CI auf der Website",
           "points": [
-            "Farben, Typografie und Logo aus dem neuen Corporate Design, durchgängig auf der bestehenden Site."
+            "Ich bringe Farben, Schrift und Logo aus dem neuen CI auf die bestehende Site."
           ]
         },
         {
           "title": "Medtech mit Wärme",
           "points": [
-            "Eine nahbare Anmutung entlang der Richtung „Medtech, die Wärme ausstrahlt“."
+            "So soll es sich anfühlen: „Medtech, die Wärme ausstrahlt“."
           ]
         },
         {
           "title": "Klar und pflegbar",
           "points": [
-            "Klarere Storyline auf Home, Ärzte, Optiker und Kunden. Die Komponenten bleiben in Framer pflegbar."
+            "Home, Ärzte, Optiker und Kunden erzählen klarer. Die Komponenten in Framer könnt ihr weiterpflegen."
           ]
         }
       ]
@@ -93,25 +93,25 @@
     {
       "type": "list",
       "label": "Angebot",
-      "title": "Leistungsumfang",
+      "title": "Was ich mache",
       "rows": [
-        { "key": "CI-Review", "value": "Review des Corporate Designs und Feedback zu Storyline und Struktur" },
-        { "key": "UI-Styles", "value": "Farbpalette und Schriftskala" },
-        { "key": "Komponenten", "value": "Update und Erweiterung der bestehenden Framer-Komponenten; sie gelten danach für alle Seiten" },
-        { "key": "Grafik", "value": "Aktualisierung einzelner Grafiken mit den Halos von Ocumeda" },
-        { "key": "Hauptseiten", "value": "Inhaltsupdates auf Home, Ärzte, Optiker und Kunden" },
-        { "key": "QA", "value": "Prüfung über die Breakpoints. Das responsive Layout besteht bereits." }
+        { "key": "CI-Review", "value": "Ich schaue mir das CI an und gebe Feedback zu Storyline und Struktur" },
+        { "key": "UI-Styles", "value": "Ich lege Farbpalette und Schriftskala fest" },
+        { "key": "Komponenten", "value": "Ich aktualisiere und erweitere die Framer-Komponenten. Danach gelten sie für alle Seiten." },
+        { "key": "Grafik", "value": "Ich aktualisiere einzelne Grafiken mit euren Halos" },
+        { "key": "Hauptseiten", "value": "Ich aktualisiere die Inhalte auf Home, Ärzte, Optiker und Kunden" },
+        { "key": "QA", "value": "Ich prüfe die Breakpoints. Das responsive Layout gibt es schon." }
       ]
     },
     {
       "type": "list",
       "label": "Angebot",
-      "title": "Nicht enthalten",
+      "title": "Nicht dabei",
       "rows": [
-        { "key": "Animationen", "value": "Keine neuen Animationen" },
-        { "key": "Inhalte", "value": "Texte, Fotos und Halo-Grafiken stellt Ocumeda. Texterstellung und Bildproduktion sind nicht enthalten." },
-        { "key": "Übersetzungen", "value": "Keine Übersetzungen" },
-        { "key": "Seiten", "value": "Team, Karriere und Blog sind nicht enthalten. Standorte nur als Platzhalter." }
+        { "key": "Animationen", "value": "Neue Animationen baue ich nicht" },
+        { "key": "Inhalte", "value": "Texte, Fotos und Halo-Grafiken kommen von euch. Ich schreibe keine Texte und produziere keine Bilder." },
+        { "key": "Übersetzungen", "value": "Ich übersetze nicht" },
+        { "key": "Seiten", "value": "Team, Karriere und Blog baue ich nicht. Standorte bleibt ein Platzhalter." }
       ]
     },
     {
@@ -123,37 +123,37 @@
           "title": "Konzept",
           "days": ["1 Tag"],
           "points": [
-            "Review des neuen Corporate Designs",
-            "Feedback zu Storyline und Struktur",
-            "Prüfung der Framer-Grenzen für SEO, CMS, Lokalisierung und Ladezeiten"
+            "Ich schaue mir das neue CI an",
+            "Ich gebe Feedback zu Storyline und Struktur",
+            "Ich prüfe, was Framer bei SEO, CMS, Lokalisierung und Ladezeiten kann"
           ]
         },
         {
           "title": "Visual Design",
           "days": ["3 Tage"],
           "points": [
-            "UI-Styles: Farbpalette inklusive Zustände und Kontrast, Schriftskala",
-            "Komponentendesign",
-            "Grafiken mit den Halos und Fotos von Ocumeda"
+            "Ich setze die UI-Styles: Farbpalette mit Zuständen und Kontrast, Schriftskala",
+            "Ich gestalte die Komponenten",
+            "Ich mache Grafiken mit euren Halos und Fotos"
           ]
         },
         {
           "title": "Implementierung & QA",
           "days": ["3 Tage"],
           "points": [
-            "Styles in Framer anlegen",
-            "Komponenten aktualisieren und erweitern",
-            "Inhalte auf den Hauptseiten aktualisieren",
-            "QA über Breakpoints und Sprachen"
+            "Ich lege die Styles in Framer an",
+            "Ich aktualisiere und erweitere die Komponenten",
+            "Ich aktualisiere die Inhalte auf den Hauptseiten",
+            "Ich prüfe Breakpoints und Sprachen"
           ]
         }
       ],
-      "launch": "Zeitplan nach Abstimmung. Abstimmungsgespräche sind in den Tagen enthalten."
+      "launch": "Zeitplan nach Abstimmung. Die Calls sind in den Tagen enthalten."
     },
     {
       "type": "cost",
       "label": "Angebot",
-      "title": "Investition",
+      "title": "Kosten",
       "equation": "7 Tage × 800 EUR",
       "amount": "5.600",
       "currency": "EUR",
@@ -162,7 +162,7 @@
         "rows": [
           { "name": "Bestehendes Hosting", "value": "unverändert" }
         ],
-        "disclaimer": "Das bestehende Framer-Hosting bleibt, wie es ist, und ist nicht Teil dieses Angebots. Der Betrag versteht sich netto, ohne Rabatt."
+        "disclaimer": "Euer Framer-Hosting bleibt, wie es ist, und gehört nicht zu diesem Angebot. Der Betrag ist netto, ohne Rabatt."
       }
     },
     {
