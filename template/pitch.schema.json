@@ -176,7 +176,8 @@
         "background": { "$ref": "#/$defs/hex", "description": "Optional solid slide background. Text colors still come from the slide theme." },
         "backgroundImage": { "type": "string", "minLength": 1, "description": "Optional full-bleed image inside the client folder, such as assets/background.svg. Drawn with object-fit cover behind the slide text." },
         "contentSecondary": { "$ref": "#/$defs/color", "description": "Optional override for secondary text on this slide, such as the eyebrow and subtitle." },
-        "contentSubtle": { "$ref": "#/$defs/color", "description": "Optional override for subtle text on this slide, such as the contact lines." }
+        "contentSubtle": { "$ref": "#/$defs/color", "description": "Optional override for subtle text on this slide, such as the contact lines." },
+        "nameColor": { "enum": ["primary"], "description": "Optional. primary paints the cover contact name in the primary text color. Email and website stay on their current tokens." }
       }
     },
     "overview": {

@@ -871,6 +871,8 @@
   .s-cover:has(.slide-bg) .cover-meta { position: relative; z-index: 1; }
   .s-cover:has(.slide-bg) .cover-ornament { z-index: 2; }
 
+  .cover-meta-name { color: var(--content-primary); }
+
   .cover-ornament--solid { mix-blend-mode: normal; }
 
 </style>
@@ -889,9 +891,9 @@
 <div class="deck" id="deck">
 
   <!-- SLIDE 1: COVER -->
-  <div class="slide s-cover theme-light active" data-index="0" style="background:#EAF5FF;--content-secondary:#5078FF;--content-subtle:#5078FF">
+  <div class="slide s-cover theme-light active" data-index="0" style="background:#EAF5FF">
     <img class="slide-bg" src="assets/gradient-bg.webp" alt="" />
-    <div class="eyebrow">Design Proposal · 3 Nov 2026</div>
+    <div class="eyebrow">Design Proposal · November 2026</div>
     <h1 class="cover-brand-title">OCUMEDA</h1>
     <div class="subtitle">
       Website redesign based on the new CI<br>
@@ -899,11 +901,11 @@
     </div>
     <div class="cover-line"></div>
     <div class="cover-meta">
-      Natalia Patiño<br>
+      <span class="cover-meta-name">Natalia Patiño</span><br>
       <a href="mailto:hello@np.design">hello@np.design</a><br>
       <a href="https://np.design">np.design</a>
     </div>
-    <img class="cover-ornament cover-ornament--solid" src="assets/ocumeda-logo-dark.svg" alt="Ocumeda" width="228" height="60" decoding="async" />
+    <img class="cover-ornament cover-ornament--solid" src="assets/ocumeda-logo-white.svg" alt="Ocumeda" width="228" height="60" decoding="async" />
   </div>
 
   <!-- SLIDE 2: OVERVIEW -->
@@ -1099,7 +1101,7 @@
   </div>
 
   <!-- SLIDE 8: CLOSING -->
-  <div class="slide s-cover theme-light" data-index="7" style="background:#EAF5FF;--content-secondary:#5078FF;--content-subtle:#5078FF">
+  <div class="slide s-cover theme-light" data-index="7" style="background:#EAF5FF">
     <img class="slide-bg" src="assets/gradient-bg.webp" alt="" />
     <div class="eyebrow">OCUMEDA</div>
     <h1>Looking forward to hearing your thoughts.</h1>

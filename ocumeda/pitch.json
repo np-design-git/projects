@@ -67,7 +67,7 @@
   "slides": [
     {
       "type": "cover",
-      "eyebrow": "Design Proposal · 3 Nov 2026",
+      "eyebrow": "Design Proposal · November 2026",
       "title": "OCUMEDA",
       "subtitle": [
         "Website redesign based on the new CI",
@@ -76,10 +76,9 @@
       "theme": "light",
       "background": "#EAF5FF",
       "backgroundImage": "assets/gradient-bg.webp",
-      "contentSecondary": "#5078FF",
-      "contentSubtle": "#5078FF",
+      "nameColor": "primary",
       "logo": {
-        "src": "assets/ocumeda-logo-dark.svg",
+        "src": "assets/ocumeda-logo-white.svg",
         "alt": "Ocumeda",
         "width": 228,
         "height": 60,
@@ -197,8 +196,6 @@
       "theme": "light",
       "background": "#EAF5FF",
       "backgroundImage": "assets/gradient-bg.webp",
-      "contentSecondary": "#5078FF",
-      "contentSubtle": "#5078FF",
       "eyebrow": "OCUMEDA",
       "title": "Looking forward to hearing your thoughts.",
       "subtitle": [
