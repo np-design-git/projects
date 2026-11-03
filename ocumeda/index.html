@@ -855,16 +855,18 @@
     pointer-events: none;
     user-select: none;
   }
-  .slide-decor--top-left { left: 0; top: 0; transform: translate(-58%, -56%); }
+  .slide-decor--top-left { left: 0; top: 0; transform: translate(-50%, -50%); }
   .slide-decor--top-right { right: 0; top: 0; transform: translate(48%, -48%); }
   .slide-decor--bottom-left { left: 0; bottom: 0; transform: translate(-48%, 48%); }
-  .slide-decor--bottom-right { right: 0; bottom: 0; transform: translate(48%, 48%); }
+  .slide-decor--bottom-right { right: 0; bottom: 0; transform: translate(50%, 50%); }
   .slide-decor--right { right: 0; top: 50%; transform: translate(52%, -50%); }
   .slide-decor--left { left: 0; top: 50%; transform: translate(-52%, -50%); }
   .s-cover:has(.slide-decor--left) { padding-left: max(var(--inset-slide-x), 42%); }
   @media (max-width: 600px) {
     .slide-decor--right { transform: translate(80%, -50%); }
     .slide-decor--left { transform: translate(-80%, -50%); }
+    .slide-decor--bottom-right { transform: translate(60%, 60%); }
+    .slide-decor--top-left { transform: translate(-60%, -60%); }
     .s-cover:has(.slide-decor--left) { padding-left: var(--inset-slide-x); }
   }
   .s-cover .eyebrow,
@@ -894,8 +896,8 @@
   <!-- SLIDE 1: COVER -->
   <div class="slide s-cover theme-light active" data-index="0" style="background:#EAF5FF">
     <div class="slide-decor-layer" aria-hidden="true">
-      <img class="slide-decor slide-decor--bottom-left" src="assets/halo-amber-glow.svg" alt="" style="--decor-size:42vmin;--decor-opacity:0.45" />
-      <img class="slide-decor slide-decor--right" src="assets/halo-amber-disc.svg" alt="" style="--decor-size:162vh;--decor-opacity:1" />
+      <img class="slide-decor slide-decor--bottom-right" src="assets/halo-amber-glow.svg" alt="" style="--decor-size:200vh;--decor-opacity:1" />
+      <img class="slide-decor slide-decor--bottom-right" src="assets/halo-amber-disc.svg" alt="" style="--decor-size:68vh;--decor-opacity:1" />
     </div>
     <div class="eyebrow">Design Proposal · 9 Nov 2026</div>
     <h1 class="cover-brand-title">OCUMEDA</h1>
@@ -921,7 +923,7 @@
       </div>
       <div>
         <p class="lede">
-          Proposal for the design and Framer implementation of a website restyling based on the new CI, from 9 November to 4 December. Reusable Framer components carry the new style through every page. Home, Ärzte, Optiker and Kunden show more of the actual product, with mockups instead of abstract animations.
+          Design and Framer implementation of a website restyling based on the new CI. Reusable Framer components carry the new style through every page. Home, Ärzte, Optiker and Kunden show the product in a clear story, with mockups instead of abstract animations.
         </p>
         <div class="lede-rule"></div>
       </div>
@@ -954,10 +956,10 @@
         </div>
         <div class="pkg">
           <div class="pkg-num">03</div>
-          <div class="pkg-title">A Clearer Story</div>
+          <div class="pkg-title">A Clear Story</div>
           <div class="pkg-divider"></div>
           <div class="pkg-items">
-            <div class="pkg-item">Home, Ärzte, Optiker and Kunden show more of the actual product, with mockups instead of abstract animations.</div>
+            <div class="pkg-item">Home, Ärzte, Optiker and Kunden show the product in a clear story, with mockups instead of abstract animations.</div>
           </div>
         </div>
       </div>
@@ -973,8 +975,8 @@
       </div>
       <div class="limits-list">
         <div class="limit-row">
-          <div class="limit-key">CI Review</div>
-          <div class="limit-val">The new CI becomes the website's visual design, on every page. Clear and fresh, warm and human, precise without ever feeling clinical.</div>
+          <div class="limit-key">Style Guide &amp; UI Library</div>
+          <div class="limit-val">The new CI is applied across the whole website. A style guide and UI library carry it: clear and fresh, warm and human, precise without ever feeling clinical.</div>
         </div>
         <div class="limit-row">
           <div class="limit-key">Concept</div>
@@ -1056,7 +1058,7 @@
           <div class="pkg-days">3 design days<br>16–20 Nov</div>
           <div class="pkg-divider"></div>
           <div class="pkg-items">
-            <div class="pkg-item">The new CI, translated into the visual design</div>
+            <div class="pkg-item">Style guide and UI library based on the new CI</div>
             <div class="pkg-item">UI styles: Blue, Fog, Amber, Soft Orange, and type</div>
             <div class="pkg-item">Reusable components for every page</div>
             <div class="pkg-item">Graphics and product mockups from the brand guidelines and photography style</div>
@@ -1112,8 +1114,8 @@
   <!-- SLIDE 8: CLOSING -->
   <div class="slide s-cover theme-light" data-index="7" style="background:#EAF5FF">
     <div class="slide-decor-layer" aria-hidden="true">
-      <img class="slide-decor slide-decor--bottom-right" src="assets/halo-amber-glow.svg" alt="" style="--decor-size:38vmin;--decor-opacity:0.4" />
-      <img class="slide-decor slide-decor--left" src="assets/halo-amber-disc.svg" alt="" style="--decor-size:162vh;--decor-opacity:1" />
+      <img class="slide-decor slide-decor--top-left" src="assets/halo-amber-glow-close.svg" alt="" style="--decor-size:66vh;--decor-opacity:1" />
+      <img class="slide-decor slide-decor--top-left" src="assets/halo-amber-disc.svg" alt="" style="--decor-size:40vh;--decor-opacity:1" />
     </div>
     <div class="eyebrow">OCUMEDA</div>
     <h1>Looking forward to hearing your thoughts.</h1>

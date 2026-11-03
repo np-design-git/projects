@@ -388,16 +388,18 @@ function decorationCss(pitch) {
     pointer-events: none;
     user-select: none;
   }
-  .slide-decor--top-left { left: 0; top: 0; transform: translate(-58%, -56%); }
+  .slide-decor--top-left { left: 0; top: 0; transform: translate(-50%, -50%); }
   .slide-decor--top-right { right: 0; top: 0; transform: translate(48%, -48%); }
   .slide-decor--bottom-left { left: 0; bottom: 0; transform: translate(-48%, 48%); }
-  .slide-decor--bottom-right { right: 0; bottom: 0; transform: translate(48%, 48%); }
+  .slide-decor--bottom-right { right: 0; bottom: 0; transform: translate(50%, 50%); }
   .slide-decor--right { right: 0; top: 50%; transform: translate(52%, -50%); }
   .slide-decor--left { left: 0; top: 50%; transform: translate(-52%, -50%); }
   .s-cover:has(.slide-decor--left) { padding-left: max(var(--inset-slide-x), 42%); }
   @media (max-width: 600px) {
     .slide-decor--right { transform: translate(80%, -50%); }
     .slide-decor--left { transform: translate(-80%, -50%); }
+    .slide-decor--bottom-right { transform: translate(60%, 60%); }
+    .slide-decor--top-left { transform: translate(-60%, -60%); }
     .s-cover:has(.slide-decor--left) { padding-left: var(--inset-slide-x); }
   }
   .s-cover .eyebrow,

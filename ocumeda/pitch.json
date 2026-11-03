@@ -83,15 +83,15 @@
         "blend": "normal"
       },
       "decorations": [
-        { "src": "assets/halo-amber-glow.svg", "position": "bottom-left", "size": "42vmin", "opacity": 0.45 },
-        { "src": "assets/halo-amber-disc.svg", "position": "right", "size": "162vh", "opacity": 1 }
+        { "src": "assets/halo-amber-glow.svg", "position": "bottom-right", "size": "200vh", "opacity": 1 },
+        { "src": "assets/halo-amber-disc.svg", "position": "bottom-right", "size": "68vh", "opacity": 1 }
       ]
     },
     {
       "type": "overview",
       "label": "Overview",
       "title": "OCUMEDA Website",
-      "lede": "Proposal for the design and Framer implementation of a website restyling based on the new CI, from 9 November to 4 December. Reusable Framer components carry the new style through every page. Home, Ärzte, Optiker and Kunden show more of the actual product, with mockups instead of abstract animations."
+      "lede": "Design and Framer implementation of a website restyling based on the new CI. Reusable Framer components carry the new style through every page. Home, Ärzte, Optiker and Kunden show the product in a clear story, with mockups instead of abstract animations."
     },
     {
       "type": "cards",
@@ -111,9 +111,9 @@
           ]
         },
         {
-          "title": "A Clearer Story",
+          "title": "A Clear Story",
           "points": [
-            "Home, Ärzte, Optiker and Kunden show more of the actual product, with mockups instead of abstract animations."
+            "Home, Ärzte, Optiker and Kunden show the product in a clear story, with mockups instead of abstract animations."
           ]
         }
       ]
@@ -123,7 +123,7 @@
       "label": "Proposal",
       "title": "Scope of Work",
       "rows": [
-        { "key": "CI Review", "value": "The new CI becomes the website's visual design, on every page. Clear and fresh, warm and human, precise without ever feeling clinical." },
+        { "key": "Style Guide & UI Library", "value": "The new CI is applied across the whole website. A style guide and UI library carry it: clear and fresh, warm and human, precise without ever feeling clinical." },
         { "key": "Concept", "value": "Visitors understand the product faster. Storyline, structure and information architecture give Home, Ärzte, Optiker and Kunden a clear, human path." },
         { "key": "UI Styles", "value": "Every page feels like one brand. Blue and Fog for clarity, Amber and Soft Orange for warmth, type that stays precise rather than clinical." },
         { "key": "Components", "value": "New pages are faster to build, and the brand stays consistent everywhere. Reusable Framer components carry the style through the whole website, including Team, Karriere and Blog." },
@@ -160,7 +160,7 @@
           "title": "Visual Design",
           "days": ["3 design days", "16–20 Nov"],
           "points": [
-            "The new CI, translated into the visual design",
+            "Style guide and UI library based on the new CI",
             "UI styles: Blue, Fog, Amber, Soft Orange, and type",
             "Reusable components for every page",
             "Graphics and product mockups from the brand guidelines and photography style"
@@ -204,8 +204,8 @@
         "Please reach out if you have any questions or if anything needs adjusting."
       ],
       "decorations": [
-        { "src": "assets/halo-amber-glow.svg", "position": "bottom-right", "size": "38vmin", "opacity": 0.4 },
-        { "src": "assets/halo-amber-disc.svg", "position": "left", "size": "162vh", "opacity": 1 }
+        { "src": "assets/halo-amber-glow-close.svg", "position": "top-left", "size": "66vh", "opacity": 1 },
+        { "src": "assets/halo-amber-disc.svg", "position": "top-left", "size": "40vh", "opacity": 1 }
       ]
     }
   ]
