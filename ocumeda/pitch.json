@@ -80,7 +80,7 @@
         "height": 60
       },
       "decorations": [
-        { "src": "assets/halo-amber.svg", "position": "bottom-right", "size": "88vmin" }
+        { "src": "assets/halo-amber.svg", "position": "bottom-right", "size": "160vmin", "opacity": 0.42 }
       ]
     },
     {
@@ -198,7 +198,7 @@
         "Please reach out if you have any questions or if anything needs adjusting."
       ],
       "decorations": [
-        { "src": "assets/halo-amber.svg", "position": "top-left", "size": "64vmin" }
+        { "src": "assets/halo-amber.svg", "position": "top-left", "size": "120vmin", "opacity": 0.42 }
       ]
     }
   ]
