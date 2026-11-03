@@ -1,7 +1,7 @@
 {
   "slug": "ocumeda",
-  "title": "Ocumeda – Website-Restyling",
-  "lang": "de",
+  "title": "Ocumeda - Website Proposal",
+  "lang": "en",
   "noindex": true,
   "password": "ocumeda2026!",
   "theme": {
@@ -46,11 +46,11 @@
   "slides": [
     {
       "type": "cover",
-      "eyebrow": "Angebot",
+      "eyebrow": "Design Proposal",
       "title": "OCUMEDA",
       "subtitle": [
-        "Minimales Restyling",
-        "Design und Framer"
+        "Website restyling based on the new CI",
+        "Design and Framer implementation"
       ],
       "logo": {
         "src": "assets/ocumeda-logo-light.svg",
@@ -61,116 +61,116 @@
     },
     {
       "type": "overview",
-      "label": "Überblick",
+      "label": "Overview",
       "title": "OCUMEDA Website",
-      "lede": "Angebot für das minimale Restyling der bestehenden OCUMEDA-Website in Framer. Das neue Corporate Design wird konsequent auf die Site übertragen: eine warme Medtech-Anmutung, eine klarere Storyline auf den Hauptseiten und Komponenten, die sich in Framer weiterpflegen lassen."
+      "lede": "Proposal for the design and Framer implementation of OCUMEDA's website restyling, based on the new CI: \"Med-tech that radiates warmth\", a clearer story on the main pages, and reusable Framer components that work across all pages."
     },
     {
       "type": "cards",
-      "label": "Angebot",
-      "title": "Ziele",
+      "label": "Proposal",
+      "title": "Design Objectives",
       "items": [
         {
-          "title": "Neues CI auf der Website",
+          "title": "The New CI",
           "points": [
-            "Farben, Typografie und Logo aus dem neuen Corporate Design, durchgängig auf der bestehenden Site."
+            "Colour, type and logo from the new CI, carried through the existing site."
           ]
         },
         {
-          "title": "Medtech mit Wärme",
+          "title": "Warm Med-tech",
           "points": [
-            "Eine nahbare Anmutung entlang der Richtung „Medtech, die Wärme ausstrahlt“."
+            "A close, human feeling: \"Med-tech that radiates warmth\"."
           ]
         },
         {
-          "title": "Klar und pflegbar",
+          "title": "A Clearer Story",
           "points": [
-            "Klarere Storyline auf Home, Ärzte, Optiker und Kunden. Die Komponenten bleiben in Framer pflegbar."
+            "Home, Ärzte, Optiker and Kunden tell a clearer story. Reusable Framer components work across all pages."
           ]
         }
       ]
     },
     {
       "type": "list",
-      "label": "Angebot",
-      "title": "Leistungsumfang",
+      "label": "Proposal",
+      "title": "Scope of Work",
       "rows": [
-        { "key": "CI-Review", "value": "Review des Corporate Designs und Feedback zu Storyline und Struktur" },
-        { "key": "UI-Styles", "value": "Farbpalette und Schriftskala" },
-        { "key": "Komponenten", "value": "Update und Erweiterung der bestehenden Framer-Komponenten; sie gelten danach für alle Seiten" },
-        { "key": "Grafik", "value": "Aktualisierung einzelner Grafiken mit den Halos von Ocumeda" },
-        { "key": "Hauptseiten", "value": "Inhaltsupdates auf Home, Ärzte, Optiker und Kunden" },
-        { "key": "QA", "value": "Prüfung über die Breakpoints. Das responsive Layout besteht bereits." }
+        { "key": "CI Review", "value": "Review of the CI, and feedback on storyline and structure" },
+        { "key": "UI Styles", "value": "Colour palette and type scale" },
+        { "key": "Components", "value": "Existing Framer components updated and extended into a reusable set that works across all pages" },
+        { "key": "Graphics", "value": "Selected graphics updated with Ocumeda's halos" },
+        { "key": "Main Pages", "value": "Content updates on Home, Ärzte, Optiker and Kunden" },
+        { "key": "QA", "value": "Checked across breakpoints. The responsive layout already exists." }
       ]
     },
     {
       "type": "list",
-      "label": "Angebot",
-      "title": "Nicht enthalten",
+      "label": "Proposal",
+      "title": "Scope Limitations",
       "rows": [
-        { "key": "Animationen", "value": "Keine neuen Animationen" },
-        { "key": "Inhalte", "value": "Texte, Fotos und Halo-Grafiken stellt Ocumeda. Texterstellung und Bildproduktion sind nicht enthalten." },
-        { "key": "Übersetzungen", "value": "Keine Übersetzungen" },
-        { "key": "Seiten", "value": "Team, Karriere und Blog sind nicht enthalten. Standorte nur als Platzhalter." }
+        { "key": "Animations", "value": "No new animations" },
+        { "key": "Content", "value": "Copy, photography and halo graphics are provided by Ocumeda. Copywriting and image production are not included." },
+        { "key": "Translations", "value": "Translations are not included." },
+        { "key": "Pages", "value": "Team, Karriere and Blog are not included. Standorte stays a placeholder." }
       ]
     },
     {
       "type": "process",
-      "label": "Angebot",
-      "title": "Vorgehen",
+      "label": "Proposal",
+      "title": "Design Process & Timeline",
       "items": [
         {
-          "title": "Konzept",
-          "days": ["1 Tag"],
+          "title": "Concept",
+          "days": ["1 design day"],
           "points": [
-            "Review des neuen Corporate Designs",
-            "Feedback zu Storyline und Struktur",
-            "Prüfung der Framer-Grenzen für SEO, CMS, Lokalisierung und Ladezeiten"
+            "Review of the new CI",
+            "Feedback on storyline and structure",
+            "Framer's limits for SEO, CMS, localisation and load times"
           ]
         },
         {
           "title": "Visual Design",
-          "days": ["3 Tage"],
+          "days": ["3 design days"],
           "points": [
-            "UI-Styles: Farbpalette inklusive Zustände und Kontrast, Schriftskala",
-            "Komponentendesign",
-            "Grafiken mit den Halos und Fotos von Ocumeda"
+            "UI styles: colour palette, including states and contrast, and a type scale",
+            "Component design",
+            "Graphics with Ocumeda's halos and photos"
           ]
         },
         {
-          "title": "Implementierung & QA",
-          "days": ["3 Tage"],
+          "title": "Implementation & QA",
+          "days": ["3 design days"],
           "points": [
-            "Styles in Framer anlegen",
-            "Komponenten aktualisieren und erweitern",
-            "Inhalte auf den Hauptseiten aktualisieren",
-            "QA über Breakpoints und Sprachen"
+            "Styles set up in Framer",
+            "Components updated and extended",
+            "Content updated on the main pages",
+            "QA across breakpoints and languages"
           ]
         }
       ],
-      "launch": "Zeitplan nach Abstimmung. Abstimmungsgespräche sind in den Tagen enthalten."
+      "launch": "Timeline to be agreed. Calls are included in these days."
     },
     {
       "type": "cost",
-      "label": "Angebot",
-      "title": "Investition",
-      "equation": "7 Tage × 800 EUR",
+      "label": "Proposal",
+      "title": "Total Cost",
+      "equation": "7 days × 800 EUR",
       "amount": "5.600",
       "currency": "EUR",
       "hosting": {
-        "label": "Framer-Hosting",
+        "label": "Framer hosting",
         "rows": [
-          { "name": "Bestehendes Hosting", "value": "unverändert" }
+          { "name": "Existing hosting", "value": "unchanged" }
         ],
-        "disclaimer": "Das bestehende Framer-Hosting bleibt, wie es ist, und ist nicht Teil dieses Angebots. Der Betrag versteht sich netto, ohne Rabatt."
+        "disclaimer": "The existing Framer hosting stays as it is and is not part of this proposal. The total is net, with no discount."
       }
     },
     {
       "type": "closing",
       "eyebrow": "OCUMEDA",
-      "title": "Ich freue mich auf eure Rückmeldung.",
+      "title": "Looking forward to hearing your thoughts.",
       "subtitle": [
-        "Gern passe ich Umfang und Konditionen an."
+        "Please reach out if you have any questions or if anything needs adjusting."
       ]
     }
   ]
