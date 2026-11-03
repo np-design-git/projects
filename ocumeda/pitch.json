@@ -91,7 +91,7 @@
       "type": "overview",
       "label": "Overview",
       "title": "OCUMEDA Website",
-      "lede": "Design and Framer implementation of a website redesign based on the new CI. Reusable Framer components carry the new style through every page. Home, Ärzte, Optiker and Kunden show the product in a clear story, with mockups instead of abstract animations."
+      "lede": "Proposal for the design and Framer implementation of Ocumeda's website redesign."
     },
     {
       "type": "cards",
@@ -123,12 +123,12 @@
       "label": "Proposal",
       "title": "Scope of Work",
       "rows": [
-        { "key": "Style Guide & UI Library", "value": "The new CI is applied across the whole website. A style guide and UI library carry it: clear and fresh, warm and human, precise without ever feeling clinical." },
-        { "key": "Concept", "value": "Visitors understand the product faster. Storyline, structure and information architecture give Home, Ärzte, Optiker and Kunden a clear, human path." },
-        { "key": "UI Styles", "value": "Every page feels like one brand. Blue and Fog for clarity, Amber and Soft Orange for warmth, type that stays precise rather than clinical." },
-        { "key": "Components", "value": "New pages are faster to build, and the brand stays consistent everywhere. Reusable Framer components carry the style through the whole website, including Team, Karriere and Blog." },
+        { "key": "Style Guide & UI Library", "value": "The new CI is applied across the whole website, through a style guide and UI library." },
+        { "key": "Concept", "value": "Visitors understand the product faster. Storyline, structure and information architecture set the path of the main pages." },
+        { "key": "UI Styles", "value": "The palette stays easy to read. Blue and Fog for clarity, Amber and Soft Orange for warmth." },
+        { "key": "Components", "value": "New pages are faster to build. Reusable Framer components are the pieces they are built from." },
         { "key": "Graphics", "value": "Visitors see the product itself. New graphics and product mockups, based on the new brand guidelines and the new photography style." },
-        { "key": "Main Pages", "value": "Home, Ärzte, Optiker and Kunden explain the product with clarity and trust, in a warm, human tone." },
+        { "key": "Main Pages", "value": "Home, Ärzte, Optiker and Kunden explain the product with clarity and trust." },
         { "key": "QA", "value": "Every screen stays clear and comfortable. Breakpoints are checked so the layout holds together." }
       ]
     },
@@ -152,7 +152,7 @@
           "title": "Concept",
           "days": ["1 design day", "9–13 Nov"],
           "points": [
-            "Storyline, structure and information architecture for Home, Ärzte, Optiker and Kunden",
+            "Storyline and structure of the main pages",
             "Framer's limits for SEO, CMS, localisation and load times"
           ]
         },
@@ -160,10 +160,9 @@
           "title": "Visual Design",
           "days": ["3 design days", "16–20 Nov"],
           "points": [
-            "Style guide and UI library based on the new CI",
-            "UI styles: Blue, Fog, Amber, Soft Orange, and type",
-            "Reusable components for every page",
-            "Graphics and product mockups from the brand guidelines and photography style"
+            "Style guide and UI library for the website",
+            "Component designs",
+            "Graphics and product mockups"
           ]
         },
         {
@@ -171,9 +170,9 @@
           "days": ["3 design days", "23 Nov–4 Dec"],
           "points": [
             "Styles set up in Framer",
-            "Reusable components extended across every page",
-            "Content updated on Home, Ärzte, Optiker and Kunden",
-            "QA across breakpoints and languages"
+            "Components built in Framer",
+            "Content placed on the main pages",
+            "QA across screen sizes and languages"
           ]
         }
       ],
