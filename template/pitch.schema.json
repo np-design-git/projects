@@ -88,11 +88,37 @@
     "font": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["family", "google", "fallback"],
+      "required": ["family", "fallback"],
+      "anyOf": [
+        { "required": ["google"] },
+        { "required": ["files"] }
+      ],
       "properties": {
-        "family": { "type": "string", "description": "Google Font family name, such as Jost." },
-        "google": { "type": "string", "description": "Axis spec after the family name, such as wght@200;300;400." },
+        "family": { "type": "string", "description": "Font family name, such as Jost or TT Commons Pro." },
+        "google": { "type": "string", "description": "Google Fonts axis spec after the family name, such as wght@200;300;400. Omit it when files supplies the family." },
+        "files": {
+          "type": "array",
+          "minItems": 1,
+          "description": "Self-hosted faces. When present, this family is not requested from Google Fonts.",
+          "items": { "$ref": "#/$defs/fontFile" }
+        },
         "fallback": { "enum": ["sans-serif", "serif"] }
+      }
+    },
+    "fontFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["weight", "src"],
+      "properties": {
+        "weight": { "type": "integer", "minimum": 1, "maximum": 1000 },
+        "style": { "enum": ["normal", "italic"], "default": "normal" },
+        "src": {
+          "description": "Path inside the client folder, or a list of paths. woff2 is listed before woff.",
+          "oneOf": [
+            { "type": "string", "minLength": 1 },
+            { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } }
+          ]
+        }
       }
     },
     "logo": {

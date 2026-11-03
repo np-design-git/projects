@@ -62,13 +62,40 @@ function validatePalette(palette, label) {
   for (const key of COLOR_KEYS) assertHex(palette[key], `${label}.${key}`);
 }
 
+function hasFontFiles(font) {
+  return Array.isArray(font.files) && font.files.length > 0;
+}
+
+function fontSrcList(file) {
+  return Array.isArray(file.src) ? file.src : [file.src];
+}
+
+function validateFontFile(file, label) {
+  assert(file && typeof file === 'object', `${label} must be an object`);
+  assert(Number.isInteger(file.weight) && file.weight >= 1 && file.weight <= 1000, `${label}.weight must be a font weight`);
+  assert(file.style === undefined || file.style === 'normal' || file.style === 'italic', `${label}.style must be normal or italic`);
+  const srcs = fontSrcList(file);
+  assert(srcs.length > 0, `${label}.src must be a file path or a list of paths`);
+  srcs.forEach((src, i) => {
+    assertString(src, `${label}.src[${i}]`);
+    assert(!src.includes('..') && !src.startsWith('/'), `${label}.src must be a file inside the client folder`);
+  });
+}
+
 function validateFont(font, label) {
   assert(font && typeof font === 'object', `${label} is required`);
   assertString(font.family, `${label}.family`);
-  assert(/^[\p{L}\p{N} ]+$/u.test(font.family), `${label}.family must be a Google Font family name`);
-  assertString(font.google, `${label}.google`);
-  assert(/^[\w@,;.+-]+$/.test(font.google), `${label}.google must be a Google Fonts axis spec, such as wght@300;400`);
+  assert(/^[\p{L}\p{N} ]+$/u.test(font.family), `${label}.family must be a font family name`);
+  const selfHosted = hasFontFiles(font);
+  if (font.google !== undefined || !selfHosted) {
+    assertString(font.google, `${label}.google`);
+    assert(/^[\w@,;.+-]+$/.test(font.google), `${label}.google must be a Google Fonts axis spec, such as wght@300;400`);
+  }
   assert(font.fallback === 'sans-serif' || font.fallback === 'serif', `${label}.fallback must be sans-serif or serif`);
+  if (font.files !== undefined) {
+    assert(selfHosted, `${label}.files must be a non-empty list`);
+    font.files.forEach((file, i) => validateFontFile(file, `${label}.files[${i}]`));
+  }
 }
 
 function validatePitch(pitch, slug) {
@@ -189,8 +216,40 @@ function cssFamily(font) {
 }
 
 function googleFontsHref(fonts) {
+  const hosted = [fonts.serif, fonts.sans].filter((font) => !hasFontFiles(font));
+  if (hosted.length === 0) return '';
   const family = (font) => `family=${encodeURIComponent(font.family).replace(/%20/g, '+')}:${font.google}`;
-  return `https://fonts.googleapis.com/css2?${family(fonts.serif)}&${family(fonts.sans)}&display=swap`;
+  return `https://fonts.googleapis.com/css2?${hosted.map(family).join('&')}&display=swap`;
+}
+
+function fontFormat(src) {
+  if (src.endsWith('.woff2')) return 'woff2';
+  if (src.endsWith('.woff')) return 'woff';
+  if (src.endsWith('.ttf')) return 'truetype';
+  if (src.endsWith('.otf')) return 'opentype';
+  return '';
+}
+
+function fontFaceBlock(fonts) {
+  const rules = [];
+  for (const font of [fonts.serif, fonts.sans]) {
+    if (!hasFontFiles(font)) continue;
+    for (const file of font.files) {
+      const src = fontSrcList(file).map((path) => {
+        const format = fontFormat(path);
+        const url = `url('${path}')`;
+        return format ? `${url} format('${format}')` : url;
+      }).join(', ');
+      rules.push(`  @font-face {
+    font-family: '${font.family}';
+    font-style: ${file.style || 'normal'};
+    font-weight: ${file.weight};
+    font-display: swap;
+    src: ${src};
+  }`);
+    }
+  }
+  return rules.length === 0 ? '' : `${rules.join('\n')}\n\n`;
 }
 
 function themeCss(theme) {
@@ -201,9 +260,9 @@ function themeCss(theme) {
     });
     return `  ${selector} {\n${lines.join('\n')}\n  }`;
   };
-  return `  @import url('${googleFontsHref(theme.fonts)}');
-
-  :root {
+  const href = googleFontsHref(theme.fonts);
+  const importCss = href ? `  @import url('${href}');\n\n` : '';
+  return `${importCss}${fontFaceBlock(theme.fonts)}  :root {
     --font-sans: ${cssFamily(theme.fonts.sans)};
     --font-serif: ${cssFamily(theme.fonts.serif)};
     --page-background: ${theme.pageBackground};
@@ -558,6 +617,15 @@ function build(slug) {
   if (cover.logo) {
     const logoPath = path.join(dir, cover.logo.src);
     assert(fs.existsSync(logoPath), `Missing logo file ${slug}/${cover.logo.src}`);
+  }
+  for (const key of ['sans', 'serif']) {
+    const font = pitch.theme.fonts[key];
+    if (!hasFontFiles(font)) continue;
+    font.files.forEach((file) => {
+      fontSrcList(file).forEach((src) => {
+        assert(fs.existsSync(path.join(dir, src)), `Missing font file ${slug}/${src}`);
+      });
+    });
   }
   const css = fs.readFileSync(path.join(root, 'template', 'deck.css'), 'utf8');
   const js = fs.readFileSync(path.join(root, 'template', 'deck.js'), 'utf8');
