@@ -77,7 +77,7 @@
       "background": "#EAF5FF",
       "backgroundImage": "assets/gradient-bg.webp",
       "logo": {
-        "src": "assets/ocumeda-logo-white.svg",
+        "src": "assets/ocumeda-logo-dark.svg",
         "alt": "Ocumeda",
         "width": 228,
         "height": 60,

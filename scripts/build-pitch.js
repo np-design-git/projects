@@ -114,6 +114,12 @@ function validatePitch(pitch, slug) {
   assertString(pitch.title, 'title');
   assert(pitch.lang === undefined || isNonEmptyString(pitch.lang), 'lang must be a language code');
   assert(pitch.password === undefined || isNonEmptyString(pitch.password), 'password must be a non-empty string');
+  if (pitch.gate !== undefined) {
+    assert(pitch.gate && typeof pitch.gate === 'object', 'gate must be an object');
+    for (const key of ['label', 'button', 'error']) {
+      if (pitch.gate[key] !== undefined) assertString(pitch.gate[key], `gate.${key}`);
+    }
+  }
   assert(pitch.noindex === undefined || typeof pitch.noindex === 'boolean', 'noindex must be true or false');
 
   assert(pitch.theme && typeof pitch.theme === 'object', 'theme is required');
@@ -631,17 +637,43 @@ const RENDER = {
   closing: renderClosing,
 };
 
+const GATE_TEXT = {
+  label: 'Password',
+  button: 'Open',
+  error: 'Incorrect password.',
+};
+
+function gateCopy(pitch) {
+  const custom = pitch.gate || {};
+  return {
+    label: custom.label || GATE_TEXT.label,
+    button: custom.button || GATE_TEXT.button,
+    error: custom.error || GATE_TEXT.error,
+  };
+}
+
 function gate(pitch) {
   if (!pitch.password) return { css: '', html: '', script: '', bodyClass: '' };
   const password = JSON.stringify(pitch.password);
   const storageKey = JSON.stringify(`pitch-unlock-${pitch.slug}`);
-  const css = '';
+  const copy = gateCopy(pitch);
+  const css = `
+  #pitch-gate [data-gate-error] {
+    display: none;
+    margin: 0;
+    color: var(--content-subtle);
+    font-size: 12px;
+    line-height: 1.4;
+  }
+  #pitch-gate [data-gate-error].is-visible { display: block; }
+`;
   const html = `
 <div id="pitch-gate" role="dialog" aria-modal="true" aria-labelledby="pitch-gate-label">
   <form id="pitch-gate-form">
-    <label id="pitch-gate-label" for="pitch-gate-input">Passwort</label>
-    <input id="pitch-gate-input" type="password" name="password" autocomplete="current-password" required>
-    <button type="submit">Öffnen</button>
+    <label id="pitch-gate-label" for="pitch-gate-input">${esc(copy.label)}</label>
+    <input id="pitch-gate-input" type="password" name="password" autocomplete="current-password" required aria-describedby="pitch-gate-error">
+    <p id="pitch-gate-error" data-gate-error role="alert"></p>
+    <button type="submit">${esc(copy.button)}</button>
   </form>
 </div>
 `;
@@ -649,6 +681,7 @@ function gate(pitch) {
 (function () {
   var password = ${password};
   var key = ${storageKey};
+  var errorText = ${JSON.stringify(copy.error)};
   var body = document.body;
   var gate = document.getElementById('pitch-gate');
   var form = document.getElementById('pitch-gate-form');
@@ -666,9 +699,14 @@ function gate(pitch) {
   } catch (e) {}
   form.addEventListener('submit', function (event) {
     event.preventDefault();
+    var error = document.getElementById('pitch-gate-error');
     if (input.value === password) unlock();
     else {
       input.setAttribute('aria-invalid', 'true');
+      if (error) {
+        error.textContent = errorText;
+        error.classList.add('is-visible');
+      }
       input.focus();
     }
   });

@@ -18,6 +18,16 @@
       "minLength": 1,
       "description": "Optional visual gate. Omit it to leave the deck open. The check runs in the browser, so the value is visible in the page source."
     },
+    "gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Optional password-gate copy. Omitted fields use the English defaults: Password, Open, Incorrect password.",
+      "properties": {
+        "label": { "type": "string", "minLength": 1 },
+        "button": { "type": "string", "minLength": 1 },
+        "error": { "type": "string", "minLength": 1 }
+      }
+    },
     "noindex": {
       "type": "boolean",
       "description": "When true, the page asks search engines not to index it."
