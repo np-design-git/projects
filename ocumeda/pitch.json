@@ -63,7 +63,7 @@
       "type": "overview",
       "label": "Overview",
       "title": "OCUMEDA Website",
-      "lede": "Proposal for the design and Framer implementation of OCUMEDA's website restyling, based on the new CI: \"Med-tech that radiates warmth\", a clearer story on the main pages, and reusable Framer components that work across all pages."
+      "lede": "Proposal for the design and Framer implementation of OCUMEDA's website restyling, based on the new CI: \"Med-tech that radiates warmth\", a clearer story through product mockups instead of abstract animations, and reusable Framer components that work across all pages."
     },
     {
       "type": "cards",
@@ -85,7 +85,7 @@
         {
           "title": "A Clearer Story",
           "points": [
-            "Home, Ärzte, Optiker and Kunden tell a clearer story. Reusable Framer components work across all pages."
+            "Home, Ärzte, Optiker and Kunden show more of the actual product, with mockups instead of abstract animations."
           ]
         }
       ]
