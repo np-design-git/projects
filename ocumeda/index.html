@@ -840,6 +840,32 @@
       padding-bottom: 0 !important;
     }
   }
+  .slide-decor-layer {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .slide-decor {
+    position: absolute;
+    width: var(--decor-size, 70vmin);
+    height: var(--decor-size, 70vmin);
+    opacity: var(--decor-opacity, 1);
+    pointer-events: none;
+    user-select: none;
+  }
+  .slide-decor--top-left { left: 0; top: 0; transform: translate(-58%, -56%); }
+  .slide-decor--top-right { right: 0; top: 0; transform: translate(48%, -48%); }
+  .slide-decor--bottom-left { left: 0; bottom: 0; transform: translate(-48%, 48%); }
+  .slide-decor--bottom-right { right: 0; bottom: 0; transform: translate(48%, 48%); }
+  .s-cover .eyebrow,
+  .s-cover h1,
+  .s-cover .subtitle,
+  .s-cover .cover-line,
+  .s-cover .cover-meta { position: relative; z-index: 1; }
+  .s-cover .cover-ornament { z-index: 2; }
+
 </style>
 </head>
 <body class="is-locked">
@@ -857,6 +883,9 @@
 
   <!-- SLIDE 1: COVER -->
   <div class="slide s-cover theme-dark active" data-index="0">
+    <div class="slide-decor-layer" aria-hidden="true">
+      <img class="slide-decor slide-decor--bottom-right" src="assets/halo-amber.svg" alt="" style="--decor-size:88vmin" />
+    </div>
     <div class="eyebrow">Design Proposal · 9 Nov 2026</div>
     <h1 class="cover-brand-title">OCUMEDA</h1>
     <div class="subtitle">
@@ -1071,6 +1100,9 @@
 
   <!-- SLIDE 8: CLOSING -->
   <div class="slide s-cover theme-dark" data-index="7">
+    <div class="slide-decor-layer" aria-hidden="true">
+      <img class="slide-decor slide-decor--top-left" src="assets/halo-amber.svg" alt="" style="--decor-size:64vmin" />
+    </div>
     <div class="eyebrow">OCUMEDA</div>
     <h1>Looking forward to hearing your thoughts.</h1>
     <div class="subtitle">

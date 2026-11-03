@@ -132,6 +132,23 @@ function validatePitch(pitch, slug) {
   pitch.slides.forEach((slide, i) => validateSlide(slide, i));
 }
 
+const DECOR_POSITIONS = new Set(['top-left', 'top-right', 'bottom-left', 'bottom-right']);
+const DECOR_SIZE = /^\d+(?:\.\d+)?(?:px|vw|vh|vmin|vmax|%)$/;
+
+function validateDecorations(slide, where) {
+  if (slide.decorations === undefined) return;
+  assert(Array.isArray(slide.decorations) && slide.decorations.length > 0 && slide.decorations.length <= 2, `${where}.decorations must be one or two shapes`);
+  slide.decorations.forEach((item, i) => {
+    const label = `${where}.decorations[${i}]`;
+    assert(item && typeof item === 'object', `${label} must be an object`);
+    assertString(item.src, `${label}.src`);
+    assert(!item.src.includes('..') && !item.src.startsWith('/'), `${label}.src must be a file inside the client folder`);
+    assert(DECOR_POSITIONS.has(item.position), `${label}.position must be a slide corner`);
+    assert(item.size === undefined || DECOR_SIZE.test(item.size), `${label}.size must be a length such as 80vmin`);
+    assert(item.opacity === undefined || (typeof item.opacity === 'number' && item.opacity >= 0 && item.opacity <= 1), `${label}.opacity must be between 0 and 1`);
+  });
+}
+
 function validateSlide(slide, index) {
   const where = `slides[${index}] (${slide.type})`;
   if (slide.type === 'cover') {
@@ -146,6 +163,7 @@ function validateSlide(slide, index) {
       assert(Number.isInteger(slide.logo.width) && slide.logo.width > 0, `${where}.logo.width must be a positive integer`);
       assert(Number.isInteger(slide.logo.height) && slide.logo.height > 0, `${where}.logo.height must be a positive integer`);
     }
+    validateDecorations(slide, where);
     return;
   }
   if (slide.type === 'overview') {
@@ -199,6 +217,7 @@ function validateSlide(slide, index) {
     assertString(slide.eyebrow, `${where}.eyebrow`);
     assertString(slide.title, `${where}.title`);
     assertStringList(slide.subtitle, `${where}.subtitle`);
+    validateDecorations(slide, where);
   }
 }
 
@@ -327,11 +346,56 @@ function packageCard(item, index, withDays) {
   ]);
 }
 
+function decorationsHtml(slide) {
+  if (!Array.isArray(slide.decorations) || slide.decorations.length === 0) return '';
+  const items = slide.decorations.map((item) => {
+    const style = [];
+    if (item.size) style.push(`--decor-size:${item.size}`);
+    if (typeof item.opacity === 'number') style.push(`--decor-opacity:${item.opacity}`);
+    const styleAttr = style.length ? ` style="${style.join(';')}"` : '';
+    return `      <img class="slide-decor slide-decor--${item.position}" src="${esc(item.src)}" alt=""${styleAttr} />`;
+  }).join('\n');
+  return `    <div class="slide-decor-layer" aria-hidden="true">\n${items}\n    </div>`;
+}
+
+function decorationCss(pitch) {
+  const used = pitch.slides.some((slide) => Array.isArray(slide.decorations) && slide.decorations.length > 0);
+  if (!used) return '';
+  return `
+  .slide-decor-layer {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .slide-decor {
+    position: absolute;
+    width: var(--decor-size, 70vmin);
+    height: var(--decor-size, 70vmin);
+    opacity: var(--decor-opacity, 1);
+    pointer-events: none;
+    user-select: none;
+  }
+  .slide-decor--top-left { left: 0; top: 0; transform: translate(-58%, -56%); }
+  .slide-decor--top-right { right: 0; top: 0; transform: translate(48%, -48%); }
+  .slide-decor--bottom-left { left: 0; bottom: 0; transform: translate(-48%, 48%); }
+  .slide-decor--bottom-right { right: 0; bottom: 0; transform: translate(48%, 48%); }
+  .s-cover .eyebrow,
+  .s-cover h1,
+  .s-cover .subtitle,
+  .s-cover .cover-line,
+  .s-cover .cover-meta { position: relative; z-index: 1; }
+  .s-cover .cover-ornament { z-index: 2; }
+`;
+}
+
 function renderCover(slide, pitch) {
   const logo = slide.logo
     ? `    <img class="cover-ornament" src="${esc(slide.logo.src)}" alt="${esc(slide.logo.alt)}" width="${slide.logo.width}" height="${slide.logo.height}" decoding="async" />`
     : '';
   return lines([
+    decorationsHtml(slide),
     `    <div class="eyebrow">${esc(slide.eyebrow)}</div>`,
     `    <h1 class="cover-brand-title">${esc(slide.title)}</h1>`,
     subtitle(slide.subtitle),
@@ -433,6 +497,7 @@ function renderCost(slide) {
 
 function renderClosing(slide, pitch) {
   return lines([
+    decorationsHtml(slide),
     `    <div class="eyebrow">${esc(slide.eyebrow)}</div>`,
     `    <h1>${esc(slide.title)}</h1>`,
     subtitle(slide.subtitle),
@@ -571,7 +636,7 @@ function renderDocument(pitch, css, js) {
 ${robots}<title>${esc(pitch.title)}</title>
 <style>
 ${themeCss(pitch.theme)}
-${lock.css}${css.trimEnd()}
+${lock.css}${css.trimEnd()}${decorationCss(pitch)}
 </style>
 </head>
 <body${lock.bodyClass}>
@@ -618,6 +683,12 @@ function build(slug) {
     const logoPath = path.join(dir, cover.logo.src);
     assert(fs.existsSync(logoPath), `Missing logo file ${slug}/${cover.logo.src}`);
   }
+  pitch.slides.forEach((slide) => {
+    if (!Array.isArray(slide.decorations)) return;
+    slide.decorations.forEach((item) => {
+      assert(fs.existsSync(path.join(dir, item.src)), `Missing decoration file ${slug}/${item.src}`);
+    });
+  });
   for (const key of ['sans', 'serif']) {
     const font = pitch.theme.fonts[key];
     if (!hasFontFiles(font)) continue;

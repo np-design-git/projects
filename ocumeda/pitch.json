@@ -78,7 +78,10 @@
         "alt": "Ocumeda",
         "width": 228,
         "height": 60
-      }
+      },
+      "decorations": [
+        { "src": "assets/halo-amber.svg", "position": "bottom-right", "size": "88vmin" }
+      ]
     },
     {
       "type": "overview",
@@ -193,6 +196,9 @@
       "title": "Looking forward to hearing your thoughts.",
       "subtitle": [
         "Please reach out if you have any questions or if anything needs adjusting."
+      ],
+      "decorations": [
+        { "src": "assets/halo-amber.svg", "position": "top-left", "size": "64vmin" }
       ]
     }
   ]
