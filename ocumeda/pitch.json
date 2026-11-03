@@ -12,8 +12,8 @@
       "contentPrimary": "#333D48",
       "contentSecondary": "#333D48",
       "contentSubtle": "#333D48",
-      "borderPrimary": "#5078FF",
-      "borderSecondary": "#333D48"
+      "borderPrimary": "#A8BBFF",
+      "borderSecondary": "#C8CDD2"
     },
     "dark": {
       "bgPrimary": "#333D48",
@@ -21,8 +21,8 @@
       "contentPrimary": "#FAFBF9",
       "contentSecondary": "#EAF5FF",
       "contentSubtle": "#F5A624",
-      "borderPrimary": "#EAF5FF",
-      "borderSecondary": "#EAF5FF"
+      "borderPrimary": "#6A747E",
+      "borderSecondary": "#6A747E"
     },
     "fonts": {
       "sans": {
